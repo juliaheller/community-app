@@ -10,6 +10,10 @@ import Typography from "@material-ui/core/Typography";
 // Components
 import User from "../components/User";
 
+// Services
+
+import * as userService from "../services/user.service";
+
 const useStyles = makeStyles({
     root: {
         display: "flex",
@@ -75,7 +79,7 @@ export default function Witches() {
                     Adressenliste
                 </a>
                 <div id="allWitches" className={classes.witches}>
-                    {/* Add map od all users avatars */}{" "}
+                    {/* Add map of all users avatars */}{" "}
                     <Avatar
                         alt="user name"
                         // src={formData.avatar}

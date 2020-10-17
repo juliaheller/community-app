@@ -1,0 +1,140 @@
+
+{
+    "users": [{
+    "id": 1,
+   "avatar": "https://phantastisch-lesen.com/wp-content/uploads/2018/02/Julia-Heller500.jpg",
+   "backgroundPic": "",
+    "joined": 1602954034,
+    "surname": "Julia",
+    "name": "Heller",
+    "email": "julia@gmail.com",
+    "motto": "Es gibt keinen Weg. Der Weg entsteht beim Gehen.",
+    "birthDate": "29.07.19xx",
+    "birthPlace": "Friedrichroda",
+    "job": "Frontend Entwicklerin",
+    "education": "Magistra Artium Journalistik & Kommunikationswissenschaft, Gender Studies & Sportwissenschaft",
+    "children": "keine",
+    "pets": "Lucia, Chihuahua",
+    "hobbies": "singen, schreiben, tanzen",
+    "gods": "Freya, Hekate",
+    "magic": {
+        "experience": "schamanische Praktiken und so",
+        "interest": "Tarot, Schamanismus, Sigillenmagie und so"
+    },
+    "favourites": {
+        "food": "Dicke Rippe mit Thueringer Kloessen & Rotkohl :-)",
+        "books": "Urban Fantasy, Fantasy",
+        "music": "Cumbia, chill Indie, Electro",
+        "movies": "Lucia y el Sexo",
+        "series": "True Blood, Sense8",
+        "animals": "Kraftttier: Loewe",
+        "places": "Plakias(Kreta), Spanien, Waelder"
+    },
+    "allergies": "keine",
+    "dislike": "Intoleranz"
+    
+}, {
+    "id": 2,
+   "avatar": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTU1MDM5NjczOF5BMl5BanBnXkFtZTcwOTY2MDE4OA@@._V1_UY256_CR0,0,172,256_AL_.jpg",
+   "backgroundPic": "",
+    "joined": 1602954035,
+    "surname": "Bibi",
+    "name": "Bloxberg",
+    "email": "bibi@gmail.com",
+    "motto": "Hex, hex!",
+    "birthDate": "10.01.19xx",
+    "birthPlace": "Brocken",
+    "job": "Berufshexe",
+    "education": "Wald- und Wiesenhexe",
+    "children": "keine",
+    "pets": "Katze",
+    "hobbies": "heilen",
+    "gods": "Hekate",
+    "magic": {
+        "experience": "alles",
+        "interest": "Heilkunst"
+    },
+    "favourites": {
+        "food": "Dicke Rippe mit Thueringer Kloessen & Rotkohl :-)",
+        "books": "Urban Fantasy, Fantasy",
+        "music": "Cumbia, chill Indie, Electro",
+        "movies": "Lucia y el Sexo",
+        "series": "True Blood, Sense8",
+        "animals": "Kraftttier: Loewe",
+        "places": "Plakias(Kreta), Spanien, Waelder"
+    },
+    "allergies": "keine",
+    "dislike": "Intoleranz"
+    
+}, {
+    "id": 3,
+   "avatar": "https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82",
+   "backgroundPic": "",
+    "joined": 1602954034,
+    "surname": "Anna",
+    "name": "Pu",
+    "email": "a@gmail.com",
+    "motto": "Holla, die Waldfee",
+    "birthDate": "23.05.19xx",
+    "birthPlace": "Wiese",
+    "job": "Fee",
+    "education": "Diplom Biologie",
+    "children": "keine",
+    "pets": "Kater",
+    "hobbies": "essen",
+    "gods": "Inanna",
+    "magic": {
+        "experience": "schamanische Praktiken und so",
+        "interest": "Tarot, Schamanismus, Sigillenmagie und so"
+    },
+    "favourites": {
+        "food": "Dicke Rippe mit Thueringer Kloessen & Rotkohl :-)",
+        "books": "Urban Fantasy, Fantasy",
+        "music": "Cumbia, chill Indie, Electro",
+        "movies": "Lucia y el Sexo",
+        "series": "True Blood, Sense8",
+        "animals": "Kraftttier: Loewe",
+        "places": "Plakias(Kreta), Spanien, Waelder"
+    },
+    "allergies": "keine",
+    "dislike": "Intoleranz"
+    
+}
+    
+],
+ "user": {
+    "id": 1,
+   "avatar": "",
+   "backgroundPic": "",
+    "joined": 1602954034,
+    "surname": "Julia",
+    "name": "Heller",
+    "email": "julia@gmail.com",
+    "motto": "Es gibt keinen Weg. Der Weg entsteht beim Gehen.",
+    "birthDate": "29.07.19xx",
+    "birthPlace": "Friedrichroda",
+    "job": "Frontend Entwicklerin",
+    "education": "Magistra Artium Journalistik & Kommunikationswissenschaft, Gender Studies & Sportwissenschaft",
+    "children": "keine",
+    "pets": "Lucia, Chihuahua",
+    "hobbies": "singen, schreiben, tanzen",
+    "gods": "Freya, Hekate",
+    "magic": {
+        "experience": "schamanische Praktiken und so",
+        "interest": "Tarot, Schamanismus, Sigillenmagie und so"
+    },
+    "favourites": {
+        "food": "Dicke Rippe mit Thueringer Kloessen & Rotkohl :-)",
+        "books": "Urban Fantasy, Fantasy",
+        "music": "Cumbia, chill Indie, Electro",
+        "movies": "Lucia y el Sexo",
+        "series": "True Blood, Sense8",
+        "animals": "Kraftttier: Loewe",
+        "places": "Plakias(Kreta), Spanien, Waelder"
+    },
+    "allergies": "keine",
+    "dislike": "Intoleranz"
+    
+}
+
+}
