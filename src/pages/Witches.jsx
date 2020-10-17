@@ -127,7 +127,7 @@ export default function Witches() {
                     })}
                 </div>
             </Paper>
-            <User user={user} />
+            {user.id ? <User user={user} /> : ""}
         </div>
     );
 }
