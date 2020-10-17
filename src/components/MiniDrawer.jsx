@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -22,6 +23,7 @@ import GroupIcon from "@material-ui/icons/Group";
 import ForumIcon from "@material-ui/icons/Forum";
 import EventIcon from "@material-ui/icons/Event";
 import SvgIcon from "@material-ui/core/SvgIcon";
+import HomeIcon from "@material-ui/icons/Home";
 
 const drawerWidth = 240;
 
@@ -86,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    link: {
+        textDecoration: "none",
+    },
 }));
 
 export default function MiniDrawer() {
@@ -120,21 +125,24 @@ export default function MiniDrawer() {
                         })}>
                         <MenuIcon />
                     </IconButton>
-                    <SvgIcon>
-                        <svg width="10" height="100">
-                            <circle
-                                cx="50"
-                                cy="50"
-                                r="40"
-                                stroke="green"
-                                stroke-width="4"
-                                fill="yellow"
-                            />
-                        </svg>
-                    </SvgIcon>
-                    <Typography variant="h6" noWrap>
-                        Tempel der Sophia
-                    </Typography>
+                    <SvgIcon></SvgIcon>
+                    <Link
+                        className={classes.link}
+                        style={{
+                            color: "white",
+                            display: "flex",
+                            alignContent: "center",
+                        }}
+                        to="/">
+                        <IconButton color="inherit">
+                            <HomeIcon></HomeIcon>
+
+                            <Typography variant="h6" noWrap>
+                                {" "}
+                                Tempel der Sophia
+                            </Typography>
+                        </IconButton>
+                    </Link>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -160,25 +168,30 @@ export default function MiniDrawer() {
                 </div>
 
                 <Divider />
+
                 <List>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <MailIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Nachrichten" />
-                    </ListItem>
+                    <Link className={classes.link} to="/messages">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <MailIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Nachrichten" />
+                        </ListItem>
+                    </Link>
                     <ListItem button>
                         <ListItemIcon>
                             <ForumIcon />
                         </ListItemIcon>
                         <ListItemText primary="Forum" />
                     </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <EventIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Veranstaltungen" />
-                    </ListItem>
+                    <Link className={classes.link} to="/events">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <EventIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Veranstaltungen" />
+                        </ListItem>
+                    </Link>
                 </List>
                 <Divider />
                 <List>
@@ -188,12 +201,14 @@ export default function MiniDrawer() {
                         </ListItemIcon>
                         <ListItemText primary="Buch der Schatten" />
                     </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <GroupIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Schwestern" />
-                    </ListItem>
+                    <Link className={classes.link} to="/schwestern">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <GroupIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Schwestern" />
+                        </ListItem>
+                    </Link>
                     <ListItem button>
                         <ListItemIcon>
                             <PhotoLibraryIcon />

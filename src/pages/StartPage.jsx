@@ -24,7 +24,7 @@ export default function StartPage() {
                 style={{ width: "200px", height: "200px" }}
             />
             <Divider />
-            <Typography variant="h3" component="h2" gutterBottom>
+            <Typography variant="h3" component="h3" gutterBottom>
                 Letzte Aktivitaeten
             </Typography>
         </div>
