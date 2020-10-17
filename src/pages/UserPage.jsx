@@ -18,6 +18,44 @@ const useStyles = makeStyles({
         width: "80%",
         marginTop: "100px",
     },
+    paper: {
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        padding: "16px",
+        height: "100%",
+        // maxHeight: "500px",
+        // minHeight: "500px",
+    },
+    large: {
+        width: "200px",
+        height: "200px",
+    },
+    form: {
+        display: "flex",
+        // flexDirection: "column",
+        padding: "16px",
+        flexWrap: "wrap",
+        margin: "16px",
+        width: "100%",
+        height: "500px",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+    },
+    input: {
+        display: "none",
+        width: "100%",
+        // visibility: "hidden",
+        // height: "50px",
+        borderBottom: "1px solid darkgrey",
+        textAlign: "center",
+        height: "100%",
+    },
+    btns: {
+        display: "flex",
+        justifyContent: "space-between",
+    },
 });
 export default function UserPage() {
     const classes = useStyles();
@@ -127,6 +165,7 @@ export default function UserPage() {
                     )} */}
                 <Typography variant="h3">
                     {/* {user.name + " " + user.surname} */}
+                    Vorname Nachname
                 </Typography>
                 <Typography variant="subtitle1">
                     {/* Joined: {moment(user.createdAt).format("MMMM DD, YYYY")} */}
@@ -140,14 +179,14 @@ export default function UserPage() {
                     <TextField
                         id="name"
                         type="text"
-                        label="Name"
+                        label="Vorname"
                         // value={formData.name}
                         variant="outlined"
                         // onChange={(event) =>
                         //     handleChange(event, "name")}
                     ></TextField>
                     <TextField
-                        label="Surname"
+                        label="Nachname"
                         id="surname"
                         type="text"
                         // value={formData.surname}
@@ -157,8 +196,113 @@ export default function UserPage() {
                         // }
                     ></TextField>
                     <TextField
+                        id="motto"
+                        label="Motto"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
                         id="email"
-                        // label={formData.email}
+                        label="Email"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="birth"
+                        label="Geburtsdatum"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="birthPlace"
+                        label="Geburtsort"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="job"
+                        label="Beruf"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="education"
+                        label="Ausbildung / Studium"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="children"
+                        label="Kind(er)"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="pets"
+                        label="Haustiere"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="hobbies"
+                        label="Hobbies"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="gods"
+                        label="Goettinnen & Goetter"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="gods"
+                        label="Goettinnen & Goetter"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="magicExperience"
+                        label="Magische Erfahrungen"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="magicInterests"
+                        label="Magische Interessen"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="food"
+                        label="Lieblingsessen"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="allergies"
+                        label="Allergien & Abneigungen"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="books"
+                        label="Lieblingsbuecher"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="music"
+                        label="Lieblingsmusik"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="movies"
+                        label="Lieblingsfilme"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="series"
+                        label="Lieblingsserien"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="animals"
+                        label="Lieblings-/Krafttiere"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="places"
+                        label="Lieblingsorte"
+                        variant="outlined"
+                        disabled></TextField>
+                    <TextField
+                        id="dislike"
+                        label="Ich mag nicht ..."
                         variant="outlined"
                         disabled></TextField>
                     <div className={classes.btns}>
