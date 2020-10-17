@@ -1,0 +1,32 @@
+{
+    "id": 1,
+    "joined": 1602954034,
+    "surname": "Julia",
+    "name": "Heller",
+    "email": "julia@gmail.com",
+    "motto": "Es gibt keinen Weg. Der Weg entsteht beim Gehen.",
+    "birthDate": "29.07.19xx",
+    "birthPlace": "Friedrichroda",
+    "job": "Frontend Entwicklerin",
+    "education": "Magistra Artium Journalistik & Kommunikationswissenschaft, Gender Studies & Sportwissenschaft",
+    "children": "keine",
+    "pets": "Lucia, Chihuahua",
+    "hobbies": "singen, schreiben, tanzen",
+    "gods": "Freya, Hekate",
+    "magic": {
+        "experience": "schamanische Praktiken und so",
+        "interest": "Tarot, Schamanismus, Sigillenmagie und so"
+    },
+    "favourites": {
+        "food": "Dicke Rippe mit Thueringer Kloessen & Rotkohl :-)",
+        "books": "Urban Fantasy, Fantasy",
+        "music": "Cumbia, chill Indie, Electro",
+        "movies": "Lucia y el Sexo",
+        "series": "True Blood, Sense8",
+        "animals": "Kraftttier: Loewe",
+        "places": "Plakias(Kreta), Spanien, Waelder"
+    },
+    "allergies": "keine",
+    "dislike": "Intoleranz"
+    
+}
