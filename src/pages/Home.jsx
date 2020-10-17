@@ -11,7 +11,7 @@ const useStyles = makeStyles({
         marginTop: "100px",
     },
 });
-export default function StartPage() {
+export default function Home() {
     const classes = useStyles();
     return (
         <div className={classes.root}>

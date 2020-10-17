@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
     root: {
@@ -9,13 +9,12 @@ const useStyles = makeStyles({
         marginTop: "100px",
     },
 });
-export default function EventsPage() {
+export default function Events() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
             <Typography variant="h3" component="h3">
-                {" "}
-                Events
+                Veranstaltungen
             </Typography>
         </div>
     );

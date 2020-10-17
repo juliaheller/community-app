@@ -178,12 +178,14 @@ export default function MiniDrawer() {
                             <ListItemText primary="Nachrichten" />
                         </ListItem>
                     </Link>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <ForumIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Forum" />
-                    </ListItem>
+                    <Link className={classes.link} to="/forum">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <ForumIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Forum" />
+                        </ListItem>
+                    </Link>
                     <Link className={classes.link} to="/events">
                         <ListItem button>
                             <ListItemIcon>
@@ -195,26 +197,30 @@ export default function MiniDrawer() {
                 </List>
                 <Divider />
                 <List>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <LocalLibraryIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Buch der Schatten" />
-                    </ListItem>
-                    <Link className={classes.link} to="/schwestern">
+                    <Link className={classes.link} to="/bookofshadows">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <LocalLibraryIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Buch der Schatten" />
+                        </ListItem>
+                    </Link>
+                    <Link className={classes.link} to="/witches">
                         <ListItem button>
                             <ListItemIcon>
                                 <GroupIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Schwestern" />
+                            <ListItemText primary="Hexen" />
                         </ListItem>
                     </Link>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <PhotoLibraryIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Fotos" />
-                    </ListItem>
+                    <Link className={classes.link} to="/photos">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <PhotoLibraryIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Fotos" />
+                        </ListItem>
+                    </Link>
                 </List>
             </Drawer>
         </div>

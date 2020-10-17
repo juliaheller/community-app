@@ -1,11 +1,19 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "fontsource-roboto";
 import "./App.css";
+
+// Components
 import MiniDrawer from "./components/MiniDrawer.jsx";
-import StartPage from "./pages/StartPage.jsx";
-import UserPage from "./pages/UserPage.jsx";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import EventsPage from "./pages/EventsPage";
+
+// Pages
+import Home from "./pages/Home.jsx";
+import User from "./pages/User.jsx";
+import Events from "./pages/Events";
+import BookOfShadows from "./pages/BookOfShadows";
+import Messages from "./pages/Messages";
+import Photos from "./pages/Photos";
+import Forum from "./pages/Forum";
 
 function App() {
     return (
@@ -13,9 +21,15 @@ function App() {
             <Router>
                 <MiniDrawer></MiniDrawer>
                 <Switch>
-                    <Route exact path="/" component={StartPage}></Route>
-                    <Route path="/schwestern" component={UserPage}></Route>
-                    <Route path="/events" component={EventsPage}></Route>
+                    <Route exact path="/" component={Home}></Route>
+                    <Route path="/witches" component={User}></Route>
+                    <Route path="/events" component={Events}></Route>
+                    <Route path="/messages" component={Messages}></Route>
+                    <Route path="/photos" component={Photos}></Route>
+                    <Route
+                        path="/bookofshadows"
+                        component={BookOfShadows}></Route>
+                    <Route path="/forum" component={Forum}></Route>
                 </Switch>
             </Router>
         </div>
