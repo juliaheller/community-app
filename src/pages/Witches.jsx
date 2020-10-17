@@ -12,7 +12,7 @@ import User from "../components/User";
 
 // Services
 
-import * as userService from "../services/user.service";
+import userService from "../services/user.service";
 
 const useStyles = makeStyles({
     root: {
@@ -30,6 +30,10 @@ const useStyles = makeStyles({
         height: "100%",
         // maxHeight: "500px",
         // minHeight: "500px",
+    },
+    small: {
+        width: "100px",
+        height: "100px",
     },
     large: {
         width: "200px",
@@ -67,6 +71,15 @@ const useStyles = makeStyles({
 });
 export default function Witches() {
     const classes = useStyles();
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const allUsers = await userService.getAll();
+            setUsers(allUsers);
+        };
+        fetchUsers();
+    });
 
     return (
         <div className={classes.root}>
@@ -79,27 +92,16 @@ export default function Witches() {
                     Adressenliste
                 </a>
                 <div id="allWitches" className={classes.witches}>
-                    {/* Add map of all users avatars */}{" "}
-                    <Avatar
-                        alt="user name"
-                        // src={formData.avatar}
-                        className={classes.small}
-                    />
-                    <Avatar
-                        alt="user name"
-                        // src={formData.avatar}
-                        className={classes.small}
-                    />
-                    <Avatar
-                        alt="user name"
-                        // src={formData.avatar}
-                        className={classes.small}
-                    />
-                    <Avatar
-                        alt="user name"
-                        // src={formData.avatar}
-                        className={classes.small}
-                    />
+                    {users.map((user) => {
+                        return (
+                            <Avatar
+                                alt={user.surname + user.name}
+                                src={user.avatar}
+                                className={classes.small}
+                                key={user.id}
+                            />
+                        );
+                    })}
                 </div>
             </Paper>
             <User />
