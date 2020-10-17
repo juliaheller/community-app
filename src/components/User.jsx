@@ -67,10 +67,10 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Witches() {
+export default function User({ user }) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-
+    console.log(user);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -142,8 +142,8 @@ export default function Witches() {
         <div className={classes.root}>
             <Paper className={classes.paper}>
                 <Avatar
-                    alt="user name"
-                    // src={formData.avatar}
+                    alt={user.surname}
+                    src={user.avatar}
                     className={classes.large}
                 />
 
@@ -182,8 +182,7 @@ export default function Witches() {
                         </label>
                     )} */}
                 <Typography variant="h4">
-                    {/* {user.name + " " + user.surname} */}
-                    Vorname Nachname
+                    {user.name + " " + user.surname}
                 </Typography>
                 <Typography variant="subtitle1">
                     {/* Joined: {moment(user.createdAt).format("MMMM DD, YYYY")} */}

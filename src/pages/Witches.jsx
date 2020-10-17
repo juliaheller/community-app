@@ -81,14 +81,17 @@ const useStyles = makeStyles({
 export default function Witches() {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         const fetchUsers = async () => {
             const allUsers = await userService.getAll();
+            const oneUser = await userService.getOne();
             setUsers(allUsers);
+            setUser(oneUser);
         };
         fetchUsers();
-    });
+    }, []);
 
     return (
         <div className={classes.root}>
@@ -124,7 +127,7 @@ export default function Witches() {
                     })}
                 </div>
             </Paper>
-            <User />
+            <User user={user} />
         </div>
     );
 }

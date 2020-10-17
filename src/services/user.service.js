@@ -6,11 +6,15 @@ export default {
         return await response.json();
     },
     async getOne(id) {
+        // const response = await fetch(
+        //     "https://my-json-server.typicode.com/juliaheller/db-mock/user/" +
+        //         id +
+        //         "/"
+        // );
         const response = await fetch(
-            "https://my-json-server.typicode.com/juliaheller/db-mock/user/" +
-                id +
-                "/"
+            "https://my-json-server.typicode.com/juliaheller/db-mock/user/"
         );
+
         return await response.json();
     },
 };
