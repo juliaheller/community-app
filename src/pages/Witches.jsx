@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import ContactMailIcon from "@material-ui/icons/ContactMail";
 
 // Components
 import User from "../components/User";
@@ -38,6 +39,14 @@ const useStyles = makeStyles({
     large: {
         width: "200px",
         height: "200px",
+    },
+    contactList: {
+        display: "flex",
+        alignContent: "center",
+        padding: "16px",
+    },
+    contactLink: {
+        textDecoration: "none",
     },
     witches: {
         display: "flex",
@@ -85,12 +94,23 @@ export default function Witches() {
         <div className={classes.root}>
             <Paper className={classes.paper}>
                 <Typography variant="h3">Hexenschwestern</Typography>
-                <a
-                    href="https://drive.google.com/file/d/0By9JKH_OQiqEYkVZY2I5U0dodHM/view?usp=sharing"
-                    rel="noopener oreferrer"
-                    target="_blank">
-                    Adressenliste
-                </a>
+                <Typography variant="h5" className={classes.contactList}>
+                    <ContactMailIcon
+                        style={{
+                            padding: "1px",
+                            height: "30px",
+                            width: "40px",
+                        }}
+                    />
+                    <a
+                        className={classes.contactLink}
+                        href="https://drive.google.com/file/d/0By9JKH_OQiqEYkVZY2I5U0dodHM/view?usp=sharing"
+                        rel="noopener oreferrer"
+                        target="_blank">
+                        Adressenliste
+                    </a>{" "}
+                </Typography>
+
                 <div id="allWitches" className={classes.witches}>
                     {users.map((user) => {
                         return (
