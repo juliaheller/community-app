@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     root: {
         display: "flex",
         flexDirection: "column",
-        width: "80%",
+        width: "100%",
         marginTop: "100px",
     },
     paper: {
@@ -31,6 +31,11 @@ const useStyles = makeStyles({
     large: {
         width: "200px",
         height: "200px",
+    },
+    witches: {
+        display: "flex",
+        justifyContent: "space-evenly",
+        alignItems: "center",
     },
     form: {
         display: "flex",
@@ -57,69 +62,9 @@ const useStyles = makeStyles({
         justifyContent: "space-between",
     },
 });
-export default function UserPage() {
+
+export default function Witches() {
     const classes = useStyles();
-    // const { user, dispatch } = useContext(userContext);
-    // const [formData, setFormData] = useState({});
-    // const [loading, setLoading] = useState(true);
-
-    useEffect(
-        () => {
-            //     if (!_.isEmpty(user)) {
-            //         console.log("user:", user);
-            //         setFormData(user);
-            //         setLoading(false);
-            // }
-        },
-        []
-        // [user]
-    );
-
-    // const handleChange = (event, type) => {
-    //     // switch (type) {
-    //     //     case "name":
-    //     //         setFormData(
-    //     //             Object.assign({}, formData, { name: event.target.value })
-    //     //         );
-    //     //         break;
-    //     //     case "surname":
-    //     //         setFormData(
-    //     //             Object.assign({}, formData, { surname: event.target.value })
-    //     //         );
-    //     //         break;
-    //     //     case "avatar":
-    //     //         let file = event.target.files[0];
-    //     //         let reader = new FileReader();
-    //     //         reader.onloadend = () => {
-    //     //             console.log("image changed");
-    //     //             setFormData(
-    //     //                 Object.assign({}, formData, {
-    //     //                     avatar: reader.result,
-    //     //                 })
-    //     //             );
-    //     //         };
-    //     //         reader.readAsDataURL(file);
-    //     //         break;
-    //     //     default:
-    //     //         break;
-    //     // }
-    // };
-    // const changeUserData = (event) => {
-    //     event.preventDefault();
-    //     UserService.updateUser(formData._id, formData)
-    //         .then((response) => {
-    //             if (response.errors) {
-    //                 console.log(response.errors);
-    //             } else {
-    //                 setFormData(response);
-    //                 dispatch({ type: "saveUser", userData: response });
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // };
-
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -163,7 +108,7 @@ export default function UserPage() {
                             </Button>
                         </label>
                     )} */}
-                <Typography variant="h3">
+                <Typography variant="h4">
                     {/* {user.name + " " + user.surname} */}
                     Vorname Nachname
                 </Typography>

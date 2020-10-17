@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
@@ -79,10 +81,15 @@ const useStyles = makeStyles((theme) => ({
     toolbar: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
+    },
+    toolbarBox: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
     },
     content: {
         flexGrow: 1,
@@ -114,35 +121,46 @@ export default function MiniDrawer() {
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open,
-                        })}>
-                        <MenuIcon />
-                    </IconButton>
-                    <SvgIcon></SvgIcon>
-                    <Link
-                        className={classes.link}
-                        style={{
-                            color: "white",
-                            display: "flex",
-                            alignContent: "center",
-                        }}
-                        to="/">
-                        <IconButton color="inherit">
-                            <HomeIcon></HomeIcon>
-
-                            <Typography variant="h6" noWrap>
-                                {" "}
-                                Tempel der Sophia
-                            </Typography>
+                <Toolbar className={classes.toolbar}>
+                    <div className={classes.toolbarBox}>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            className={clsx(classes.menuButton, {
+                                [classes.hide]: open,
+                            })}>
+                            <MenuIcon />
                         </IconButton>
-                    </Link>
+
+                        <Link
+                            className={classes.link}
+                            style={{
+                                color: "white",
+                                display: "flex",
+                                alignContent: "center",
+                            }}
+                            to="/">
+                            <IconButton color="inherit">
+                                <HomeIcon></HomeIcon>
+
+                                <Typography variant="h6" noWrap>
+                                    {" "}
+                                    Tempel der Sophia
+                                </Typography>
+                            </IconButton>
+                        </Link>
+                    </div>
+                    <Button
+                        aria-controls={open ? "menu-list-grow" : undefined}
+                        aria-haspopup="true"
+                        color="inherit">
+                        <Avatar
+                            alt=""
+                            // src={user.avatar}
+                        />
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Drawer

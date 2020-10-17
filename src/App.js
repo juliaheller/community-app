@@ -8,12 +8,14 @@ import MiniDrawer from "./components/MiniDrawer.jsx";
 
 // Pages
 import Home from "./pages/Home.jsx";
-import User from "./pages/User.jsx";
+import User from "./pages/Witches.jsx";
 import Events from "./pages/Events";
 import BookOfShadows from "./pages/BookOfShadows";
 import Messages from "./pages/Messages";
 import Photos from "./pages/Photos";
 import Forum from "./pages/Forum";
+import Login from "./pages/Login";
+import Witches from "./pages/Witches.jsx";
 
 function App() {
     return (
@@ -22,7 +24,7 @@ function App() {
                 <MiniDrawer></MiniDrawer>
                 <Switch>
                     <Route exact path="/" component={Home}></Route>
-                    <Route path="/witches" component={User}></Route>
+                    <Route path="/witches" component={Witches}></Route>
                     <Route path="/events" component={Events}></Route>
                     <Route path="/messages" component={Messages}></Route>
                     <Route path="/photos" component={Photos}></Route>
@@ -30,6 +32,7 @@ function App() {
                         path="/bookofshadows"
                         component={BookOfShadows}></Route>
                     <Route path="/forum" component={Forum}></Route>
+                    <Route path="/login" component={Login}></Route>
                 </Switch>
             </Router>
         </div>
