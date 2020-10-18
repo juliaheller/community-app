@@ -15,7 +15,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Divider } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 
 const useStyles = makeStyles({
     root: {
@@ -31,12 +30,14 @@ const useStyles = makeStyles({
         justifyContent: "space-between",
         padding: "16px",
         height: "100%",
-        // maxHeight: "500px",
-        // minHeight: "500px",
+        width: "100%",
     },
     large: {
         width: "200px",
         height: "200px",
+        clipPath: "circle(100px at center)",
+        objectFit: "cover",
+        marginBottom: "-20px",
     },
     witches: {
         display: "flex",
@@ -66,27 +67,40 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "space-between",
     },
+    cardContent: {
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        padding: "16px",
+        height: "100%",
+        width: "100%",
+    },
+    backgroundPic: {
+        width: "100%",
+        height: "350px",
+        display: "flex",
+        alignItems: "flex-end",
+        justifyContent: "center",
+        borderRadius: "10px",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
 });
 
 export default function User({ user }) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-
+    // const { user, dispatch } = useContext(userContext);
+    // const [formData, setFormData] = useState({});
+    // const [loading, setLoading] = useState(true);
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
-    };
-    // const { user, dispatch } = useContext(userContext);
-    // const [formData, setFormData] = useState({});
-    // const [loading, setLoading] = useState(true);
-
-    const test = {
-        favourites: {
-            places: "huhu",
-        },
     };
 
     useEffect(
@@ -148,257 +162,278 @@ export default function User({ user }) {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <Avatar
-                    alt={user.surname}
-                    src={user.avatar}
-                    className={classes.large}
-                />
+                <div className={classes.cardContent}>
+                    <div
+                        className={classes.backgroundPic}
+                        style={{
+                            backgroundImage: `url(${user.backgroundPic})`,
+                        }}>
+                        <img
+                            alt={user.surname}
+                            src={user.avatar}
+                            className={classes.large}
+                        />
+                    </div>
 
-                <input
-                    id="contained-button-file"
-                    accept="image/*"
-                    className={classes.input}
-                    type="file"
-                    // onChange={(event) => {
-                    //     handleChange(event, "avatar");
-                    // }}
-                />
-                {user.avatar ? (
-                    <label htmlFor="contained-button-file">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            component="span"
-                            style={{
-                                backgroundColor: "#3788d8",
-                            }}>
-                            Change profile picture
-                        </Button>
-                    </label>
-                ) : (
-                    <label htmlFor="contained-button-file">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            component="span"
-                            style={{
-                                backgroundColor: "#3788d8",
-                            }}>
-                            Add profile picture
-                        </Button>
-                    </label>
-                )}
-                <Typography variant="h4">
-                    {user.name + " " + user.surname}
-                </Typography>
-                <Typography variant="subtitle1">
-                    {/* Joined: {moment(user.createdAt).format("MMMM DD, YYYY")} */}
-                </Typography>
-            </Paper>
-            <Paper className={classes.paper}>
-                <div>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={handleClickOpen}>
-                        <EditIcon></EditIcon> Profil bearbeiten
-                    </Button>
-                    <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">
-                            Profil bearbeiten
-                        </DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                Bitte fuelle die Felder so weit wie moeglich
-                                aus, damit deine Schwestern dich besser
-                                kennenlernen koemmen.
-                            </DialogContentText>
-                            <form
-                                className={classes.form}
-                                // onSubmit={changeUserData}
-                            >
-                                <TextField
-                                    id="name"
-                                    type="text"
-                                    label={user.surname}
-                                    // value={formData.name}
-                                    variant="outlined"
-                                    // onChange={(event) =>
-                                    //     handleChange(event, "name")}
-                                ></TextField>
-                                <TextField
-                                    label={user.name}
-                                    id="surname"
-                                    type="text"
-                                    // value={formData.surname}
-                                    variant="outlined"
-                                    // onChange={(event) =>
-                                    //     handleChange(event, "surname")
-                                    // }
-                                ></TextField>
-                                <TextField
-                                    id="motto"
-                                    label="Motto"
-                                    value={user.motto}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="email"
-                                    label={user.email}
-                                    variant="outlined"
-                                    disabled></TextField>
-                                <TextField
-                                    id="birth"
-                                    label="Geburtsdatum"
-                                    value={user.birthDate}
-                                    variant="outlined"></TextField>
-                                <TextField
-                                    id="birthPlace"
-                                    label="Geburtsort"
-                                    value={user.birthPlace}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="job"
-                                    label="Beruf"
-                                    variant="outlined"
-                                    value={user.job}
-                                    multiline></TextField>
-                                <TextField
-                                    id="education"
-                                    label="Ausbildung/Studium"
-                                    value={user.education}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <Divider />
-                                <TextField
-                                    id="children"
-                                    label="Kind(er)"
-                                    value={user.children}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="pets"
-                                    label="Haustiere"
-                                    value={user.pets}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="hobbies"
-                                    label="Hobbies"
-                                    value={user.hobbies}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="gods"
-                                    label="Goettinnen & Goetter"
-                                    value={user.gods}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="magicExperience"
-                                    label="Magische Erfahrungen"
-                                    value={user.magic.experience}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="magicInterests"
-                                    label="Magische Interessen"
-                                    value={user.magic.interest}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <Divider />
-                                <TextField
-                                    id="allergies"
-                                    label="Allergien & Abneigungen"
-                                    value={user.allergies}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="food"
-                                    label="Lieblingsessen"
-                                    value={user.favourites.food}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="books"
-                                    label="Lieblingsbuecher"
-                                    value={user.favourites.books}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="music"
-                                    label="Lieblingsmusik"
-                                    value={user.favourites.music}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="movies"
-                                    label="Lieblingsfilme"
-                                    value={user.favourites.movies}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="series"
-                                    label="Lieblingsserien"
-                                    value={user.favourites.series}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="animals"
-                                    label="Lieblings-/Krafttiere"
-                                    value={user.favourites.animals}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="places"
-                                    label="Lieblingsorte"
-                                    value={user.favourites.places}
-                                    variant="outlined"
-                                    multiline></TextField>
-                                <TextField
-                                    id="dislike"
-                                    label="Ich mag nicht ..."
-                                    value={user.dislike}
-                                    variant="outlined"
-                                    multiline></TextField>
-                            </form>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose} color="primary">
-                                Cancel
-                            </Button>
-
-                            <div className={classes.btns}>
+                    <Paper
+                        className={classes.paper}
+                        style={{
+                            marginTop: "-70px",
+                            width: "90%",
+                        }}>
+                        <input
+                            id="contained-button-file"
+                            accept="image/*"
+                            className={classes.input}
+                            type="file"
+                            // onChange={(event) => {
+                            //     handleChange(event, "avatar");
+                            // }}
+                        />
+                        {user.avatar ? (
+                            <label htmlFor="contained-button-file">
                                 <Button
-                                    style={{
-                                        alignSelf: "flex-end",
-                                        fontSize: "13px",
-                                        margin: "16px",
-                                    }}
-                                    color="secondary">
-                                    delete account
-                                </Button>
-                                <Button
-                                    type="submit"
-                                    fullWidth
                                     variant="contained"
+                                    color="default"
+                                    component="span"
+                                    style={{
+                                        width: "50px",
+                                        marginTop: "40px",
+                                    }}>
+                                    <EditIcon></EditIcon>
+                                </Button>
+                            </label>
+                        ) : (
+                            <label htmlFor="contained-button-file">
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    component="span"
                                     style={{
                                         backgroundColor: "#3788d8",
-                                        margin: "16px",
-                                        width: "150px",
-                                        alignSelf: "flex-end",
-                                        color: "white",
-                                    }}
-                                    className={classes.submit}>
-                                    Save
+                                    }}>
+                                    Bild hinzufuegen
                                 </Button>
-                            </div>
-                        </DialogActions>
-                    </Dialog>
+                            </label>
+                        )}
+                        <Typography variant="h4">
+                            {user.surname + " " + user.name}
+                        </Typography>
+                        <Typography variant="subtitle1">
+                            {/* Joined: {moment(user.createdAt).format("MMMM DD, YYYY")} */}
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            component="p">
+                            {user.motto}
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            color="default"
+                            onClick={handleClickOpen}>
+                            <EditIcon></EditIcon> Profil bearbeiten
+                        </Button>{" "}
+                        <Typography gutterBottom variant="h5" component="h2">
+                            Lizard
+                        </Typography>
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="form-dialog-title">
+                            <DialogTitle id="form-dialog-title">
+                                Profil bearbeiten
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Bitte fuelle die Felder so weit wie moeglich
+                                    aus, damit deine Schwestern dich besser
+                                    kennenlernen koemmen.
+                                </DialogContentText>
+                                <form
+                                    className={classes.form}
+                                    // onSubmit={changeUserData}
+                                >
+                                    <TextField
+                                        id="name"
+                                        type="text"
+                                        label={user.surname}
+                                        // value={formData.name}
+                                        variant="outlined"
+                                        // onChange={(event) =>
+                                        //     handleChange(event, "name")}
+                                    ></TextField>
+                                    <TextField
+                                        label={user.name}
+                                        id="surname"
+                                        type="text"
+                                        // value={formData.surname}
+                                        variant="outlined"
+                                        // onChange={(event) =>
+                                        //     handleChange(event, "surname")
+                                        // }
+                                    ></TextField>
+                                    <TextField
+                                        id="motto"
+                                        label="Motto"
+                                        value={user.motto}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="email"
+                                        label={user.email}
+                                        variant="outlined"
+                                        disabled></TextField>
+                                    <TextField
+                                        id="birth"
+                                        label="Geburtsdatum"
+                                        value={user.birthDate}
+                                        variant="outlined"></TextField>
+                                    <TextField
+                                        id="birthPlace"
+                                        label="Geburtsort"
+                                        value={user.birthPlace}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="job"
+                                        label="Beruf"
+                                        variant="outlined"
+                                        value={user.job}
+                                        multiline></TextField>
+                                    <TextField
+                                        id="education"
+                                        label="Ausbildung/Studium"
+                                        value={user.education}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <Divider />
+                                    <TextField
+                                        id="children"
+                                        label="Kind(er)"
+                                        value={user.children}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="pets"
+                                        label="Haustiere"
+                                        value={user.pets}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="hobbies"
+                                        label="Hobbies"
+                                        value={user.hobbies}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="gods"
+                                        label="Goettinnen & Goetter"
+                                        value={user.gods}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="magicExperience"
+                                        label="Magische Erfahrungen"
+                                        value={user.magic.experience}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="magicInterests"
+                                        label="Magische Interessen"
+                                        value={user.magic.interest}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <Divider />
+                                    <TextField
+                                        id="allergies"
+                                        label="Allergien & Abneigungen"
+                                        value={user.allergies}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="food"
+                                        label="Lieblingsessen"
+                                        value={user.favourites.food}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="books"
+                                        label="Lieblingsbuecher"
+                                        value={user.favourites.books}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="music"
+                                        label="Lieblingsmusik"
+                                        value={user.favourites.music}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="movies"
+                                        label="Lieblingsfilme"
+                                        value={user.favourites.movies}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="series"
+                                        label="Lieblingsserien"
+                                        value={user.favourites.series}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="animals"
+                                        label="Lieblings-/Krafttiere"
+                                        value={user.favourites.animals}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="places"
+                                        label="Lieblingsorte"
+                                        value={user.favourites.places}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="dislike"
+                                        label="Ich mag nicht ..."
+                                        value={user.dislike}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                </form>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose} color="primary">
+                                    Cancel
+                                </Button>
+
+                                <div className={classes.btns}>
+                                    <Button
+                                        style={{
+                                            alignSelf: "flex-end",
+                                            fontSize: "13px",
+                                            margin: "16px",
+                                        }}
+                                        color="secondary">
+                                        delete account
+                                    </Button>
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        style={{
+                                            backgroundColor: "#3788d8",
+                                            margin: "16px",
+                                            width: "150px",
+                                            alignSelf: "flex-end",
+                                            color: "white",
+                                        }}
+                                        className={classes.submit}>
+                                        Save
+                                    </Button>
+                                </div>
+                            </DialogActions>
+                        </Dialog>
+                    </Paper>
                 </div>
             </Paper>
         </div>
