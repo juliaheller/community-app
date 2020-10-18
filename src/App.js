@@ -8,7 +8,6 @@ import MiniDrawer from "./components/MiniDrawer.jsx";
 
 // Pages
 import Home from "./pages/Home.jsx";
-import User from "./pages/Witches.jsx";
 import Events from "./pages/Events";
 import BookOfShadows from "./pages/BookOfShadows";
 import Messages from "./pages/Messages";

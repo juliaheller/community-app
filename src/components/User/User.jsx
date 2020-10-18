@@ -1,11 +1,9 @@
 // Libraries
 import React, { useContext, useState, useEffect } from "react";
-import moment from "moment";
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -18,9 +16,10 @@ import { Divider } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
+
+// Components
+import GeneralInfoCard from "./GeneralInfoCard";
+import MagicCard from "./MagicCard";
 
 const useStyles = makeStyles({
     root: {
@@ -100,20 +99,6 @@ const useStyles = makeStyles({
         padding: "16px",
         height: "100%",
         width: "100%",
-    },
-    card: {
-        maxWidth: "400px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-    },
-    cardHeader: {
-        backgroundColor: "black",
-        color: "white",
-    },
-    title: {
-        color: "black",
-        fontWeight: "bold",
     },
 });
 
@@ -264,79 +249,8 @@ export default function User({ user }) {
                             "{user.motto}"
                         </Typography>
                         <div className={classes.cardBox}>
-                            <Card variant="outlined" className={classes.card}>
-                                <CardHeader
-                                    className={classes.cardHeader}
-                                    title=" Allgemeine Informationen"></CardHeader>
-                                <CardContent>
-                                    <Typography
-                                        className={classes.title}
-                                        align="left">
-                                        Im Forum seit:
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        component="p"
-                                        align="left"
-                                        gutterBottom>
-                                        {moment(user.joined).format(
-                                            "MMMM DD, YYYY"
-                                        )}
-                                    </Typography>
-                                    <Divider />
-                                    <Typography
-                                        className={classes.title}
-                                        align="left">
-                                        Geburstdatum:
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        component="p"
-                                        align="left"
-                                        gutterBottom>
-                                        {user.birthDate}
-                                    </Typography>
-                                    <Divider />
-                                    <Typography
-                                        className={classes.title}
-                                        align="left">
-                                        Geburstort:
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        component="p"
-                                        align="left"
-                                        gutterBottom>
-                                        {user.birthPlace}
-                                    </Typography>
-                                    <Divider />
-                                    <Typography
-                                        className={classes.title}
-                                        align="left">
-                                        Beruf:
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        component="p"
-                                        align="left"
-                                        gutterBottom>
-                                        {user.job}
-                                    </Typography>
-                                    <Divider />
-                                    <Typography
-                                        className={classes.title}
-                                        align="left">
-                                        Ausbildung/ Studium:
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        component="p"
-                                        align="left"
-                                        gutterBottom>
-                                        {user.education}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
+                            <GeneralInfoCard user={user} />
+                            <MagicCard user={user} />
                         </div>
                         <Button
                             variant="outlined"
@@ -393,6 +307,11 @@ export default function User({ user }) {
                                         variant="outlined"
                                         disabled></TextField>
                                     <TextField
+                                        id="email"
+                                        label={user.phone}
+                                        variant="outlined"
+                                        disabled></TextField>
+                                    <TextField
                                         id="birth"
                                         label="Geburtsdatum"
                                         value={user.birthDate}
@@ -434,12 +353,7 @@ export default function User({ user }) {
                                         value={user.hobbies}
                                         variant="outlined"
                                         multiline></TextField>
-                                    <TextField
-                                        id="gods"
-                                        label="Goettinnen & Goetter"
-                                        value={user.gods}
-                                        variant="outlined"
-                                        multiline></TextField>
+
                                     <TextField
                                         id="magicExperience"
                                         label="Magische Erfahrungen"
@@ -450,6 +364,18 @@ export default function User({ user }) {
                                         id="magicInterests"
                                         label="Magische Interessen"
                                         value={user.magic.interest}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="gods"
+                                        label="Goettinnen & Goetter"
+                                        value={user.magic.gods}
+                                        variant="outlined"
+                                        multiline></TextField>
+                                    <TextField
+                                        id="gods"
+                                        label="Krafttier(e)"
+                                        value={user.magic.powerAnimal}
                                         variant="outlined"
                                         multiline></TextField>
                                     <Divider />

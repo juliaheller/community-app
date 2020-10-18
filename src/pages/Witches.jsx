@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
 
 // Components
-import User from "../components/User";
+import User from "../components/User/User";
 
 // Services
 
