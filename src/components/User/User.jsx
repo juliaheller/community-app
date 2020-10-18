@@ -124,10 +124,10 @@ export default function User({ user }) {
 
     useEffect(
         () => {
-            // if (!_.isEmpty(user)) {
-            setFormData(user);
-            setLoading(false);
-            // }
+            if (user.id) {
+                setFormData(user);
+                setLoading(false);
+            }
         },
         []
         // [user]
@@ -158,6 +158,132 @@ export default function User({ user }) {
                 };
                 reader.readAsDataURL(file);
                 break;
+            case "motto":
+                setFormData(
+                    Object.assign({}, formData, { motto: event.target.value })
+                );
+                break;
+            case "phone":
+                setFormData(
+                    Object.assign({}, formData, { phone: event.target.value })
+                );
+                break;
+            case "birthDate":
+                setFormData(
+                    Object.assign({}, formData, {
+                        birthDate: event.target.value,
+                    })
+                );
+                break;
+            case "birthPlace":
+                setFormData(
+                    Object.assign({}, formData, {
+                        birthPlace: event.target.value,
+                    })
+                );
+                break;
+            case "job":
+                setFormData(
+                    Object.assign({}, formData, { job: event.target.value })
+                );
+                break;
+            case "education":
+                setFormData(
+                    Object.assign({}, formData, {
+                        education: event.target.value,
+                    })
+                );
+                break;
+            case "children":
+                setFormData(
+                    Object.assign({}, formData, {
+                        children: event.target.value,
+                    })
+                );
+                break;
+            case "pets":
+                setFormData(
+                    Object.assign({}, formData, { pets: event.target.value })
+                );
+                break;
+            case "hobbies":
+                setFormData(
+                    Object.assign({}, formData, { hobbies: event.target.value })
+                );
+                break;
+            case "experience":
+                setFormData(
+                    Object.assign({}, formData, {
+                        experience: event.target.value,
+                    })
+                );
+                break;
+            case "interest":
+                setFormData(
+                    Object.assign({}, formData, {
+                        interest: event.target.value,
+                    })
+                );
+                break;
+            case "gods":
+                setFormData(
+                    Object.assign({}, formData, { gods: event.target.value })
+                );
+                break;
+            case "powerAnimal":
+                setFormData(
+                    Object.assign({}, formData, {
+                        powerAnimal: event.target.value,
+                    })
+                );
+                break;
+            case "allergies":
+                setFormData(
+                    Object.assign({}, formData, {
+                        allergies: event.target.value,
+                    })
+                );
+                break;
+            case "food":
+                setFormData(
+                    Object.assign({}, formData, { food: event.target.value })
+                );
+                break;
+            case "books":
+                setFormData(
+                    Object.assign({}, formData, { books: event.target.value })
+                );
+                break;
+            case "movies":
+                setFormData(
+                    Object.assign({}, formData, { movies: event.target.value })
+                );
+                break;
+            case "music":
+                setFormData(
+                    Object.assign({}, formData, { music: event.target.value })
+                );
+                break;
+            case "series":
+                setFormData(
+                    Object.assign({}, formData, { series: event.target.value })
+                );
+                break;
+            case "animals":
+                setFormData(
+                    Object.assign({}, formData, { animals: event.target.value })
+                );
+                break;
+            case "places":
+                setFormData(
+                    Object.assign({}, formData, { places: event.target.value })
+                );
+                break;
+            case "dislike":
+                setFormData(
+                    Object.assign({}, formData, { dislike: event.target.value })
+                );
+                break;
             default:
                 break;
         }
@@ -177,6 +303,10 @@ export default function User({ user }) {
         //         console.log(error);
         //     });
     };
+
+    if (!user.id) {
+        return <div></div>;
+    }
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -322,14 +452,14 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="email"
                                         label="Email"
-                                        value={user.email}
+                                        value={formData.email}
                                         variant="standard"
                                         disabled></TextField>
                                     <TextField
                                         className={classes.textField}
                                         id="phone"
-                                        label={user.phone}
-                                        label={formData.phonel}
+                                        label="Telefonnummer"
+                                        value={formData.phone}
                                         variant="outlined"
                                         onChange={(event) =>
                                             handleChange(event, "phone")
@@ -338,7 +468,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="birth"
                                         label="Geburtsdatum"
-                                        value={user.birthDate}
+                                        value={formData.birthDate}
                                         variant="outlined"
                                         onChange={(event) =>
                                             handleChange(event, "birthDate")
@@ -347,7 +477,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="birthPlace"
                                         label="Geburtsort"
-                                        value={user.birthPlace}
+                                        value={formData.birthPlace}
                                         variant="outlined"
                                         multilineonChange={(event) =>
                                             handleChange(event, "birthPlace")
@@ -357,7 +487,7 @@ export default function User({ user }) {
                                         id="job"
                                         label="Beruf"
                                         variant="outlined"
-                                        value={user.job}
+                                        value={formData.job}
                                         multiline
                                         onChange={(event) =>
                                             handleChange(event, "job")
@@ -366,7 +496,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="education"
                                         label="Ausbildung/Studium"
-                                        value={user.education}
+                                        value={formData.education}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -377,7 +507,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="children"
                                         label="Kind(er)"
-                                        value={user.children}
+                                        value={formData.children}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -387,7 +517,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="pets"
                                         label="Haustiere"
-                                        value={user.pets}
+                                        value={formData.pets}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -397,7 +527,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="hobbies"
                                         label="Hobbies"
-                                        value={user.hobbies}
+                                        value={formData.hobbies}
                                         variant="filled"
                                         multiline
                                         onChange={(event) =>
@@ -408,7 +538,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="magicExperience"
                                         label="Magische Erfahrungen"
-                                        value={user.magic.experience}
+                                        // value={formData.magic.experience}
                                         variant="filled"
                                         multiline
                                         onChange={(event) =>
@@ -418,7 +548,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="magicInterests"
                                         label="Magische Interessen"
-                                        value={user.magic.interest}
+                                        // value={formData.magic.interest}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -428,7 +558,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="gods"
                                         label="Goettinnen & Goetter"
-                                        value={user.magic.gods}
+                                        // value={formData.magic.gods}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -438,7 +568,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="gods"
                                         label="Krafttier(e)"
-                                        value={user.magic.powerAnimal}
+                                        // value={formData.magic.powerAnimal}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -449,7 +579,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="allergies"
                                         label="Allergien & Abneigungen"
-                                        value={user.allergies}
+                                        value={formData.allergies}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -459,7 +589,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="food"
                                         label="Lieblingsessen"
-                                        value={user.favourites.food}
+                                        // value={formData.favourites.food}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -469,7 +599,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="books"
                                         label="Lieblingsbuecher"
-                                        value={user.favourites.books}
+                                        // value={formData.favourites.books}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -479,7 +609,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="music"
                                         label="Lieblingsmusik"
-                                        value={user.favourites.music}
+                                        // value={formData.favourites.music}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -489,7 +619,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="movies"
                                         label="Lieblingsfilme"
-                                        value={user.favourites.movies}
+                                        // value={formData.favourites.movies}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -499,7 +629,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="series"
                                         label="Lieblingsserien"
-                                        value={user.favourites.series}
+                                        // value={formData.favourites.series}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -509,7 +639,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="animals"
                                         label="Lieblings-/Krafttiere"
-                                        value={user.favourites.animals}
+                                        // value={formData.favourites.animals}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
@@ -519,7 +649,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="places"
                                         label="Lieblingsorte"
-                                        value={user.favourites.places}
+                                        // value={formData.favourites.places}
                                         variant="outlined"
                                         multilin
                                         onChange={(event) =>
@@ -530,7 +660,7 @@ export default function User({ user }) {
                                         className={classes.textField}
                                         id="dislike"
                                         label="Ich mag nicht ..."
-                                        value={user.dislike}
+                                        value={formData.dislike}
                                         variant="outlined"
                                         multiline
                                         onChange={(event) =>
