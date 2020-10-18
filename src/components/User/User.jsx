@@ -18,8 +18,9 @@ import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
 
 // Components
-import GeneralInfoCard from "./GeneralInfoCard";
-import MagicCard from "./MagicCard";
+import GeneralInfoCard from "./userCards/GeneralInfoCard";
+import MagicCard from "./userCards/MagicCard";
+import FavouritesCard from "./userCards/FavouritesCard";
 
 const useStyles = makeStyles({
     root: {
@@ -94,8 +95,9 @@ const useStyles = makeStyles({
     },
     cardBox: {
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "space-between",
+        flexWrap: "wrap",
         padding: "16px",
         height: "100%",
         width: "100%",
@@ -250,6 +252,7 @@ export default function User({ user }) {
                         </Typography>
                         <div className={classes.cardBox}>
                             <GeneralInfoCard user={user} />
+                            <FavouritesCard user={user} />
                             <MagicCard user={user} />
                         </div>
                         <Button

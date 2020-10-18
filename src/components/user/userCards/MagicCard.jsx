@@ -1,6 +1,5 @@
 // Libraries
 import React from "react";
-import moment from "moment";
 
 // Material-UI
 import Card from "@material-ui/core/Card";

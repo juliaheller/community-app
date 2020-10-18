@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
 
 // Components
-import User from "../components/User/User";
+import User from "../components/user/User";
 
 // Services
 
@@ -96,7 +96,7 @@ export default function Witches() {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <Typography variant="h3">Hexenschwestern</Typography>
+                <Typography variant="h3">Hexen</Typography>
                 <Typography variant="h5" className={classes.contactList}>
                     <ContactMailIcon
                         style={{
