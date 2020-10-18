@@ -1,5 +1,6 @@
 // Libraries
 import React, { useContext, useState, useEffect } from "react";
+import moment from "moment";
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,7 +16,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Divider } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-
+import EmailIcon from "@material-ui/icons/Email";
+import PhoneIcon from "@material-ui/icons/Phone";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -91,9 +93,27 @@ const useStyles = makeStyles({
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
+    cardBox: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "16px",
+        height: "100%",
+        width: "100%",
+    },
+    card: {
+        maxWidth: "400px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+    },
     cardHeader: {
-        backgroundColor: "purple",
+        backgroundColor: "black",
         color: "white",
+    },
+    title: {
+        color: "black",
+        fontWeight: "bold",
     },
 });
 
@@ -227,41 +247,93 @@ export default function User({ user }) {
                         <Typography variant="h4">
                             {user.surname + " " + user.name}
                         </Typography>
-                        <Typography variant="subtitle1">
-                            {/* Joined: {moment(user.createdAt).format("MMMM DD, YYYY")} */}
-                        </Typography>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <EmailIcon />
+                            <Typography display="inline" variant="subtitle1">
+                                {user.email}
+                            </Typography>
+                            <PhoneIcon />
+                            <Typography display="inline" variant="subtitle1">
+                                {user.phone}
+                            </Typography>
+                        </div>
                         <Typography
                             variant="body2"
                             color="textSecondary"
                             component="p">
-                            {user.motto}
+                            "{user.motto}"
                         </Typography>
                         <div className={classes.cardBox}>
-                            <Card variant="outlined">
+                            <Card variant="outlined" className={classes.card}>
                                 <CardHeader
                                     className={classes.cardHeader}
                                     title=" Allgemeine Informationen"></CardHeader>
                                 <CardContent>
                                     <Typography
                                         className={classes.title}
-                                        color="textSecondary"
-                                        gutterBottom>
-                                        Email:
+                                        align="left">
+                                        Im Forum seit:
                                     </Typography>
                                     <Typography
-                                        variant="h5"
-                                        component="h2"></Typography>
-                                    <Typography variant="body2" component="p">
-                                        {user.email}
+                                        variant="body2"
+                                        component="p"
+                                        align="left"
+                                        gutterBottom>
+                                        {moment(user.joined).format(
+                                            "MMMM DD, YYYY"
+                                        )}
                                     </Typography>
+                                    <Divider />
                                     <Typography
                                         className={classes.title}
-                                        color="textSecondary"
+                                        align="left">
+                                        Geburstdatum:
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        component="p"
+                                        align="left"
                                         gutterBottom>
+                                        {user.birthDate}
+                                    </Typography>
+                                    <Divider />
+                                    <Typography
+                                        className={classes.title}
+                                        align="left">
+                                        Geburstort:
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        component="p"
+                                        align="left"
+                                        gutterBottom>
+                                        {user.birthPlace}
+                                    </Typography>
+                                    <Divider />
+                                    <Typography
+                                        className={classes.title}
+                                        align="left">
                                         Beruf:
                                     </Typography>
-                                    <Typography variant="body2" component="p">
+                                    <Typography
+                                        variant="body2"
+                                        component="p"
+                                        align="left"
+                                        gutterBottom>
                                         {user.job}
+                                    </Typography>
+                                    <Divider />
+                                    <Typography
+                                        className={classes.title}
+                                        align="left">
+                                        Ausbildung/ Studium:
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        component="p"
+                                        align="left"
+                                        gutterBottom>
+                                        {user.education}
                                     </Typography>
                                 </CardContent>
                             </Card>

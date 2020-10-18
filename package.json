@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "fontsource-roboto": "^3.0.3",
     "install": "^0.13.0",
+    "moment": "^2.29.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
