@@ -16,6 +16,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Divider } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+
 const useStyles = makeStyles({
     root: {
         display: "flex",
@@ -86,6 +90,10 @@ const useStyles = makeStyles({
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+    },
+    cardHeader: {
+        backgroundColor: "purple",
+        color: "white",
     },
 });
 
@@ -228,15 +236,43 @@ export default function User({ user }) {
                             component="p">
                             {user.motto}
                         </Typography>
+                        <div className={classes.cardBox}>
+                            <Card variant="outlined">
+                                <CardHeader
+                                    className={classes.cardHeader}
+                                    title=" Allgemeine Informationen"></CardHeader>
+                                <CardContent>
+                                    <Typography
+                                        className={classes.title}
+                                        color="textSecondary"
+                                        gutterBottom>
+                                        Email:
+                                    </Typography>
+                                    <Typography
+                                        variant="h5"
+                                        component="h2"></Typography>
+                                    <Typography variant="body2" component="p">
+                                        {user.email}
+                                    </Typography>
+                                    <Typography
+                                        className={classes.title}
+                                        color="textSecondary"
+                                        gutterBottom>
+                                        Beruf:
+                                    </Typography>
+                                    <Typography variant="body2" component="p">
+                                        {user.job}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </div>
                         <Button
                             variant="outlined"
                             color="default"
-                            onClick={handleClickOpen}>
+                            onClick={handleClickOpen}
+                            style={{ justifySelf: "flex-end" }}>
                             <EditIcon></EditIcon> Profil bearbeiten
                         </Button>{" "}
-                        <Typography gutterBottom variant="h5" component="h2">
-                            Lizard
-                        </Typography>
                         <Dialog
                             open={open}
                             onClose={handleClose}
