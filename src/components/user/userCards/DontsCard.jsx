@@ -13,7 +13,7 @@ import PanToolIcon from "@material-ui/icons/PanTool";
 
 const useStyles = makeStyles({
     card: {
-        maxWidth: "400px",
+        width: "400px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",

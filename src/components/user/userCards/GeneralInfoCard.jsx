@@ -12,7 +12,7 @@ import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles({
     card: {
-        maxWidth: "400px",
+        width: "400px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
