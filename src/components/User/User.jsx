@@ -58,7 +58,7 @@ const useStyles = makeStyles({
         margin: "auto",
         width: "fit-content",
         height: "500px",
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
         alignItems: "center",
     },
     input: {
@@ -102,14 +102,18 @@ const useStyles = makeStyles({
         height: "100%",
         width: "100%",
     },
+    textField: {
+        width: "400px",
+        height: "200px",
+    },
 });
 
 export default function User({ user }) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     // const { user, dispatch } = useContext(userContext);
-    // const [formData, setFormData] = useState({});
-    // const [loading, setLoading] = useState(true);
+    const [formData, setFormData] = useState({});
+    const [loading, setLoading] = useState(true);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -120,60 +124,59 @@ export default function User({ user }) {
 
     useEffect(
         () => {
-            //     if (!_.isEmpty(user)) {
-            //         console.log("user:", user);
-            //         setFormData(user);
-            //         setLoading(false);
+            // if (!_.isEmpty(user)) {
+            setFormData(user);
+            setLoading(false);
             // }
         },
         []
         // [user]
     );
 
-    // const handleChange = (event, type) => {
-    //     // switch (type) {
-    //     //     case "name":
-    //     //         setFormData(
-    //     //             Object.assign({}, formData, { name: event.target.value })
-    //     //         );
-    //     //         break;
-    //     //     case "surname":
-    //     //         setFormData(
-    //     //             Object.assign({}, formData, { surname: event.target.value })
-    //     //         );
-    //     //         break;
-    //     //     case "avatar":
-    //     //         let file = event.target.files[0];
-    //     //         let reader = new FileReader();
-    //     //         reader.onloadend = () => {
-    //     //             console.log("image changed");
-    //     //             setFormData(
-    //     //                 Object.assign({}, formData, {
-    //     //                     avatar: reader.result,
-    //     //                 })
-    //     //             );
-    //     //         };
-    //     //         reader.readAsDataURL(file);
-    //     //         break;
-    //     //     default:
-    //     //         break;
-    //     // }
-    // };
-    // const changeUserData = (event) => {
-    //     event.preventDefault();
-    //     UserService.updateUser(formData._id, formData)
-    //         .then((response) => {
-    //             if (response.errors) {
-    //                 console.log(response.errors);
-    //             } else {
-    //                 setFormData(response);
-    //                 dispatch({ type: "saveUser", userData: response });
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // };
+    const handleChange = (event, type) => {
+        switch (type) {
+            case "name":
+                setFormData(
+                    Object.assign({}, formData, { name: event.target.value })
+                );
+                break;
+            case "surname":
+                setFormData(
+                    Object.assign({}, formData, { surname: event.target.value })
+                );
+                break;
+            case "avatar":
+                let file = event.target.files[0];
+                let reader = new FileReader();
+                reader.onloadend = () => {
+                    console.log("image changed");
+                    setFormData(
+                        Object.assign({}, formData, {
+                            avatar: reader.result,
+                        })
+                    );
+                };
+                reader.readAsDataURL(file);
+                break;
+            default:
+                break;
+        }
+    };
+    const changeUserData = (event) => {
+        event.preventDefault();
+        // UserService.updateUser(formData._id, formData)
+        //     .then((response) => {
+        //         if (response.errors) {
+        //             console.log(response.errors);
+        //         } else {
+        //             setFormData(response);
+        //             dispatch({ type: "saveUser", userData: response });
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
+    };
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -201,9 +204,9 @@ export default function User({ user }) {
                             accept="image/*"
                             className={classes.input}
                             type="file"
-                            // onChange={(event) => {
-                            //     handleChange(event, "avatar");
-                            // }}
+                            onChange={(event) => {
+                                handleChange(event, "avatar");
+                            }}
                         />
                         {user.avatar ? (
                             <label htmlFor="contained-button-file">
@@ -234,7 +237,13 @@ export default function User({ user }) {
                         <Typography variant="h4">
                             {user.surname + " " + user.name}
                         </Typography>
-                        <div style={{ display: "flex", alignItems: "center" }}>
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                flexWrap: "wrap",
+                                justifyContent: "center",
+                            }}>
                             <EmailIcon />
                             <Typography display="inline" variant="subtitle1">
                                 {user.email}
@@ -259,11 +268,11 @@ export default function User({ user }) {
                         <Button
                             variant="outlined"
                             color="default"
-                            onClick={handleClickOpen}
-                            style={{ justifySelf: "flex-end" }}>
+                            onClick={handleClickOpen}>
                             <EditIcon></EditIcon> Profil bearbeiten
                         </Button>{" "}
                         <Dialog
+                            fullScreen
                             open={open}
                             onClose={handleClose}
                             aria-labelledby="form-dialog-title">
@@ -278,165 +287,255 @@ export default function User({ user }) {
                                 </DialogContentText>
                                 <form
                                     className={classes.form}
-                                    // onSubmit={changeUserData}
-                                >
+                                    onSubmit={changeUserData}>
                                     <TextField
-                                        id="name"
-                                        type="text"
-                                        label={user.surname}
-                                        // value={formData.name}
-                                        variant="outlined"
-                                        // onChange={(event) =>
-                                        //     handleChange(event, "name")}
-                                    ></TextField>
-                                    <TextField
-                                        label={user.name}
+                                        className={classes.textField}
                                         id="surname"
                                         type="text"
-                                        // value={formData.surname}
+                                        label={user.surname}
+                                        value={formData.surname}
                                         variant="outlined"
-                                        // onChange={(event) =>
-                                        //     handleChange(event, "surname")
-                                        // }
-                                    ></TextField>
+                                        onChange={(event) =>
+                                            handleChange(event, "surname")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
+                                        label={user.name}
+                                        id="name"
+                                        type="text"
+                                        value={formData.name}
+                                        variant="outlined"
+                                        onChange={(event) =>
+                                            handleChange(event, "name")
+                                        }></TextField>
+                                    <TextField
+                                        className={classes.textField}
                                         id="motto"
                                         label="Motto"
-                                        value={user.motto}
-                                        variant="outlined"
-                                        multiline></TextField>
+                                        value={formData.motto}
+                                        variant="filled"
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "motto")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="email"
-                                        label={user.email}
-                                        variant="outlined"
+                                        label="Email"
+                                        value={user.email}
+                                        variant="standard"
                                         disabled></TextField>
                                     <TextField
-                                        id="email"
+                                        className={classes.textField}
+                                        id="phone"
                                         label={user.phone}
+                                        label={formData.phonel}
                                         variant="outlined"
-                                        disabled></TextField>
+                                        onChange={(event) =>
+                                            handleChange(event, "phone")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="birth"
                                         label="Geburtsdatum"
                                         value={user.birthDate}
-                                        variant="outlined"></TextField>
+                                        variant="outlined"
+                                        onChange={(event) =>
+                                            handleChange(event, "birthDate")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="birthPlace"
                                         label="Geburtsort"
                                         value={user.birthPlace}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multilineonChange={(event) =>
+                                            handleChange(event, "birthPlace")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="job"
                                         label="Beruf"
                                         variant="outlined"
                                         value={user.job}
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "job")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="education"
                                         label="Ausbildung/Studium"
                                         value={user.education}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "education")
+                                        }></TextField>
                                     <Divider />
                                     <TextField
+                                        className={classes.textField}
                                         id="children"
                                         label="Kind(er)"
                                         value={user.children}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "children")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="pets"
                                         label="Haustiere"
                                         value={user.pets}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "pets")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="hobbies"
                                         label="Hobbies"
                                         value={user.hobbies}
-                                        variant="outlined"
-                                        multiline></TextField>
+                                        variant="filled"
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "hobbies")
+                                        }></TextField>
 
                                     <TextField
+                                        className={classes.textField}
                                         id="magicExperience"
                                         label="Magische Erfahrungen"
                                         value={user.magic.experience}
-                                        variant="outlined"
-                                        multiline></TextField>
+                                        variant="filled"
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "experience")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="magicInterests"
                                         label="Magische Interessen"
                                         value={user.magic.interest}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "interest")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="gods"
                                         label="Goettinnen & Goetter"
                                         value={user.magic.gods}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "gods")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="gods"
                                         label="Krafttier(e)"
                                         value={user.magic.powerAnimal}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "powerAnimal")
+                                        }></TextField>
                                     <Divider />
                                     <TextField
+                                        className={classes.textField}
                                         id="allergies"
                                         label="Allergien & Abneigungen"
                                         value={user.allergies}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "allergies")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="food"
                                         label="Lieblingsessen"
                                         value={user.favourites.food}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "food")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="books"
                                         label="Lieblingsbuecher"
                                         value={user.favourites.books}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "books")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="music"
                                         label="Lieblingsmusik"
                                         value={user.favourites.music}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "music")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="movies"
                                         label="Lieblingsfilme"
                                         value={user.favourites.movies}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "movies")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="series"
                                         label="Lieblingsserien"
                                         value={user.favourites.series}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "series")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="animals"
                                         label="Lieblings-/Krafttiere"
                                         value={user.favourites.animals}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "animals")
+                                        }></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="places"
                                         label="Lieblingsorte"
                                         value={user.favourites.places}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multilin
+                                        onChange={(event) =>
+                                            handleChange(event, "places")
+                                        }
+                                        e></TextField>
                                     <TextField
+                                        className={classes.textField}
                                         id="dislike"
                                         label="Ich mag nicht ..."
                                         value={user.dislike}
                                         variant="outlined"
-                                        multiline></TextField>
+                                        multiline
+                                        onChange={(event) =>
+                                            handleChange(event, "dislike")
+                                        }></TextField>
                                 </form>
                             </DialogContent>
                             <DialogActions>
