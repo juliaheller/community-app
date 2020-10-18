@@ -21,7 +21,7 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import GeneralInfoCard from "./userCards/GeneralInfoCard";
 import MagicCard from "./userCards/MagicCard";
 import FavouritesCard from "./userCards/FavouritesCard";
-
+import DontsCard from "./userCards/DontsCard";
 const useStyles = makeStyles({
     root: {
         display: "flex",
@@ -96,7 +96,7 @@ const useStyles = makeStyles({
     cardBox: {
         display: "flex",
         alignItems: "flex-start",
-        justifyContent: "space-between",
+        justifyContent: "center",
         flexWrap: "wrap",
         padding: "16px",
         height: "100%",
@@ -254,6 +254,7 @@ export default function User({ user }) {
                             <GeneralInfoCard user={user} />
                             <FavouritesCard user={user} />
                             <MagicCard user={user} />
+                            <DontsCard user={user} />
                         </div>
                         <Button
                             variant="outlined"
