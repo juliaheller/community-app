@@ -131,26 +131,28 @@ export default function UserModal({ user, open, setOpen }) {
             case "experience":
                 setFormData(
                     Object.assign({}, formData, {
-                        experience: event.target.value,
+                        magic: { experience: event.target.value },
                     })
                 );
                 break;
             case "interest":
                 setFormData(
                     Object.assign({}, formData, {
-                        interest: event.target.value,
+                        magic: { interest: event.target.value },
                     })
                 );
                 break;
             case "gods":
                 setFormData(
-                    Object.assign({}, formData, { gods: event.target.value })
+                    Object.assign({}, formData, {
+                        magic: { gods: event.target.value },
+                    })
                 );
                 break;
             case "powerAnimal":
                 setFormData(
                     Object.assign({}, formData, {
-                        powerAnimal: event.target.value,
+                        magic: { powerAnimal: event.target.value },
                     })
                 );
                 break;
@@ -163,48 +165,50 @@ export default function UserModal({ user, open, setOpen }) {
                 break;
             case "food":
                 setFormData(
-                    Object.assign({}, formData, { food: event.target.value })
+                    Object.assign({}, formData, {
+                        favourites: { food: event.target.value },
+                    })
                 );
                 break;
             case "books":
                 setFormData(
                     Object.assign({}, formData, {
-                        books: event.target.value,
+                        favourites: { books: event.target.value },
                     })
                 );
                 break;
             case "movies":
                 setFormData(
                     Object.assign({}, formData, {
-                        movies: event.target.value,
+                        favourites: { movies: event.target.value },
                     })
                 );
                 break;
             case "music":
                 setFormData(
                     Object.assign({}, formData, {
-                        music: event.target.value,
+                        favourites: { music: event.target.value },
                     })
                 );
                 break;
             case "series":
                 setFormData(
                     Object.assign({}, formData, {
-                        series: event.target.value,
+                        favourites: { series: event.target.value },
                     })
                 );
                 break;
             case "animals":
                 setFormData(
                     Object.assign({}, formData, {
-                        animals: event.target.value,
+                        favourites: { animals: event.target.value },
                     })
                 );
                 break;
             case "places":
                 setFormData(
                     Object.assign({}, formData, {
-                        places: event.target.value,
+                        favourites: { places: event.target.value },
                     })
                 );
                 break;
@@ -244,7 +248,7 @@ export default function UserModal({ user, open, setOpen }) {
             <DialogContent>
                 <DialogContentText>
                     Bitte fuelle die Felder so weit wie moeglich aus, damit
-                    deine Schwestern dich besser kennenlernen koemmen.
+                    deine Hexen-Schwestern dich besser kennenlernen koennen.
                 </DialogContentText>
                 <form className={classes.form} onSubmit={changeUserData}>
                     <TextField
@@ -272,7 +276,7 @@ export default function UserModal({ user, open, setOpen }) {
                         id="motto"
                         label="Motto"
                         value={formData.motto}
-                        variant="filled"
+                        variant="outlined"
                         multiline
                         onChange={(event) =>
                             handleChange(event, "motto")
@@ -308,7 +312,8 @@ export default function UserModal({ user, open, setOpen }) {
                         label="Geburtsort"
                         value={formData.birthPlace}
                         variant="outlined"
-                        multilineonChange={(event) =>
+                        multiline
+                        onChange={(event) =>
                             handleChange(event, "birthPlace")
                         }></TextField>
                     <TextField
@@ -357,52 +362,58 @@ export default function UserModal({ user, open, setOpen }) {
                         id="hobbies"
                         label="Hobbies"
                         value={formData.hobbies}
-                        variant="filled"
+                        variant="outlined"
                         multiline
                         onChange={(event) =>
                             handleChange(event, "hobbies")
                         }></TextField>
+                    {formData.magic ? (
+                        <div>
+                            <TextField
+                                className={classes.textField}
+                                id="magicExperience"
+                                label="Magische Erfahrungen"
+                                value={formData.magic.experience}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) => {
+                                    handleChange(event, "experience");
+                                }}></TextField>
+                            <TextField
+                                className={classes.textField}
+                                id="magicInterests"
+                                label="Magische Interessen"
+                                value={formData.magic.interest}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "interest")
+                                }></TextField>
+                            <TextField
+                                className={classes.textField}
+                                id="gods"
+                                label="Goettinnen & Goetter"
+                                value={formData.magic.gods}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "gods")
+                                }></TextField>
+                            <TextField
+                                className={classes.textField}
+                                id="gods"
+                                label="Krafttier(e)"
+                                value={formData.magic.powerAnimal}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "powerAnimal")
+                                }></TextField>
+                        </div>
+                    ) : (
+                        ""
+                    )}
 
-                    <TextField
-                        className={classes.textField}
-                        id="magicExperience"
-                        label="Magische Erfahrungen"
-                        // value={formData.magic.experience}
-                        variant="filled"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "experience")
-                        }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="magicInterests"
-                        label="Magische Interessen"
-                        // value={formData.magic.interest}
-                        variant="outlined"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "interest")
-                        }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="gods"
-                        label="Goettinnen & Goetter"
-                        // value={formData.magic.gods}
-                        variant="outlined"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "gods")
-                        }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="gods"
-                        label="Krafttier(e)"
-                        // value={formData.magic.powerAnimal}
-                        variant="outlined"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "powerAnimal")
-                        }></TextField>
                     <Divider />
                     <TextField
                         className={classes.textField}
@@ -414,75 +425,84 @@ export default function UserModal({ user, open, setOpen }) {
                         onChange={(event) =>
                             handleChange(event, "allergies")
                         }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="food"
-                        label="Lieblingsessen"
-                        // value={formData.favourites.food}
-                        variant="outlined"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "food")
-                        }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="books"
-                        label="Lieblingsbuecher"
-                        // value={formData.favourites.books}
-                        variant="outlined"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "books")
-                        }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="music"
-                        label="Lieblingsmusik"
-                        // value={formData.favourites.music}
-                        variant="outlined"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "music")
-                        }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="movies"
-                        label="Lieblingsfilme"
-                        // value={formData.favourites.movies}
-                        variant="outlined"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "movies")
-                        }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="series"
-                        label="Lieblingsserien"
-                        // value={formData.favourites.series}
-                        variant="outlined"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "series")
-                        }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="animals"
-                        label="Lieblings-/Krafttiere"
-                        // value={formData.favourites.animals}
-                        variant="outlined"
-                        multiline
-                        onChange={(event) =>
-                            handleChange(event, "animals")
-                        }></TextField>
-                    <TextField
-                        className={classes.textField}
-                        id="places"
-                        label="Lieblingsorte"
-                        // value={formData.favourites.places}
-                        variant="outlined"
-                        multilin
-                        onChange={(event) => handleChange(event, "places")}
-                        e></TextField>
+                    {formData.favourites ? (
+                        <div>
+                            {" "}
+                            <TextField
+                                className={classes.textField}
+                                id="food"
+                                label="Lieblingsessen"
+                                value={formData.favourites.food}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "food")
+                                }></TextField>
+                            <TextField
+                                className={classes.textField}
+                                id="books"
+                                label="Lieblingsbuecher"
+                                value={formData.favourites.books}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "books")
+                                }></TextField>
+                            <TextField
+                                className={classes.textField}
+                                id="music"
+                                label="Lieblingsmusik"
+                                value={formData.favourites.music}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "music")
+                                }></TextField>
+                            <TextField
+                                className={classes.textField}
+                                id="movies"
+                                label="Lieblingsfilme"
+                                value={formData.favourites.movies}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "movies")
+                                }></TextField>
+                            <TextField
+                                className={classes.textField}
+                                id="series"
+                                label="Lieblingsserien"
+                                value={formData.favourites.series}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "series")
+                                }></TextField>
+                            <TextField
+                                className={classes.textField}
+                                id="animals"
+                                label="Lieblings-/Krafttiere"
+                                value={formData.favourites.animals}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "animals")
+                                }></TextField>
+                            <TextField
+                                className={classes.textField}
+                                id="places"
+                                label="Lieblingsorte"
+                                value={formData.favourites.places}
+                                variant="outlined"
+                                multiline
+                                onChange={(event) =>
+                                    handleChange(event, "places")
+                                }></TextField>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+
                     <TextField
                         className={classes.textField}
                         id="dislike"
