@@ -1,7 +1,7 @@
 import React from "react";
 import { Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import witches from "../images/witches2.png";
+import witches from "../images/witches.svg";
 
 const useStyles = makeStyles({
     root: {
@@ -9,13 +9,18 @@ const useStyles = makeStyles({
         flexDirection: "column",
         width: "80%",
         marginTop: "100px",
+        alignItems: "center",
     },
 });
 export default function Home() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Typography variant="h2" component="h2" gutterBottom>
+            <Typography
+                style={{ color: " #1C304A" }}
+                variant="h2"
+                component="h2"
+                gutterBottom>
                 Willkommen im Tempel der Sophia!{" "}
             </Typography>
             <img
@@ -24,7 +29,11 @@ export default function Home() {
                 style={{ width: "200px", height: "200px" }}
             />
             <Divider />
-            <Typography variant="h3" component="h3" gutterBottom>
+            <Typography
+                style={{ color: " #1C304A" }}
+                variant="h3"
+                component="h3"
+                gutterBottom>
                 Letzte Aktivitaeten
             </Typography>
         </div>

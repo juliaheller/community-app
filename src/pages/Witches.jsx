@@ -21,6 +21,7 @@ const useStyles = makeStyles({
         flexDirection: "column",
         width: "80%",
         marginTop: "100px",
+        color: "#5B6489",
     },
     paper: {
         display: "flex",
@@ -47,6 +48,7 @@ const useStyles = makeStyles({
     },
     contactLink: {
         textDecoration: "none",
+        color: "#1C304A",
     },
     witches: {
         display: "flex",
@@ -96,13 +98,16 @@ export default function Witches() {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <Typography variant="h3">Hexen</Typography>
+                <Typography style={{ color: " #1C304A" }} variant="h3">
+                    Hexen
+                </Typography>
                 <Typography variant="h5" className={classes.contactList}>
                     <ContactMailIcon
                         style={{
                             padding: "1px",
                             height: "30px",
                             width: "40px",
+                            color: "#1C304A",
                         }}
                     />
                     <a

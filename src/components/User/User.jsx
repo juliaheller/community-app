@@ -2,7 +2,7 @@
 import React, { useContext, useState, useEffect } from "react";
 
 // Material UI
-import { makeStyles } from "@material-ui/core/styles";
+import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
@@ -18,7 +18,7 @@ import FavouritesCard from "./userCards/FavouritesCard";
 import DontsCard from "./userCards/DontsCard";
 import UserModal from "./UserModal.jsx";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",
         flexDirection: "column",
@@ -33,6 +33,7 @@ const useStyles = makeStyles({
         padding: "16px",
         height: "100%",
         width: "100%",
+        color: "#5B6489",
     },
     large: {
         width: "200px",
@@ -55,9 +56,9 @@ const useStyles = makeStyles({
         borderBottom: "1px solid darkgrey",
         textAlign: "center",
     },
-    btns: {
-        display: "flex",
-        justifyContent: "space-between",
+    btn: {
+        backgroundColor: theme.primaray,
+        color: "#1C304A",
     },
     cardContent: {
         display: "flex",
@@ -88,7 +89,10 @@ const useStyles = makeStyles({
         height: "100%",
         width: "100%",
     },
-});
+    icon: {
+        color: "#1C304A",
+    },
+}));
 
 export default function User({ user }) {
     const classes = useStyles();
@@ -151,6 +155,7 @@ export default function User({ user }) {
                                     variant="contained"
                                     color="default"
                                     component="span"
+                                    className={classes.btn}
                                     style={{
                                         width: "50px",
                                         marginTop: "40px",
@@ -166,12 +171,13 @@ export default function User({ user }) {
                                     component="span"
                                     style={{
                                         backgroundColor: "#3788d8",
-                                    }}>
+                                    }}
+                                    className={classes.btn}>
                                     Bild hinzufuegen
                                 </Button>
                             </label>
                         )}
-                        <Typography variant="h4">
+                        <Typography style={{ color: "#1C304A" }} variant="h4">
                             {user.surname + " " + user.name}
                         </Typography>
                         <div
@@ -181,18 +187,18 @@ export default function User({ user }) {
                                 flexWrap: "wrap",
                                 justifyContent: "center",
                             }}>
-                            <EmailIcon />
+                            <EmailIcon className={classes.icon} />
                             <Typography display="inline" variant="subtitle1">
                                 {user.email}
                             </Typography>
-                            <PhoneIcon />
+                            <PhoneIcon className={classes.icon} />
                             <Typography display="inline" variant="subtitle1">
                                 {user.phone}
                             </Typography>
                         </div>
                         <Typography
                             variant="body2"
-                            color="textSecondary"
+                            style={{ color: "#1C304A" }}
                             component="p">
                             "{user.motto}"
                         </Typography>

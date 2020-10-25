@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        backgroundColor: "black",
+        backgroundColor: "#613291",
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
@@ -97,6 +98,12 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         textDecoration: "none",
+    },
+    icon: {
+        color: "#1C304A",
+    },
+    text: {
+        color: "#1C304A",
     },
 }));
 
@@ -191,25 +198,34 @@ export default function MiniDrawer() {
                     <Link className={classes.link} to="/messages">
                         <ListItem button>
                             <ListItemIcon>
-                                <MailIcon />
+                                <MailIcon className={classes.icon} />
                             </ListItemIcon>
-                            <ListItemText primary="Nachrichten" />
+                            <ListItemText
+                                className={classes.text}
+                                primary="Nachrichten"
+                            />
                         </ListItem>
                     </Link>
                     <Link className={classes.link} to="/forum">
                         <ListItem button>
                             <ListItemIcon>
-                                <ForumIcon />
+                                <ForumIcon className={classes.icon} />
                             </ListItemIcon>
-                            <ListItemText primary="Forum" />
+                            <ListItemText
+                                className={classes.text}
+                                primary="Forum"
+                            />
                         </ListItem>
                     </Link>
                     <Link className={classes.link} to="/events">
                         <ListItem button>
                             <ListItemIcon>
-                                <EventIcon />
+                                <EventIcon className={classes.icon} />
                             </ListItemIcon>
-                            <ListItemText primary="Veranstaltungen" />
+                            <ListItemText
+                                className={classes.text}
+                                primary="Veranstaltungen"
+                            />
                         </ListItem>
                     </Link>
                 </List>
@@ -218,25 +234,34 @@ export default function MiniDrawer() {
                     <Link className={classes.link} to="/bookofshadows">
                         <ListItem button>
                             <ListItemIcon>
-                                <LocalLibraryIcon />
+                                <LocalLibraryIcon className={classes.icon} />
                             </ListItemIcon>
-                            <ListItemText primary="Buch der Schatten" />
+                            <ListItemText
+                                className={classes.text}
+                                primary="Buch der Schatten"
+                            />
                         </ListItem>
                     </Link>
                     <Link className={classes.link} to="/witches">
                         <ListItem button>
                             <ListItemIcon>
-                                <GroupIcon />
+                                <GroupIcon className={classes.icon} />
                             </ListItemIcon>
-                            <ListItemText primary="Hexen" />
+                            <ListItemText
+                                className={classes.text}
+                                primary="Hexen"
+                            />
                         </ListItem>
                     </Link>
                     <Link className={classes.link} to="/photos">
                         <ListItem button>
                             <ListItemIcon>
-                                <PhotoLibraryIcon />
+                                <PhotoLibraryIcon className={classes.icon} />
                             </ListItemIcon>
-                            <ListItemText primary="Fotos" />
+                            <ListItemText
+                                className={classes.text}
+                                primary="Fotos"
+                            />
                         </ListItem>
                     </Link>
                 </List>

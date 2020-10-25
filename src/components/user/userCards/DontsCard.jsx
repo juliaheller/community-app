@@ -17,13 +17,14 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        color: "#5B6489",
     },
     cardHeader: {
-        backgroundColor: "black",
+        backgroundColor: "#5b6489",
         color: "white",
     },
     title: {
-        color: "black",
+        color: "#1C304A",
         fontWeight: "bold",
     },
 });

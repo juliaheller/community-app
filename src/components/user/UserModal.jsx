@@ -12,7 +12,7 @@ import { Divider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     form: {
         display: "flex",
         // flexDirection: "column",
@@ -31,8 +31,13 @@ const useStyles = makeStyles({
     btns: {
         display: "flex",
         justifyContent: "space-between",
+        secondary: theme.secondary,
     },
-});
+    btn: {
+        backgroundColor: theme.primaray,
+        color: "#1C304A",
+    },
+}));
 
 export default function UserModal({ user, open, setOpen }) {
     const classes = useStyles();
@@ -516,7 +521,10 @@ export default function UserModal({ user, open, setOpen }) {
                 </form>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} color="primary">
+                <Button
+                    onClick={handleClose}
+                    color="primary"
+                    className={classes.btns}>
                     Cancel
                 </Button>
 
@@ -527,15 +535,16 @@ export default function UserModal({ user, open, setOpen }) {
                             fontSize: "13px",
                             margin: "16px",
                         }}
+                        className={classes.btn}
                         color="secondary">
-                        delete account
+                        Account loeschen
                     </Button>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         style={{
-                            backgroundColor: "#3788d8",
+                            backgroundColor: "#660099",
                             margin: "16px",
                             width: "150px",
                             alignSelf: "flex-end",
@@ -543,7 +552,7 @@ export default function UserModal({ user, open, setOpen }) {
                         }}
                         className={classes.submit}
                         onClick={handleClose}>
-                        Save
+                        Speichern
                     </Button>
                 </div>
             </DialogActions>
