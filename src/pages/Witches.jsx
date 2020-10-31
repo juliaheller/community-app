@@ -10,6 +10,7 @@ import ContactMailIcon from "@material-ui/icons/ContactMail";
 
 // Components
 import User from "../components/user/User";
+import UserTable from "../components/user/UserTable.jsx";
 
 // Services
 
@@ -110,14 +111,10 @@ export default function Witches() {
                             color: "#1C304A",
                         }}
                     />
-                    <a
-                        className={classes.contactLink}
-                        href="https://drive.google.com/file/d/0By9JKH_OQiqEYkVZY2I5U0dodHM/view?usp=sharing"
-                        rel="noopener oreferrer"
-                        target="_blank">
-                        Adressenliste
-                    </a>{" "}
+                    Adressenliste
                 </Typography>
+
+                <UserTable user={user} users={users} />
 
                 <div id="allWitches" className={classes.witches}>
                     {users.map((user) => {

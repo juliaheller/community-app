@@ -373,7 +373,7 @@ export default function UserModal({ user, open, setOpen }) {
                             handleChange(event, "hobbies")
                         }></TextField>
                     {formData.magic ? (
-                        <div>
+                        <div className={classes.form}>
                             <TextField
                                 className={classes.textField}
                                 id="magicExperience"
@@ -431,8 +431,7 @@ export default function UserModal({ user, open, setOpen }) {
                             handleChange(event, "allergies")
                         }></TextField>
                     {formData.favourites ? (
-                        <div>
-                            {" "}
+                        <div className={classes.form}>
                             <TextField
                                 className={classes.textField}
                                 id="food"

@@ -3,12 +3,13 @@
     "users": [{
     "id": 1,
    "avatar": "https://phantastisch-lesen.com/wp-content/uploads/2018/02/Julia-Heller500.jpg",
-   "backgroundPic": "",
+   "backgroundPic": "https://cdn.pixabay.com/photo/2016/10/30/22/55/halloween-1784559_960_720.jpg",
     "joined": 1602954034,
     "surname": "Julia",
     "name": "Heller",
     "email": "julia@gmail.com",
-    "address": "Strasse Nr. PLZ Ort",
+    "phone": "0158 3982 8121",
+     "address": "Strasse Nr. PLZ Ort",
     "motto": "Es gibt keinen Weg. Der Weg entsteht beim Gehen.",
     "birthDate": "29.07.19xx",
     "birthPlace": "Friedrichroda",
@@ -17,10 +18,12 @@
     "children": "keine",
     "pets": "Lucia, Chihuahua",
     "hobbies": "singen, schreiben, tanzen",
-    "gods": "Freya, Hekate",
+   
     "magic": {
         "experience": "schamanische Praktiken und so",
-        "interest": "Tarot, Schamanismus, Sigillenmagie und so"
+        "interest": "Tarot, Schamanismus, Sigillenmagie und so",
+        "powerAnimal": "Loewe",
+         "gods": "Freya, Hekate"
     },
     "favourites": {
         "food": "Dicke Rippe mit Thueringer Kloessen & Rotkohl :-)",
@@ -28,7 +31,7 @@
         "music": "Cumbia, chill Indie, Electro",
         "movies": "Lucia y el Sexo",
         "series": "True Blood, Sense8",
-        "animals": "Kraftttier: Loewe",
+        "animals": "Hunde, Katzen",
         "places": "Plakias(Kreta), Spanien, Waelder"
     },
     "allergies": "keine",
@@ -42,6 +45,8 @@
     "surname": "Bibi",
     "name": "Bloxberg",
     "email": "bibi@gmail.com",
+    "phone": "0158 3982 8121",
+    "address": "Strasse Nr. PLZ Ort",
     "motto": "Hex, hex!",
     "birthDate": "10.01.19xx",
     "birthPlace": "Brocken",
@@ -53,15 +58,17 @@
     "gods": "Hekate",
     "magic": {
         "experience": "alles",
-        "interest": "Heilkunst"
+        "interest": "Heilkunst",
+         "powerAnimal": "Wolf",
+          "gods": "Hekate"
     },
     "favourites": {
-        "food": "Dicke Rippe mit Thueringer Kloessen & Rotkohl :-)",
+        "food": "Spaghettie",
         "books": "Urban Fantasy, Fantasy",
         "music": "Cumbia, chill Indie, Electro",
         "movies": "Lucia y el Sexo",
         "series": "True Blood, Sense8",
-        "animals": "Kraftttier: Loewe",
+        "animals": "Moewe",
         "places": "Plakias(Kreta), Spanien, Waelder"
     },
     "allergies": "keine",
@@ -75,6 +82,8 @@
     "surname": "Anna",
     "name": "Pu",
     "email": "a@gmail.com",
+    "phone": "0158 3982 8121",
+     "address": "Strasse Nr. PLZ Ort",
     "motto": "Holla, die Waldfee",
     "birthDate": "23.05.19xx",
     "birthPlace": "Wiese",
@@ -84,17 +93,19 @@
     "pets": "Kater",
     "hobbies": "essen",
     "gods": "Inanna",
-    "magic": {
-        "experience": "schamanische Praktiken und so",
-        "interest": "Tarot, Schamanismus, Sigillenmagie und so"
+   "magic": {
+        "experience": "alles",
+        "interest": "Heilkunst",
+         "powerAnimal": "Wolf",
+          "gods": "Hekate"
     },
     "favourites": {
-        "food": "Dicke Rippe mit Thueringer Kloessen & Rotkohl :-)",
+        "food": "Spaghettie",
         "books": "Urban Fantasy, Fantasy",
         "music": "Cumbia, chill Indie, Electro",
         "movies": "Lucia y el Sexo",
         "series": "True Blood, Sense8",
-        "animals": "Kraftttier: Loewe",
+        "animals": "Moewe",
         "places": "Plakias(Kreta), Spanien, Waelder"
     },
     "allergies": "keine",
@@ -105,12 +116,14 @@
 ],
  "user": {
     "id": 1,
-   "avatar": "",
-   "backgroundPic": "",
+   "avatar":  "https://phantastisch-lesen.com/wp-content/uploads/2018/02/Julia-Heller500.jpg",
+   "backgroundPic": "https://cdn.pixabay.com/photo/2016/10/30/22/55/halloween-1784559_960_720.jpg",
     "joined": 1602954034,
     "surname": "Julia",
     "name": "Heller",
     "email": "julia@gmail.com",
+    "phone": "0158 3982 8121",
+    "address": "Strasse Nr. PLZ Ort",
     "motto": "Es gibt keinen Weg. Der Weg entsteht beim Gehen.",
     "birthDate": "29.07.19xx",
     "birthPlace": "Friedrichroda",
@@ -119,10 +132,12 @@
     "children": "keine",
     "pets": "Lucia, Chihuahua",
     "hobbies": "singen, schreiben, tanzen",
-    "gods": "Freya, Hekate",
+   
     "magic": {
         "experience": "schamanische Praktiken und so",
-        "interest": "Tarot, Schamanismus, Sigillenmagie und so"
+        "interest": "Tarot, Schamanismus, Sigillenmagie und so",
+            "powerAnimal": "Loewe",
+         "gods": "Freya, Hekate"
     },
     "favourites": {
         "food": "Dicke Rippe mit Thueringer Kloessen & Rotkohl :-)",
@@ -130,7 +145,7 @@
         "music": "Cumbia, chill Indie, Electro",
         "movies": "Lucia y el Sexo",
         "series": "True Blood, Sense8",
-        "animals": "Kraftttier: Loewe",
+        "animals": "Hunde & Katzen",
         "places": "Plakias(Kreta), Spanien, Waelder"
     },
     "allergies": "keine",
