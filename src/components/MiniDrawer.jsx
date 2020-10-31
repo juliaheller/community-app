@@ -159,15 +159,17 @@ export default function MiniDrawer() {
                             </IconButton>
                         </Link>
                     </div>
-                    <Button
-                        aria-controls={open ? "menu-list-grow" : undefined}
-                        aria-haspopup="true"
-                        color="inherit">
-                        <Avatar
-                            alt=""
-                            // src={user.avatar}
-                        />
-                    </Button>
+                    <Link className={classes.link} to="/witches">
+                        <Button
+                            aria-controls={open ? "menu-list-grow" : undefined}
+                            aria-haspopup="true"
+                            color="inherit">
+                            <Avatar
+                                alt=""
+                                // src={user.avatar}
+                            />
+                        </Button>
+                    </Link>
                 </Toolbar>
             </AppBar>
             <Drawer
