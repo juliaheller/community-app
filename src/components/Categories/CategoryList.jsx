@@ -8,6 +8,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 
+import { categories, posts } from "./categoryMock.js";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: "100%",
@@ -18,28 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CategoryList() {
     const classes = useStyles();
-    const categories = [
-        {
-            name: "Orga & Planung",
-            image:
-                "https://cdn.pixabay.com/photo/2016/03/31/19/50/checklist-1295319_960_720.png",
-        },
-        {
-            name: "Diskussion & Abstimmung",
-            image:
-                "https://cdn.pixabay.com/photo/2017/01/08/10/49/group-1962592_960_720.png",
-        },
-        {
-            name: "Persoenliches",
-            image:
-                "https://cdn.pixabay.com/photo/2017/08/30/12/45/girl-2696947_960_720.jpg",
-        },
-        {
-            name: "Ankuendigungen",
-            image:
-                "https://cdn.pixabay.com/photo/2016/06/26/12/05/megaphone-1480342_960_720.jpg",
-        },
-    ];
 
     return (
         <Paper variant="outlined" className={classes.root}>
