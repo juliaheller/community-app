@@ -151,6 +151,28 @@
     "allergies": "keine",
     "dislike": "Intoleranz"
     
+},
+"categories": [
+  {
+    "name": "Orga",
+    "description": "Beitraege rund um Organisation und Planung",
+    "image": "",
+    "postsCount": 12,
+    "latestPost": {
+        "id": 234,
+        "title": "Schamanische Praktiken und so",
+        "createdAt": 123423434,
+        "createdBy": {"surname": "Julia", "name": "Heller", "avatar": "https://phantastisch-lesen.com/wp-content/uploads/2018/02/Julia-Heller500.jpg"},
+        "content": "Hallo zusammen, bla bla, bla",
+        "answers": [{}]
+    }
+}],
+
+"category": {
+    "name": "Orga",
+    "description": "Beitraege rund um Organisation und Planung",
+    "image": "",
+    "posts": []
 }
 
 }

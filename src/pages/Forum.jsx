@@ -1,6 +1,9 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+// components
+import CategoryList from "../components/Categories/CategoryList";
 const useStyles = makeStyles({
     root: {
         display: "flex",
@@ -16,6 +19,7 @@ export default function Forum() {
             <Typography variant="h3" component="h3">
                 Forum
             </Typography>
+            <CategoryList />
         </div>
     );
 }
