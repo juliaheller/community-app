@@ -8,7 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 
-import { categories, posts } from "./categoryMock.js";
+import { categories, posts } from "../../mocks/categories";
 
 const useStyles = makeStyles((theme) => ({
     root: {

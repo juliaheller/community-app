@@ -6,9 +6,9 @@ import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 
 // components
-import CategoryList from "../components/categories/CategoryList";
-import CategoryCard from "../components/categories/CategoryCard";
-import { categories } from "../components/categories/categoryMock.js";
+import CategoryList from "../components/Categories/CategoryList";
+import CategoryCard from "../components/Categories/CategoryCard";
+import {categories} from "../mocks/categories";
 
 const useStyles = makeStyles({
     root: {
