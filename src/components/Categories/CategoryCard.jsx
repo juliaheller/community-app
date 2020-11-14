@@ -10,11 +10,19 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
     root: {
-        width: "50%",
+        minWidth: "30%",
         margin: 16,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
     },
     media: {
         height: 140,
+    },
+    content: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
     },
 });
 
@@ -29,7 +37,7 @@ export default function CategoryCard({ category, index }) {
                     image={category.image}
                     title={category.name}
                 />
-                <CardContent>
+                <CardContent className={classes.content}>
                     <Typography gutterBottom variant="h5" component="h2">
                         {category.name}
                     </Typography>
