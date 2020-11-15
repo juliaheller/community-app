@@ -17,7 +17,7 @@ import Photos from "./pages/Photos";
 import Forum from "./pages/forum/Forum";
 import Login from "./pages/Login";
 import Witches from "./pages/Witches.jsx";
-import Orga from "./pages/forum/Orga";
+import Category from "./pages/forum/Category";
 
 const theme = createMuiTheme({
     palette: {
@@ -50,6 +50,7 @@ function App() {
                 <Router>
                     <MiniDrawer></MiniDrawer>
                     <Switch>
+                        <Route path="/login" component={Login}></Route>
                         <Route exact path="/" component={Home}></Route>
                         <Route path="/witches" component={Witches}></Route>
                         <Route path="/events" component={Events}></Route>
@@ -59,8 +60,9 @@ function App() {
                             path="/bookofshadows"
                             component={BookOfShadows}></Route>
                         <Route path="/forum" component={Forum}></Route>
-                        <Route path="/orga" component={Orga}></Route>
-                        <Route path="/login" component={Login}></Route>
+                        <Route
+                            path="/category/:id"
+                            component={Category}></Route>
                     </Switch>
                 </Router>
             </ThemeProvider>

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -26,18 +27,21 @@ const useStyles = makeStyles({
 });
 export default function Forum() {
     const classes = useStyles();
+
     return (
-        <div className={classes.root}>
-            <Typography variant="h3" component="h3">
-                Forum
-            </Typography>
-            <CategoryList />
-            <Divider />
-            <Paper className={classes.paper}>
-                {categories.map((category, index) => {
-                    return <CategoryCard category={category} key={index} />;
-                })}
-            </Paper>
+        <div>
+            <div className={classes.root}>
+                <Typography variant="h3" component="h3">
+                    Forum
+                </Typography>
+                <CategoryList />
+                <Divider />
+                <Paper className={classes.paper}>
+                    {categories.map((category, index) => {
+                        return <CategoryCard category={category} key={index} />;
+                    })}
+                </Paper>
+            </div>
         </div>
     );
 }
