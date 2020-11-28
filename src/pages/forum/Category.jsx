@@ -1,10 +1,10 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { categories } from "../../mocks/categories";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
-import { useParams } from "react-router";
+import PostCard from "../../components/posts/PostCard";
 
 const useStyles = makeStyles({
     root: {
@@ -22,14 +22,14 @@ const useStyles = makeStyles({
 });
 
 export default function Category() {
-    let { id } = useParams();
-    console.log(id);
-
     const classes = useStyles();
     return (
         <div className={classes.root}>
             <Paper>
-                <Typography variant="h3" component="h3"></Typography>
+                <Typography variant="h3" component="h3">
+                    {categories[0].name}
+                </Typography>
+                <PostCard></PostCard>
             </Paper>
         </div>
     );

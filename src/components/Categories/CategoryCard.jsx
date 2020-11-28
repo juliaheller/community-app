@@ -46,7 +46,14 @@ export default function CategoryCard({ category, index }) {
                         variant="body2"
                         color="textSecondary"
                         component="p">
+                        Aktuellestes Thema: Titel XY von user Z, Datum
                         Vorschautext letzter Post
+                    </Typography>
+                    <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p">
+                        100 Themen & 500 Kommentare
                     </Typography>
                 </CardContent>
             </CardActionArea>
