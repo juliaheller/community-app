@@ -5,13 +5,25 @@ const apiURL = process.env.REACT_APP_API_URL + "/users";
 
 export default {
     async getAll() {
-        const response = await fetch("https://hexen-api.herokuapp.com/users");
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                ...auth.getAuthHeader(),
+            },
+        };
+        const response = await fetch(apiURL, requestOptions);
         return await response.json();
     },
     async getOne(id) {
-        const response = await fetch(
-            "https://hexen-api.herokuapp.com/users/" + id + "/"
-        );
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                ...auth.getAuthHeader(),
+            },
+        };
+        const response = await fetch(apiURL + "/" + id + "/", requestOptions);
 
         return await response.json();
     },
@@ -20,7 +32,6 @@ export default {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                ...auth.getAuthHeader(),
             },
             body: JSON.stringify({
                 email: email,

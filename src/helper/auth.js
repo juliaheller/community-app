@@ -22,7 +22,9 @@ class Auth {
         return this.authenticated;
     }
     getAuthHeader() {
-        return { "x-access-token": window.localStorage.getItem("token") };
+        return {
+            authorization: "Bearer " + window.localStorage.getItem("token"),
+        };
     }
 }
 

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 // Services
-import AuthService from "../services/auth.service";
+import authService from "../services/auth.service";
 
 // Material UI
 import Avatar from "@material-ui/core/Avatar";
@@ -131,11 +131,11 @@ export default function Login(props) {
     const loginUser = async (event) => {
         event.preventDefault();
         try {
-            let response = await AuthService.loginUser(email, password);
+            let response = await authService.loginUser(email, password);
             console.log(response);
-            if (response.errors) {
+            if (response.statusCode === 401) {
                 setShowSnackbar(true);
-                setAlertMessage(response.errors);
+                setAlertMessage(response.message);
             } else {
                 auth.login(() => {
                     localStorage.setItem("token", response.token);
