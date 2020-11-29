@@ -24,6 +24,8 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
+//Add navigation tabs
+
 export default function Post(params) {
     const classes = useStyles();
     return (

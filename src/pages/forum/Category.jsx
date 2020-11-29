@@ -5,6 +5,7 @@ import { categories } from "../../mocks/categories";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import PostPreviewCard from "../../components/posts/PostPreviewCard";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
     root: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles({
         flexWrap: "wrap",
         justifyContent: "center",
     },
+    button: {
+        justifySelf: "flex-end",
+    },
 });
 
 export default function Category() {
@@ -29,6 +33,12 @@ export default function Category() {
                 <Typography variant="h3" component="h3">
                     {categories[0].name}
                 </Typography>
+                <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="primary">
+                    + Neuer Beitrag
+                </Button>
                 <PostPreviewCard></PostPreviewCard>
                 <Divider />
             </Paper>

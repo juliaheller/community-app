@@ -18,6 +18,7 @@ import Forum from "./pages/forum/Forum";
 import Login from "./pages/Login";
 import Witches from "./pages/Witches.jsx";
 import Category from "./pages/forum/Category";
+import Post from "./pages/forum/Post";
 
 const theme = createMuiTheme({
     palette: {
@@ -63,6 +64,7 @@ function App() {
                         <Route
                             path="/category/:id"
                             component={Category}></Route>
+                        <Route path="/post/:id" component={Post}></Route>
                     </Switch>
                 </Router>
             </ThemeProvider>

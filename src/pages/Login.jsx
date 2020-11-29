@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 // Services
-// import AuthService from "../services/AuthService";
+import AuthService from "../services/auth.service";
 
 // Material UI
 import Avatar from "@material-ui/core/Avatar";
@@ -22,15 +22,13 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { Alert } from "@material-ui/lab";
 import Divider from "@material-ui/core/Divider";
 
-// // Components
-// import TBAppBar from "../components/TBAppBar";
-// // helper
-// import auth from "../helper/auth";
+// helper
+import auth from "../helper/auth";
 
 // Media
 import witches from "../images/witches2.png";
 
-// require("dotenv").config();
+require("dotenv").config();
 // const appId = process.env.REACT_APP_FB_APP_ID;
 // const imageToBase64 = require("image-to-base64");
 
@@ -130,27 +128,25 @@ export default function Login(props) {
     const onSnackbarClose = (event) => {
         setShowSnackbar(false);
     };
-    // const loginUser = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //         let response = await AuthService.loginUser(email, password);
-
-    //         if (response.errors) {
-    //             setShowSnackbar(true);
-    //             setAlertMessage(response.errors);
-    //         } else {
-    //             auth.login(() => {
-    //                 localStorage.setItem("token", response.token);
-    //                 props.history.push("/");
-    //             });
-    //         }
-    //     } catch (error) {
-    //         setShowSnackbar(true);
-    //         setAlertMessage(error);
-    //     }
-    // };
-
-    // };
+    const loginUser = async (event) => {
+        event.preventDefault();
+        try {
+            let response = await AuthService.loginUser(email, password);
+            console.log(response);
+            if (response.errors) {
+                setShowSnackbar(true);
+                setAlertMessage(response.errors);
+            } else {
+                auth.login(() => {
+                    localStorage.setItem("token", response.token);
+                    props.history.push("/");
+                });
+            }
+        } catch (error) {
+            setShowSnackbar(true);
+            setAlertMessage(error);
+        }
+    };
 
     return (
         <div>
@@ -187,8 +183,7 @@ export default function Login(props) {
                         <form
                             className={classes.form}
                             noValidate
-                            // onSubmit={loginUser}
-                        >
+                            onSubmit={loginUser}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
