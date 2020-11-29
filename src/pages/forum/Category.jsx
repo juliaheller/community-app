@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { categories } from "../../mocks/categories";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
-import PostCard from "../../components/posts/PostCard";
+import PostPreviewCard from "../../components/posts/PostPreviewCard";
 
 const useStyles = makeStyles({
     root: {
@@ -29,7 +29,8 @@ export default function Category() {
                 <Typography variant="h3" component="h3">
                     {categories[0].name}
                 </Typography>
-                <PostCard></PostCard>
+                <PostPreviewCard></PostPreviewCard>
+                <Divider />
             </Paper>
         </div>
     );
