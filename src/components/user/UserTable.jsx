@@ -9,8 +9,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 const columns = [
-    { id: "surname", label: "Vorname", minWidth: 170 },
-    { id: "name", label: "Name", minWidth: 170 },
+    { id: "surname", label: "Nachname", minWidth: 170 },
+    { id: "name", label: "Vorname", minWidth: 170 },
     { id: "address", label: "Adresse", minWidth: 100 },
     {
         id: "phone",
@@ -86,8 +86,6 @@ export default function UserTable({ user, users }) {
                                         key={row.name}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
-                                            console.log(column.id);
-                                            console.log(row);
                                             return (
                                                 <TableCell
                                                     key={column.id}

@@ -62,7 +62,7 @@ function App() {
                             component={BookOfShadows}></Route>
                         <Route path="/forum" component={Forum}></Route>
                         <Route
-                            path="/category/:id"
+                            path="/categories/:id"
                             component={Category}></Route>
                         <Route path="/post/:id" component={Post}></Route>
                     </Switch>

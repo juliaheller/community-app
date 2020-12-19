@@ -1,5 +1,5 @@
 // Libraries
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -89,8 +89,9 @@ export default function Witches() {
     useEffect(() => {
         const fetchUsers = async () => {
             const allUsers = await userService.getAll();
-            const oneUser = await userService.getOne();
+            const oneUser = await userService.getOne(1);
             setUsers(allUsers);
+            console.log(allUsers);
             setUser(oneUser);
         };
         fetchUsers();

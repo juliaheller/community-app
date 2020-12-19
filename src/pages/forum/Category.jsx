@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { categories } from "../../mocks/categories";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import PostPreviewCard from "../../components/posts/PostPreviewCard";
 import Button from "@material-ui/core/Button";
+import categoryService from "../../services/category.service";
 
 const useStyles = makeStyles({
     root: {
@@ -25,13 +25,22 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Category() {
+export default function Category(id) {
     const classes = useStyles();
+    const [category, setCategory] = useState({});
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const oneCategory = await categoryService.getOne(id);
+            setCategory(oneCategory);
+        };
+        fetchCategories();
+    }, []);
     return (
         <div className={classes.root}>
             <Paper>
                 <Typography variant="h3" component="h3">
-                    {categories[0].name}
+                    {category.name}
                 </Typography>
                 <Button
                     className={classes.button}
