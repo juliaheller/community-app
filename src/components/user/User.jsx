@@ -18,6 +18,8 @@ import FavouritesCard from "./userCards/FavouritesCard";
 import DontsCard from "./userCards/DontsCard";
 import UserModal from "./UserModal.jsx";
 
+import userService from '../../services/user.service'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",
@@ -97,22 +99,39 @@ const useStyles = makeStyles((theme) => ({
 export default function User({ user }) {
     const classes = useStyles();
     const [formData, setFormData] = useState({});
+    
+    
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
-    const handleChange = (event) => {
+
+    const handleChange =  (event) => {
         let file = event.target.files[0];
         let reader = new FileReader();
-        reader.onloadend = () => {
-            console.log("image changed");
-            setFormData(
-                Object.assign({}, formData, {
-                    avatar: reader.result,
-                })
-            );
+        reader.onloadend = async () => {
+            console.log("image changed");//
+    
+            await changeUserPic(reader.result)
         };
         reader.readAsDataURL(file);
+      
+    };
+
+    const changeUserPic = async (avatar) => {      
+        await userService.updateUser(user.id, {avatar: avatar})
+            .then((response) => {
+                if (response.errors) {
+                    console.log(response.errors);
+                } else {                
+                    setFormData(response);
+                    console.log(formData)
+                    // dispatch({ type: "saveUser", userData: response });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     if (!user.id) {

@@ -12,6 +12,9 @@ import { Divider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
+// Service
+import userService from '../../services/user.service'
+
 const useStyles = makeStyles((theme) => ({
     form: {
         display: "flex",
@@ -55,8 +58,7 @@ export default function UserModal({ user, open, setOpen }) {
                 setLoading(false);
             }
         },
-        []
-        // [user]
+        [user]
     );
 
     const handleChange = (event, type) => {
@@ -230,18 +232,18 @@ export default function UserModal({ user, open, setOpen }) {
     };
     const changeUserData = (event) => {
         event.preventDefault();
-        // UserService.updateUser(formData._id, formData)
-        //     .then((response) => {
-        //         if (response.errors) {
-        //             console.log(response.errors);
-        //         } else {
-        //             setFormData(response);
-        //             dispatch({ type: "saveUser", userData: response });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
+        userService.updateUser(formData)
+            .then((response) => {
+                if (response.errors) {
+                    console.log(response.errors);
+                } else {
+                    setFormData(response);
+                    // dispatch({ type: "saveUser", userData: response });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
     return (
         <Dialog

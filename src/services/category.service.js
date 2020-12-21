@@ -23,7 +23,7 @@ export default {
 				...auth.getAuthHeader(),
 			},
 		};
-		const response = await fetch(apiURL + "/" + id + "/", requestOptions);
+		const response = await fetch(`${apiURL}/${id}`, requestOptions);
 
 		return await response.json();
 	},

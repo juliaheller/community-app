@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 });
 
 export default function CategoryCard({ category, index }) {
-    const classes = useStyles();
+    const classes = useStyles();    
 
     return (
         <Card className={classes.root} key={index}>

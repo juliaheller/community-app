@@ -6,6 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import PostPreviewCard from "../../components/posts/PostPreviewCard";
 import Button from "@material-ui/core/Button";
 import categoryService from "../../services/category.service";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -25,14 +26,16 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Category(id) {
+export default function Category() {
     const classes = useStyles();
     const [category, setCategory] = useState({});
+ let {id} = useParams();
 
     useEffect(() => {
         const fetchCategories = async () => {
             const oneCategory = await categoryService.getOne(id);
             setCategory(oneCategory);
+            console.log(category);
         };
         fetchCategories();
     }, []);
