@@ -10,13 +10,14 @@ import Divider from "@material-ui/core/Divider";
 import CategoryList from "../../components/categories/CategoryList";
 import CategoryCard from "./../../components/categories/CategoryCard";
 import categoryService from "../../services/category.service";
-
+import AppBar from '../../components/menu/AppBar'
 const useStyles = makeStyles({
     root: {
         display: "flex",
         flexDirection: "column",
-        width: "80%",
-        marginTop: "100px",
+        width: "100%",
+        // marginTop: "100px",
+        // marginLeft: "100px",
     },
     paper: {
         display: "flex",
