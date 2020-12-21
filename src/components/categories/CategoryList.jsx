@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -14,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         maxHeight: 300,
         overflow: "scroll",
+    },
+    link: {
+        textDecoration: "none",
     },
 }));
 
@@ -35,8 +39,9 @@ export default function CategoryList() {
     return (
         <Paper variant="outlined" className={classes.root}>
             <List>
-                {categories.map((category) => {
+                {categories.map((category, index) => {
                     return (
+                        <Link className={classes.link} to={`/categories/${category.id}`} key={index}>
                         <ListItem key={category.name}>
                             <ListItemAvatar>
                                 <Avatar
@@ -46,6 +51,7 @@ export default function CategoryList() {
                             <ListItemText primary={category.name} />
                             <Divider />
                         </ListItem>
+                        </Link>
                     );
                 })}
             </List>

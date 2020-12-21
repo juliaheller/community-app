@@ -25,6 +25,9 @@ const useStyles = makeStyles({
         flexDirection: "column",
         justifyContent: "space-between",
     },
+    link: {
+        textDecoration: "none",
+    },
 });
 
 export default function CategoryCard({ category, index }) {
@@ -32,16 +35,21 @@ export default function CategoryCard({ category, index }) {
 
     return (
         <Card className={classes.root} key={index}>
+           
             <CardActionArea>
+            <Link className={classes.link} to={`/categories/${category.id}`}>
                 <CardMedia
                     className={classes.media}
                     image={category.image}
                     title={category.name}
                 />
+                </Link>
                 <CardContent className={classes.content}>
+                <Link className={classes.link}  to={`/categories/${category.id}`}>
                     <Typography gutterBottom variant="h5" component="h2">
                         {category.name}
                     </Typography>
+                    </Link>
                     <Typography
                         variant="body2"
                         color="textSecondary"
@@ -58,7 +66,7 @@ export default function CategoryCard({ category, index }) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Link to={`/category/${category.id}`}>
+                <Link className={classes.link} to={`/categories/${category.id}`}>
                     {" "}
                     <Button size="small" color="primary">
                         Eintreten
