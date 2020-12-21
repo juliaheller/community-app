@@ -30,7 +30,7 @@ export default function CategoryList() {
             console.log(categories);
         }
       fetchCategories();
-    }, [categories]);
+    }, []);
 
     return (
         <Paper variant="outlined" className={classes.root}>
