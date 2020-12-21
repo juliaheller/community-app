@@ -14,7 +14,19 @@ import ForumIcon from "@material-ui/icons/Forum";
 import EventIcon from "@material-ui/icons/Event";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { makeStyles } from "@material-ui/core/styles";
 
+const useStyles = makeStyles({
+  link: {
+    textDecoration: "none",
+},
+icon: {
+    color: "#1C304A",
+},
+text: {
+    color: "#1C304A",
+},
+});
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
@@ -43,19 +55,11 @@ const StyledMenuItem = withStyles((theme) => ({
         color: theme.palette.common.white,
       },
     },
-    link: {
-        textDecoration: "none",
-    },
-    icon: {
-        color: "#1C304A",
-    },
-    text: {
-        color: "#1C304A",
-    },
   },
 }))(MenuItem);
 
 export default function HamburgerMenu() {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -85,12 +89,12 @@ export default function HamburgerMenu() {
         onClose={handleClose}
       >
         <StyledMenuItem onClick={handleClose}>
-    <Link  to="/messages">
+    <Link className={classes.link} to="/messages">
         <ListItem button>
                 <ListItemIcon>
-                    <MailIcon  />
+                    <MailIcon  className={classes.icon}/>
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText className={classes.text}
                     
                     primary="Nachrichten"
                 />
@@ -99,12 +103,12 @@ export default function HamburgerMenu() {
 </StyledMenuItem>
             
 <StyledMenuItem onClick={handleClose}>
-        <Link  to="/forum">
+        <Link className={classes.link} to="/forum">
             <ListItem button>
                 <ListItemIcon>
-                    <ForumIcon  />
+                    <ForumIcon  className={classes.icon}/>
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText className={classes.text}
                     
                     primary="Forum"
                 />
@@ -113,12 +117,12 @@ export default function HamburgerMenu() {
         </StyledMenuItem>
 
         <StyledMenuItem onClick={handleClose}>
-        <Link  to="/events">
+        <Link className={classes.link} to="/events">
             <ListItem button>
                 <ListItemIcon>
-                    <EventIcon  />
+                    <EventIcon className={classes.icon} />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText className={classes.text}
                     
                     primary="Veranstaltungen"
                 />
@@ -126,12 +130,12 @@ export default function HamburgerMenu() {
         </Link>
         </StyledMenuItem>
     <StyledMenuItem onClick={handleClose}>
-        <Link  to="/bookofshadows">
+        <Link className={classes.link} to="/bookofshadows">
             <ListItem button>
                 <ListItemIcon>
-                    <LocalLibraryIcon  />
+                    <LocalLibraryIcon className={classes.icon} />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText className={classes.text}
                     
                     primary="Buch der Schatten"
                 />
@@ -139,12 +143,12 @@ export default function HamburgerMenu() {
         </Link>
         </StyledMenuItem>
         <StyledMenuItem onClick={handleClose}>
-        <Link  to="/witches">
+        <Link className={classes.link} to="/witches">
             <ListItem button>
                 <ListItemIcon>
-                    <GroupIcon  />
+                    <GroupIcon className={classes.icon} />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText className={classes.text}
                     
                     primary="Hexen"
                 />
@@ -152,12 +156,12 @@ export default function HamburgerMenu() {
         </Link>
         </StyledMenuItem>
         <StyledMenuItem onClick={handleClose}>
-        <Link  to="/photos">
+        <Link className={classes.link} to="/photos">
             <ListItem button>
                 <ListItemIcon>
-                    <PhotoLibraryIcon  />
+                    <PhotoLibraryIcon className={classes.icon} />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText className={classes.text}
                     
                     primary="Fotos"
                 />
