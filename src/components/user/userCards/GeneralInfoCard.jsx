@@ -70,6 +70,17 @@ export default function GeneralInfoCard({ user }) {
                 </Typography>
                 <Divider />
                 <Typography className={classes.title} align="left">
+                    Adresse:
+                </Typography>
+                <Typography
+                    variant="body2"
+                    component="p"
+                    align="left"
+                    gutterBottom>
+                    {user.address}
+                </Typography>
+                <Divider />
+                <Typography className={classes.title} align="left">
                     Beruf:
                 </Typography>
                 <Typography
