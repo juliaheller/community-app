@@ -16,6 +16,7 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        color: "#5B6489",
     },
     media: {
         height: 140,

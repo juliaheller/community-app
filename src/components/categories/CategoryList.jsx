@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         maxHeight: 300,
         overflow: "scroll",
+        color: "#5B6489",
     },
     link: {
         textDecoration: "none",

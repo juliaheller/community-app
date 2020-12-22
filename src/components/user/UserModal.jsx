@@ -26,10 +26,12 @@ const useStyles = makeStyles((theme) => ({
         height: "500px",
         justifyContent: "space-between",
         alignItems: "center",
+        color: "#5B6489",
     },
     textField: {
         width: "400px",
         height: "200px",
+        color: "#5B6489",
     },
     btns: {
         display: "flex",
@@ -47,6 +49,7 @@ export default function UserModal({ user, open, setOpen }) {
     // const { user, dispatch } = useContext(userContext);
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(true);
+    
     const handleClose = () => {
         setOpen(false);
     };
@@ -232,13 +235,14 @@ export default function UserModal({ user, open, setOpen }) {
     };
     const changeUserData = (event) => {
         event.preventDefault();
-        userService.updateUser(formData)
+        userService.updateUser(formData.id, formData)
             .then((response) => {
                 if (response.errors) {
                     console.log(response.errors);
                 } else {
                     setFormData(response);
                     // dispatch({ type: "saveUser", userData: response });
+                    handleClose();
                 }
             })
             .catch((error) => {
@@ -552,7 +556,7 @@ export default function UserModal({ user, open, setOpen }) {
                             color: "white",
                         }}
                         className={classes.submit}
-                        onClick={handleClose}>
+                        onClick={(event) => changeUserData(event)}>
                         Speichern
                     </Button>
                 </div>

@@ -13,6 +13,7 @@ const useStyles = makeStyles({
         minWidth: "300px",
         maxWidth: "100%",
         marginTop: "50px",
+        color: "#5B6489",
     },
     content: {
         display: "flex",

@@ -12,7 +12,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import CommentCard from "./CommentCard";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -20,6 +19,7 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: "80%",
+        color: "#5B6489",
     },
     media: {
         height: 0,
