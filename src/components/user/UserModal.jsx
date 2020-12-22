@@ -86,6 +86,13 @@ export default function UserModal({ user, open, setOpen }) {
                     })
                 );
                 break;
+                case "address":
+                setFormData(
+                    Object.assign({}, formData, {
+                        address: event.target.value,
+                    })
+                );
+                break;
             case "phone":
                 setFormData(
                     Object.assign({}, formData, {
@@ -299,6 +306,16 @@ export default function UserModal({ user, open, setOpen }) {
                         value={formData.email}
                         variant="standard"
                         disabled></TextField>
+                         <TextField
+                        className={classes.textField}
+                        id="address"
+                        label="Adresse"
+                        value={formData.address}
+                        variant="outlined"
+                        onChange={(event) =>
+                            handleChange(event, "address")
+                        }
+                        ></TextField>
                     <TextField
                         className={classes.textField}
                         id="phone"
