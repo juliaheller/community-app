@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function User({ user }) {
     const classes = useStyles();
-    const [formData, setFormData] = useState({});
+    const [userData, setUserData] = useState(user);
     
     
     const [open, setOpen] = useState(false);
@@ -124,8 +124,8 @@ export default function User({ user }) {
                 if (response.errors) {
                     console.log(response.errors);
                 } else {                
-                    setFormData(response);
-                    console.log(formData)
+                    setUserData(response);
+                    console.log(userData)
                     // dispatch({ type: "saveUser", userData: response });
                 }
             })
@@ -144,11 +144,11 @@ export default function User({ user }) {
                     <div
                         className={classes.backgroundPic}
                         style={{
-                            backgroundImage: `url(${user.backgroundPic})`,
+                            backgroundImage: `url(${userData.backgroundPic})`,
                         }}>
                         <img
-                            alt={user.surname}
-                            src={user.avatar}
+                            alt={userData.surname}
+                            src={userData.avatar}
                             className={classes.large}
                         />
                     </div>
@@ -168,7 +168,7 @@ export default function User({ user }) {
                                 handleChange(event, "avatar");
                             }}
                         />
-                        {user.avatar ? (
+                        {userData.avatar ? (
                             <label htmlFor="contained-button-file">
                                 <Button
                                     variant="contained"
@@ -208,24 +208,23 @@ export default function User({ user }) {
                             }}>
                             <EmailIcon className={classes.icon} />
                             <Typography display="inline" variant="subtitle1">
-                                {user.email}
+                                {userData.email}
                             </Typography>
                             <PhoneIcon className={classes.icon} />
                             <Typography display="inline" variant="subtitle1">
-                                {user.phone}
+                                {userData.phone}
                             </Typography>
                         </div>
                         <Typography
                             variant="body2"
                             style={{ color: "#1C304A" }}
                             component="p">
-                            "{user.motto}"
+                            "{userData.motto}"
                         </Typography>
                         <div className={classes.cardBox}>
-                            <GeneralInfoCard user={user} />
-                            <FavouritesCard user={user} />
-                            <MagicCard user={user} />
-                            <DontsCard user={user} />
+                            <GeneralInfoCard user={userData} />
+                            <FavouritesCard user={userData} />
+                            <DontsCard user={userData} />
                         </div>
                         <Button
                             variant="outlined"
@@ -233,7 +232,7 @@ export default function User({ user }) {
                             onClick={handleClickOpen}>
                             <EditIcon></EditIcon> Profil bearbeiten
                         </Button>{" "}
-                        <UserModal user={user} open={open} setOpen={setOpen} />
+                        <UserModal user={userData} open={open} setOpen={setOpen} />
                     </Paper>
                 </div>
             </Paper>
