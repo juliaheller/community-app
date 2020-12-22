@@ -82,6 +82,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
+    backgroundPicBtn: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "flex-end",
+    },
     cardBox: {
         display: "flex",
         alignItems: "flex-start",
@@ -106,33 +111,32 @@ export default function User({ user }) {
         setOpen(true);
     };
 
-    const handleChange =  (event) => {
+    const handleChange =  (event, type) => {
         let file = event.target.files[0];
         let reader = new FileReader();
         reader.onloadend = async () => {
             console.log("image changed");//
-    
-            await changeUserPic(reader.result)
+   
+            await changePic(reader.result, type) 
+            
         };
         reader.readAsDataURL(file);
       
     };
 
-    const changeUserPic = async (avatar) => {      
-        await userService.updateUser(user.id, {avatar: avatar})
-            .then((response) => {
-                if (response.errors) {
-                    console.log(response.errors);
-                } else {                
-                    setUserData(response);
-                    console.log(userData)
-                    // dispatch({ type: "saveUser", userData: response });
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    const changePic = async (picture, type) => {    
+        const newValues = {};
+        newValues[type] = picture;
+        console.log(newValues);
+        try {
+            const response =  await userService.updateUser(user.id, newValues)
+            setUserData(response);
+             // dispatch({ type: "saveUser", userData: response });
+        } catch (error) {
+            console.log(error);
+        }
     };
+
 
     if (!user.id) {
         return <div></div>;
@@ -141,11 +145,55 @@ export default function User({ user }) {
         <div className={classes.root}>
             <Paper className={classes.paper}>
                 <div className={classes.cardContent}>
+            
+                <div className={classes.backgroundPicBtn}>
+                    
+                    
+                    <input
+                            id="contained-button-file"
+                            accept="image/*"
+                            className={classes.input}
+                            type="file"
+                            onChange={(event) => {
+                                handleChange(event, "backgroundPic");
+                            }}
+                        />
+                           {userData.backgroundPic ? (
+                            <label htmlFor="contained-button-file">
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    component="span"
+                                    className={classes.btn}
+                                    style={{
+                                        width: "50px",
+                                        marginTop: "40px",
+                                    }}>
+                                    <EditIcon></EditIcon>
+                                </Button>
+                            </label>
+                        ) : (
+                            <label htmlFor="contained-button-file">
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    component="span"
+                                    style={{
+                                        backgroundColor: "#5b6489",
+                                        color: "white"
+                                    }}
+                                    className={classes.btn}>
+                                    Hintergrundbild hinzufügen
+                                </Button>
+                            </label> )}
+                           </div>
                     <div
                         className={classes.backgroundPic}
                         style={{
                             backgroundImage: `url(${userData.backgroundPic})`,
                         }}>
+                          
+                          
                         <img
                             alt={userData.surname}
                             src={userData.avatar}
@@ -168,6 +216,7 @@ export default function User({ user }) {
                                 handleChange(event, "avatar");
                             }}
                         />
+                        
                         {userData.avatar ? (
                             <label htmlFor="contained-button-file">
                                 <Button
@@ -189,10 +238,11 @@ export default function User({ user }) {
                                     color="default"
                                     component="span"
                                     style={{
-                                        backgroundColor: "#3788d8",
+                                        backgroundColor: "#5b6489",
+                                        color: "white"
                                     }}
                                     className={classes.btn}>
-                                    Bild hinzufuegen
+                                    Bild hinzufügen
                                 </Button>
                             </label>
                         )}
