@@ -2,7 +2,7 @@
 import React, { useContext, useState, useEffect } from "react";
 
 // Material UI
-import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
+import {makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
@@ -225,6 +225,7 @@ export default function User({ user }) {
                             <GeneralInfoCard user={userData} />
                             <FavouritesCard user={userData} />
                             <DontsCard user={userData} />
+                            <MagicCard user={userData} />
                         </div>
                         <Button
                             variant="outlined"
