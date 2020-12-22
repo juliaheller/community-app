@@ -115,7 +115,7 @@ export default function Witches() {
                     Adressenliste
                 </Typography>
 
-                <UserTable user={user} users={users} />
+                <UserTable users={users} />
 
                 <div id="allWitches" className={classes.witches}>
                     {users.map((user) => {

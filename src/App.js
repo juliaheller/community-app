@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "fontsource-roboto";
 import "./App.css";
@@ -7,6 +7,8 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 // Components
 import AppBar from "../src/components/menu/AppBar";
+import { ProtectedRoute } from "../src/components/ProtectedRoute";
+
 // Pages
 import Home from "./pages/Home.jsx";
 import Events from "./pages/Events";
@@ -51,15 +53,26 @@ function App() {
 					<AppBar></AppBar>
 					<Switch>
 						<Route path="/login" component={Login}></Route>
-						<Route exact path="/" component={Home}></Route>
-						<Route path="/witches" component={Witches}></Route>
-						<Route path="/events" component={Events}></Route>
-						<Route path="/messages" component={Messages}></Route>
-						<Route path="/photos" component={Photos}></Route>
-						<Route path="/bookofshadows" component={BookOfShadows}></Route>
-						<Route path="/forum" component={Forum}></Route>
-						<Route path="/categories/:id" component={Category}></Route>
-						<Route path="/post/:id" component={Post}></Route>
+
+						<ProtectedRoute path="/witches" component={Witches} />
+						<ProtectedRoute exact path="/" component={Home}></ProtectedRoute>
+						<ProtectedRoute path="/events" component={Events}></ProtectedRoute>
+						<ProtectedRoute
+							path="/messages"
+							component={Messages}
+						></ProtectedRoute>
+						<ProtectedRoute path="/photos" component={Photos}></ProtectedRoute>
+						<ProtectedRoute
+							path="/bookofshadows"
+							component={BookOfShadows}
+						></ProtectedRoute>
+						<ProtectedRoute path="/forum" component={Forum}></ProtectedRoute>
+						<ProtectedRoute
+							path="/categories/:id"
+							component={Category}
+						></ProtectedRoute>
+						<ProtectedRoute path="/post/:id" component={Post}></ProtectedRoute>
+						<Route path="*" component={() => "404 Page not found"} />
 					</Switch>
 				</Router>
 			</ThemeProvider>

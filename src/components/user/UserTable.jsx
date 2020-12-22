@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function UserTable({ user, users }) {
+export default function UserTable({ users }) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
