@@ -16,7 +16,6 @@ const useStyles = makeStyles({
 export default function Home() {
     const classes = useStyles();
     const state = store.getState();
-    console.log(state);
     return (
         <div className={classes.root}>
             <Typography

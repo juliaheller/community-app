@@ -15,6 +15,10 @@ import Button from "@material-ui/core/Button";
 // Service
 import userService from '../../services/user.service'
 
+// redux
+import { updateUser } from '../../redux/user/user.actions';
+import store from "../../redux/store";
+
 const useStyles = makeStyles((theme) => ({
     form: {
         display: "flex",
@@ -242,20 +246,14 @@ export default function UserModal({ user, open, setOpen }) {
     };
     const changeUserData = (event) => {
         event.preventDefault();
-        userService.updateUser(formData.id, formData)
-            .then((response) => {
-                if (response.errors) {
-                    console.log(response.errors);
-                } else {
-                    setFormData(response);
-                    // dispatch({ type: "saveUser", userData: response });
-                    handleClose();
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        try {
+            store.dispatch(updateUser(formData.id, formData))
+            handleClose();
+        } catch (error) {
+            console.log(error);
+        }
     };
+    
     return (
         <Dialog
             fullScreen
