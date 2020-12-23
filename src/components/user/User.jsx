@@ -1,5 +1,5 @@
 // Libraries
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // Material UI
 import {makeStyles } from "@material-ui/core/styles";
@@ -18,7 +18,8 @@ import FavouritesCard from "./userCards/FavouritesCard";
 import DontsCard from "./userCards/DontsCard";
 import UserModal from "./UserModal.jsx";
 
-import userService from '../../services/user.service'
+import userService from '../../services/user.service';
+import { updateUser } from '../../redux/user/user.actions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -131,7 +132,8 @@ export default function User({ user }) {
         try {
             const response =  await userService.updateUser(user.id, newValues)
             setUserData(response);
-             // dispatch({ type: "saveUser", userData: response });
+            updateUser(response);
+             // dispatch({ type: "UPDATE", userData: response });
         } catch (error) {
             console.log(error);
         }
