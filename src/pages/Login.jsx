@@ -22,9 +22,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { Alert } from "@material-ui/lab";
 import Divider from "@material-ui/core/Divider";
 
-// helper
-import auth from "../helper/auth";
-
 // redux
 import { login } from '../redux/auth/auth.actions';
 import store from "../redux/store";

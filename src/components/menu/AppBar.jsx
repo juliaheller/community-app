@@ -11,13 +11,7 @@ import Menu from '@material-ui/core/Menu';
 
 
 import HamburgerMenu from './HamburgerMenu';
-import store from '../../redux/store';
 import { useSelector } from 'react-redux'
-
-export const CounterComponent = () => {
-  const counter = useSelector(state => state.counter)
-  return <div>{counter}</div>
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +32,7 @@ export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const auth = useSelector(state => state.auth)
-  console.log(auth);
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };

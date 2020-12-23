@@ -1,4 +1,4 @@
-import { UPDATE } from "./user.types";
+import { UPDATE, GET_ONE } from "./user.types";
 
 const initialState = {
 	user: {},
@@ -12,6 +12,13 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				id: id,
+				user: user,
+			};
+		}
+		case GET_ONE: {
+			const { user } = action.payload;
+			return {
+				...state,
 				user: user,
 			};
 		}

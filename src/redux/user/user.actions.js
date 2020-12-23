@@ -4,11 +4,12 @@ import userService from "../../services/user.service";
 export const getUser = (id) => async (dispatch) => {
 	try {
 		const user = await userService.getOne(id);
+		console.info(user);
 		if (user) {
 			dispatch({
 				type: GET_ONE,
 				payload: {
-					id: id,
+					user: user,
 				},
 			});
 			return Promise.resolve();

@@ -13,8 +13,15 @@ import User from "../components/user/User";
 import UserTable from "../components/user/UserTable.jsx";
 
 // Services
-
 import userService from "../services/user.service";
+import authService from "../../src/services/auth.service";
+
+// Redux
+import { useSelector } from 'react-redux';
+import {getUser} from '../redux/user/user.actions';
+import store from "../redux/store";
+
+
 
 const useStyles = makeStyles({
     root: {
@@ -84,18 +91,29 @@ const useStyles = makeStyles({
 export default function Witches() {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
-    const [user, setUser] = useState({});
+    const {user} = useSelector(state =>state.user);
+    const {me} = useSelector(state => state.auth);
+
+    const selectUser = async (id) => {
+        console.log("selectUser()", id);
+        try {
+            await store.dispatch(getUser(id));       
+       } catch (error) {     
+           console.warn(error)
+       }
+    }
+   
 
     useEffect(() => {
+        selectUser(me.id);
         const fetchUsers = async () => {
-            const allUsers = await userService.getAll();
-            const oneUser = await userService.getOne(1);
+            const allUsers = await userService.getAll();     
             setUsers(allUsers);
-            console.log(allUsers);
-            setUser(oneUser);
         };
         fetchUsers();
     }, []);
+
+    
 
     return (
         <div className={classes.root}>
@@ -120,12 +138,14 @@ export default function Witches() {
                 <div id="allWitches" className={classes.witches}>
                     {users.map((user) => {
                         return (
+                            <div key={user.id} onClick={() => {selectUser(user.id)}}>
                             <Avatar
                                 alt={user.surname + user.name}
                                 src={user.avatar}
                                 className={classes.small}
-                                key={user.id}
+                                
                             />
+                            </div>
                         );
                     })}
                 </div>
