@@ -136,13 +136,14 @@ export default function Login(props) {
         setShowSnackbar(false);
     };
     const loginUser = async (event) => {
-        event.preventDefault();       
+        event.preventDefault();
         try {
-            await store.dispatch(login(email, password)); 
-            props.history.push("/");
+             await store.dispatch(login(email, password));
+             props.history.push("/");
         } catch (error) {
             setShowSnackbar(true);
             setAlertMessage(error);
+            console.warn(error)
         }
     };
 
