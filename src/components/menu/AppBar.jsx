@@ -1,5 +1,9 @@
-import React from 'react';
 
+// Libraries
+import React from 'react';
+import { Link } from "react-router-dom";
+
+// Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,9 +12,9 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-
-
 import HamburgerMenu from './HamburgerMenu';
+
+// Redux
 import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +35,7 @@ export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const auth = useSelector(state => state.auth)
+
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,7 +83,7 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Mein Profil</MenuItem>
+               <Link to="/profile"><MenuItem onClick={handleClose}>Mein Profil</MenuItem></Link>
               </Menu>
             </div>
           )}

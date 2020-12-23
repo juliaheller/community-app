@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Profiler, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "fontsource-roboto";
 import "./App.css";
@@ -20,6 +20,7 @@ import Login from "./pages/Login";
 import Witches from "./pages/Witches.jsx";
 import Category from "./pages/forum/Category";
 import Post from "./pages/forum/Post";
+import Profile from "./pages/forum/Profile";
 
 const theme = createMuiTheme({
 	palette: {
@@ -67,6 +68,10 @@ function App() {
 							component={BookOfShadows}
 						></ProtectedRoute>
 						<ProtectedRoute path="/forum" component={Forum}></ProtectedRoute>
+						<ProtectedRoute
+							path="/profile"
+							component={Profile}
+						></ProtectedRoute>
 						<ProtectedRoute
 							path="/categories/:id"
 							component={Category}
