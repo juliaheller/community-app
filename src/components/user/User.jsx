@@ -18,8 +18,9 @@ import FavouritesCard from "./userCards/FavouritesCard";
 import DontsCard from "./userCards/DontsCard";
 import UserModal from "./UserModal.jsx";
 
-import userService from '../../services/user.service';
+// redux
 import { updateUser } from '../../redux/user/user.actions';
+import store from "../../redux/store";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -104,10 +105,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function User({ user }) {
     const classes = useStyles();
-    const [userData, setUserData] = useState(user);
-    
-    
     const [open, setOpen] = useState(false);
+
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -125,15 +125,11 @@ export default function User({ user }) {
       
     };
 
-    const changePic = async (picture, type) => {    
+    const changePic =  (picture, type) => {    
         const newValues = {};
         newValues[type] = picture;
-        console.log(newValues);
         try {
-            const response =  await userService.updateUser(user.id, newValues)
-            setUserData(response);
-            updateUser(response);
-             // dispatch({ type: "UPDATE", userData: response });
+            store.dispatch(updateUser(user.id, newValues))
         } catch (error) {
             console.log(error);
         }
@@ -152,7 +148,7 @@ export default function User({ user }) {
                     
                     
                     <input
-                            id="contained-button-file"
+                            id="contained-button"
                             accept="image/*"
                             className={classes.input}
                             type="file"
@@ -160,8 +156,8 @@ export default function User({ user }) {
                                 handleChange(event, "backgroundPic");
                             }}
                         />
-                           {userData.backgroundPic ? (
-                            <label htmlFor="contained-button-file">
+                           {user.backgroundPic ? (
+                            <label htmlFor="contained-button">
                                 <Button
                                     variant="contained"
                                     color="default"
@@ -175,7 +171,7 @@ export default function User({ user }) {
                                 </Button>
                             </label>
                         ) : (
-                            <label htmlFor="contained-button-file">
+                            <label htmlFor="contained-button">
                                 <Button
                                     variant="contained"
                                     color="default"
@@ -192,13 +188,13 @@ export default function User({ user }) {
                     <div
                         className={classes.backgroundPic}
                         style={{
-                            backgroundImage: `url(${userData.backgroundPic})`,
+                            backgroundImage: `url(${user.backgroundPic})`,
                         }}>
                           
                           
                         <img
-                            alt={userData.surname}
-                            src={userData.avatar}
+                            alt={user.surname}
+                            src={user.avatar}
                             className={classes.large}
                         />
                     </div>
@@ -217,9 +213,8 @@ export default function User({ user }) {
                             onChange={(event) => {
                                 handleChange(event, "avatar");
                             }}
-                        />
-                        
-                        {userData.avatar ? (
+                        />   
+                        {user.avatar ? (
                             <label htmlFor="contained-button-file">
                                 <Button
                                     variant="contained"
@@ -260,24 +255,24 @@ export default function User({ user }) {
                             }}>
                             <EmailIcon className={classes.icon} />
                             <Typography display="inline" variant="subtitle1">
-                                {userData.email}
+                                {user.email}
                             </Typography>
                             <PhoneIcon className={classes.icon} />
                             <Typography display="inline" variant="subtitle1">
-                                {userData.phone}
+                                {user.phone}
                             </Typography>
                         </div>
                         <Typography
                             variant="body2"
                             style={{ color: "#1C304A" }}
                             component="p">
-                            "{userData.motto}"
+                            "{user.motto}"
                         </Typography>
                         <div className={classes.cardBox}>
-                            <GeneralInfoCard user={userData} />
-                            <FavouritesCard user={userData} />
-                            <DontsCard user={userData} />
-                            <MagicCard user={userData} />
+                            <GeneralInfoCard user={user} />
+                            <FavouritesCard user={user} />
+                            <DontsCard user={user} />
+                            <MagicCard user={user} />
                         </div>
                         <Button
                             variant="outlined"
@@ -285,7 +280,7 @@ export default function User({ user }) {
                             onClick={handleClickOpen}>
                             <EditIcon></EditIcon> Profil bearbeiten
                         </Button>{" "}
-                        <UserModal user={userData} open={open} setOpen={setOpen} />
+                        <UserModal user={user} open={open} setOpen={setOpen} />
                     </Paper>
                 </div>
             </Paper>
