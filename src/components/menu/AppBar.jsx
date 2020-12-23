@@ -11,7 +11,13 @@ import Menu from '@material-ui/core/Menu';
 
 
 import HamburgerMenu from './HamburgerMenu';
+import store from '../../redux/store';
+import { useSelector } from 'react-redux'
 
+export const CounterComponent = () => {
+  const counter = useSelector(state => state.counter)
+  return <div>{counter}</div>
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuAppBar() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  // const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-
+  const auth = useSelector(state => state.auth)
+  console.log(auth);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -53,7 +59,7 @@ export default function MenuAppBar() {
          
           <Typography variant="h6" className={classes.title}>
           Tempel der Sophia          </Typography>
-          {auth && (
+          {auth.isLoggedIn && (
             <div>
               <IconButton
                 aria-label="account of current user"
