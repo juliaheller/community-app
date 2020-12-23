@@ -21,6 +21,8 @@ import UserModal from "./UserModal.jsx";
 // redux
 import { updateUser } from '../../redux/user/user.actions';
 import store from "../../redux/store";
+import { useSelector } from 'react-redux';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
         clipPath: "circle(100px at center)",
         objectFit: "cover",
         marginBottom: "-20px",
+    },
+    placeholder: {
+        width: "50px",
+        height: "40px",
+        marginBottom: "40px",
     },
     witches: {
         display: "flex",
@@ -106,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
 export default function User({ user }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-
+    const {me} = useSelector(state => state.auth);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -144,9 +151,7 @@ export default function User({ user }) {
             <Paper className={classes.paper}>
                 <div className={classes.cardContent}>
             
-                <div className={classes.backgroundPicBtn}>
-                    
-                    
+                {me.id === user.id ? <div className={classes.backgroundPicBtn}>
                     <input
                             id="contained-button"
                             accept="image/*"
@@ -184,7 +189,7 @@ export default function User({ user }) {
                                     Hintergrundbild hinzufügen
                                 </Button>
                             </label> )}
-                           </div>
+                           </div> : ""}
                     <div
                         className={classes.backgroundPic}
                         style={{
@@ -205,7 +210,7 @@ export default function User({ user }) {
                             marginTop: "-70px",
                             width: "90%",
                         }}>
-                        <input
+                      {me.id === user.id ?   <div><input
                             id="contained-button-file"
                             accept="image/*"
                             className={classes.input}
@@ -242,7 +247,7 @@ export default function User({ user }) {
                                     Bild hinzufügen
                                 </Button>
                             </label>
-                        )}
+                        )}</div> : <div className={classes.placeholder}></div>}
                         <Typography style={{ color: "#1C304A" }} variant="h4">
                             {user.surname + " " + user.name}
                         </Typography>
@@ -274,12 +279,13 @@ export default function User({ user }) {
                             <DontsCard user={user} />
                             <MagicCard user={user} />
                         </div>
+                        {me.id === user.id ?
                         <Button
                             variant="outlined"
                             color="default"
                             onClick={handleClickOpen}>
                             <EditIcon></EditIcon> Profil bearbeiten
-                        </Button>{" "}
+                        </Button> : ""}
                         <UserModal user={user} open={open} setOpen={setOpen} />
                     </Paper>
                 </div>
