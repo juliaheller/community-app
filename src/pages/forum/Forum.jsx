@@ -34,11 +34,10 @@ export default function Forum() {
         const fetchCategories = async () => {
             const categories = await categoryService.getAll();
             setCategories(categories);
-            console.log(categories);
         };
         fetchCategories();
     }, []);
-    console.log(categories);
+
     return (
         <div>
             <div className={classes.root}>

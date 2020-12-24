@@ -28,7 +28,6 @@ const useStyles = makeStyles({
 });
 
 export default function FavouritesCard({ user }) {
-    console.log(user);
     const classes = useStyles();
     return (
         <Card variant="outlined" className={classes.card}>

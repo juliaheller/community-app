@@ -22,6 +22,10 @@ import Category from "./pages/forum/Category";
 import Post from "./pages/forum/Post";
 import Profile from "./pages/forum/Profile";
 
+// Redux
+import { loginFromLocalStorage } from "../src/redux/auth/auth.actions";
+import store from "../src/redux/store";
+
 const theme = createMuiTheme({
 	palette: {
 		primary: {
@@ -47,6 +51,7 @@ const theme = createMuiTheme({
 });
 
 function App() {
+	store.dispatch(loginFromLocalStorage());
 	return (
 		<div className="App">
 			<ThemeProvider theme={theme}>
