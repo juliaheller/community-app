@@ -10,7 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import CategoryList from "../../components/categories/CategoryList";
 import CategoryCard from "./../../components/categories/CategoryCard";
 import categoryService from "../../services/category.service";
-import AppBar from '../../components/menu/AppBar'
+
 const useStyles = makeStyles({
     root: {
         display: "flex",

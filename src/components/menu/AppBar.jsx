@@ -15,7 +15,9 @@ import Menu from '@material-ui/core/Menu';
 import HamburgerMenu from './HamburgerMenu';
 
 // Redux
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+import { logout } from '../../redux/auth/auth.actions';
+import store from '../../redux/store';
 
 
 
@@ -47,6 +49,10 @@ export default function MenuAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logoutUser = () => {
+    store.dispatch(logout());
+  }
 
  
 
@@ -86,6 +92,7 @@ export default function MenuAppBar() {
               onClose={handleClose}
             >
              <Link to="/profile"><MenuItem onClick={handleClose}>Mein Profil</MenuItem></Link>
+             <Link to="/login"><MenuItem onClick={logoutUser}>Logout</MenuItem></Link>
             </Menu>
           </div>
         )}

@@ -12,9 +12,6 @@ import { Divider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-// Service
-import userService from '../../services/user.service'
-
 // redux
 import { updateUser } from '../../redux/user/user.actions';
 import store from "../../redux/store";

@@ -95,7 +95,6 @@ export default function Witches() {
     const {me} = useSelector(state => state.auth);
 
     const selectUser = async (id) => {
-        console.log("selectUser()", id);
         try {
             await store.dispatch(getUser(id));       
        } catch (error) {     
@@ -111,7 +110,7 @@ export default function Witches() {
             setUsers(allUsers);
         };
         fetchUsers();
-    }, []);
+    }, [me.id]);
 
     
 

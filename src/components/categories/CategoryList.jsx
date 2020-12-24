@@ -32,7 +32,6 @@ export default function CategoryList() {
             const getCategories = await categoryService.getAll();
          
             setCategories(getCategories);
-            console.log(categories);
         }
       fetchCategories();
     }, []);
