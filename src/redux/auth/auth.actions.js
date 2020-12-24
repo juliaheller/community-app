@@ -29,18 +29,18 @@ export const loginFromLocalStorage = () => async (dispatch) => {
 				payload: { isLoggedIn: true, me: me },
 			});
 		} else {
+			localStorage.removeItem("token");
 			dispatch({
 				type: LOGIN,
 				payload: { isLoggedIn: false, me: {} },
 			});
-			localStorage.removeItem("token");
 		}
 	} catch (error) {
+		localStorage.removeItem("token");
 		dispatch({
 			type: LOGIN,
 			payload: { isLoggedIn: false, me: {} },
 		});
-		localStorage.removeItem("token");
 	}
 };
 
