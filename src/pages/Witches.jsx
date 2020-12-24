@@ -104,7 +104,9 @@ export default function Witches() {
    
 
     useEffect(() => {
-        selectUser(me.id);
+       if(me.id) {
+           selectUser(me.id)
+        };
         const fetchUsers = async () => {
             const allUsers = await userService.getAll();     
             setUsers(allUsers);
