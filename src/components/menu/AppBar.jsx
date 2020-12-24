@@ -52,6 +52,7 @@ export default function MenuAppBar() {
 
   const logoutUser = () => {
     store.dispatch(logout());
+    handleClose()
   }
 
  
