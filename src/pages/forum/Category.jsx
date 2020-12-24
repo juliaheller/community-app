@@ -35,10 +35,10 @@ export default function Category() {
         const fetchCategories = async () => {
             const oneCategory = await categoryService.getOne(id);
             setCategory(oneCategory);
-            console.log(category);
         };
         fetchCategories();
-    }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id]);
     return (
         <div className={classes.root}>
             <Paper>

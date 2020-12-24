@@ -1,5 +1,5 @@
 // Libraries
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserModal({ user, open, setOpen }) {
     const classes = useStyles();
-    // const { user, dispatch } = useContext(userContext);
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(true);
     
@@ -252,6 +251,7 @@ export default function UserModal({ user, open, setOpen }) {
     };
     
     return (
+        loading? <h1>Loading</h1> :
         <Dialog
             fullScreen
             open={open}
@@ -574,5 +574,5 @@ export default function UserModal({ user, open, setOpen }) {
                 </div>
             </DialogActions>
         </Dialog>
-    );
+    )
 }
