@@ -30,18 +30,15 @@ export const loginFromLocalStorage = () => async (dispatch) => {
 			});
 		} else {
 			localStorage.removeItem("token");
-			dispatch({
-				type: LOGIN,
-				payload: { isLoggedIn: false, me: {} },
-			});
+			dispatch({ type: LOGOUT });
 		}
 	} catch (error) {
 		localStorage.removeItem("token");
-		dispatch({
-			type: LOGIN,
-			payload: { isLoggedIn: false, me: {} },
-		});
+		dispatch({ type: LOGOUT });
 	}
 };
 
-// export const logout = () {};
+export const logout = () => async (dispatch) => {
+	localStorage.removeItem("token");
+	dispatch({ type: LOGOUT });
+};

@@ -1,9 +1,6 @@
 // Libraries
 import React, { useState } from "react";
 
-// Services
-import authService from "../services/auth.service";
-
 // Material UI
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";

@@ -59,7 +59,6 @@ function App() {
 					<AppBar></AppBar>
 					<Switch>
 						<Route path="/login" component={Login}></Route>
-
 						<ProtectedRoute path="/witches" component={Witches} />
 						<ProtectedRoute exact path="/" component={Home}></ProtectedRoute>
 						<ProtectedRoute path="/events" component={Events}></ProtectedRoute>
