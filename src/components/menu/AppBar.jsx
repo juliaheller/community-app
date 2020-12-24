@@ -17,6 +17,8 @@ import HamburgerMenu from './HamburgerMenu';
 // Redux
 import { useSelector } from 'react-redux'
 
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -35,6 +37,7 @@ export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const auth = useSelector(state => state.auth)
+ 
 
 
   const handleMenu = (event) => {
@@ -47,48 +50,47 @@ export default function MenuAppBar() {
 
  
 
- 
-
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-         <HamburgerMenu></HamburgerMenu>
-         
-          <Typography variant="h6" className={classes.title}>
-          Tempel der Sophia          </Typography>
-          {auth.isLoggedIn && (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-               <Link to="/profile"><MenuItem onClick={handleClose}>Mein Profil</MenuItem></Link>
-              </Menu>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+ return(
+  auth.isLoggedIn ? 
+      <div className={classes.root}>
+    <AppBar position="static">
+      <Toolbar>
+       <HamburgerMenu></HamburgerMenu>
+       
+        <Typography variant="h6" className={classes.title}>
+        Tempel der Sophia          </Typography>
+        {auth.isLoggedIn && (
+          <div>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+             <Link to="/profile"><MenuItem onClick={handleClose}>Mein Profil</MenuItem></Link>
+            </Menu>
+          </div>
+        )}
+      </Toolbar>
+    </AppBar>
+  </div> : <div></div>
+ )  
 }
