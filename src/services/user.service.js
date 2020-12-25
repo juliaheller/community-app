@@ -56,4 +56,16 @@ export default {
 		const response = await fetch(`${apiURL}/${id}`, requestOptions);
 		return await response.json();
 	},
+	async deleteUser(id) {
+		const requestOptions = {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				...auth.getAuthHeader(),
+			},
+		};
+		const response = await fetch(`${apiURL}/${id}`, requestOptions);
+
+		return await response.json();
+	},
 };
