@@ -16,6 +16,9 @@ import Button from "@material-ui/core/Button";
 import { updateUser } from '../../redux/user/user.actions';
 import store from "../../redux/store";
 
+// Services
+import userService from '../../services/user.service';
+
 const useStyles = makeStyles((theme) => ({
     form: {
         display: "flex",
@@ -243,12 +246,25 @@ export default function UserModal({ user, open, setOpen }) {
     const changeUserData = (event) => {
         event.preventDefault();
         try {
-            store.dispatch(updateUser(formData.id, formData))
+            store.dispatch(updateUser(formData.id, formData));
             handleClose();
         } catch (error) {
-            console.log(error);
+            console.warn(error);
         }
     };
+
+    const deleteAccount = (event) => {
+        event.preventDefault();
+        // let confirmation = confirm("Willst du wirklich deinen Account löschen? Dies kann nicht rückgängig gemacht werden!"); // user
+        // if (confirmation){
+        //         try {
+        //             userService.deleteUser(formData.id);
+        //             handleClose();
+        //         } catch (error) {
+        //             console.warn(error);
+        //         }
+        // }
+    }
     
     return (
         loading? <h1>Loading</h1> :
@@ -553,7 +569,8 @@ export default function UserModal({ user, open, setOpen }) {
                             margin: "16px",
                         }}
                         className={classes.btn}
-                        color="secondary">
+                        color="secondary"
+                        onClick={event => deleteAccount(event)}>
                         Account loeschen
                     </Button>
                     <Button
