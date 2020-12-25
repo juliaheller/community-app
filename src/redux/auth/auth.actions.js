@@ -5,6 +5,8 @@ export const login = (email, password) => async (dispatch) => {
 	try {
 		const { token, error } = await authService.loginUser(email, password);
 		const me = await authService.me();
+		console.log(token, me);
+
 		if (token && me) {
 			dispatch({
 				type: LOGIN,

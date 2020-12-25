@@ -44,6 +44,7 @@ const useStyles = makeStyles({
     small: {
         width: "100px",
         height: "100px",
+        marginBottom: "-6px",
     },
     large: {
         width: "200px",
@@ -63,9 +64,21 @@ const useStyles = makeStyles({
         justifyContent: "space-evenly",
         alignItems: "center",
     },
+    status: {
+        display: "inline-block",
+        borderRadius: "50%",
+        width: "8px",
+        height: "8px",
+        marginRight: "6px",
+    },
+    online: {
+        background: "#aed581",
+    },
+    offline: {
+        background:"#f4511e",
+    },
     form: {
         display: "flex",
-        // flexDirection: "column",
         padding: "16px",
         flexWrap: "wrap",
         margin: "16px",
@@ -77,8 +90,6 @@ const useStyles = makeStyles({
     input: {
         display: "none",
         width: "100%",
-        // visibility: "hidden",
-        // height: "50px",
         borderBottom: "1px solid darkgrey",
         textAlign: "center",
         height: "100%",
@@ -91,6 +102,7 @@ const useStyles = makeStyles({
 export default function Witches() {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
+     const [isOnline, setIsOnline] = useState(false);
     const {user} = useSelector(state =>state.user);
     const {me} = useSelector(state => state.auth);
 
@@ -102,16 +114,16 @@ export default function Witches() {
        }
     }
    
-
     useEffect(() => {
        if(me.id) {
            selectUser(me.id)
-        };
+        };      
         const fetchUsers = async () => {
             const allUsers = await userService.getAll();     
             setUsers(allUsers);
         };
         fetchUsers();
+        
     }, [me.id]);
 
     
@@ -138,14 +150,17 @@ export default function Witches() {
 
                 <div id="allWitches" className={classes.witches}>
                     {users.map((user) => {
+                      
                         return (
                             <div key={user.id} onClick={() => {selectUser(user.id)}}>
-                            <Avatar
-                                alt={user.surname + user.name}
-                                src={user.avatar}
-                                className={classes.small}
+                                <Avatar
+                                    alt={user.surname + user.name}
+                                    src={user.avatar}
+                                    className={classes.small}
+                                    
+                                />
+                                    <div className={isOnline ? `${classes.online} ${classes.status}` : `${classes.offline} ${classes.status}`}></div>
                                 
-                            />
                             </div>
                         );
                     })}
