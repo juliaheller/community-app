@@ -15,7 +15,7 @@ export default {
 		const response = await fetch(apiURL, requestOptions);
 		return await response.json();
 	},
-	async getOne(id) {
+	async getOneCategory(id) {
 		const requestOptions = {
 			method: "GET",
 			headers: {

@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PostPreviewCard() {
+export default function PostPreviewCard(post) {
     const classes = useStyles();
 
     return (
@@ -67,7 +67,7 @@ export default function PostPreviewCard() {
                     variant="h4"
                     color="textPrimary"
                     gutterBottom>
-                    Title of the post
+                   {post.title}
                 </Typography>
 
                 <div className={classes.comments}>
