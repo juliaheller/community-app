@@ -47,4 +47,33 @@ export default {
 		);
 		return await response.json();
 	},
+	async updatePost(post, id, categoryId) {
+		const requestOptions = {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ post }),
+		};
+		const response = await fetch(
+			`${apiURL}/${categoryId}/posts/${id}`,
+			requestOptions
+		);
+		return await response.json();
+	},
+	async deletePost(id, categoryId) {
+		const requestOptions = {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				...auth.getAuthHeader(),
+			},
+		};
+		const response = await fetch(
+			`${apiURL}/${categoryId}/posts/${id}`,
+			requestOptions
+		);
+
+		return await response.json();
+	},
 };
