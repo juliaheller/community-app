@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PostPreviewCard(post) {
+export default function PostPreviewCard({post}) {
     const classes = useStyles();
 
     return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -38,27 +38,18 @@ export default function Category() {
     const [posts, setPosts] = useState([]);
     let {id} = useParams();
 
-   
-   
     useEffect(() => {
-        const fetchAll = async () => {
-            try {
-                const oneCategory = await categoryService.getOneCategory(id);
-                setCategory(oneCategory);
-                console.log(category);
-                const allPosts = await postsService.getAllPosts(id)
-                setPosts(allPosts)
-            } catch (error) {
-                console.warn(error);
-            }
-          
-        };
-         fetchAll();
-    }, []);
+        async function fetchPosts() {
+            const oneCategory = await categoryService.getOneCategory(id);
+            setCategory(oneCategory);
+            const allPosts = await postsService.getAllPosts(id)
+            setPosts(allPosts)
+        }
+        fetchPosts();
+    }, [id]);
 
-    const allPosts = useMemo( async () => posts,[posts])
    
-   
+   console.log(posts);
 
 
     return (
@@ -74,7 +65,7 @@ export default function Category() {
                     + Neuer Beitrag
                 </Button>
                 <div className={classes.postPreviews}>
-                   { allPosts.map( post => {
+                   { posts.map( post => {
                  return  ( <div key={post.id}><PostPreviewCard post={post} ></PostPreviewCard><Divider/></div>)
                 }
                     )
