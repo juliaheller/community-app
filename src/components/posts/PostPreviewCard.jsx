@@ -1,12 +1,20 @@
+// Libraries
+
 import React from "react";
+import { useParams, Link } from "react-router-dom";
+
+// Material UI
+
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+
+// Components
+// Services
 
 const useStyles = makeStyles({
     root: {
@@ -38,8 +46,9 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PostPreviewCard({post}) {
+export default function PostPreviewCard({params, post}) {
     const classes = useStyles();
+    let {id, categoryId} = useParams();
 
     return (
         <Card className={classes.root} variant="outlined">
@@ -61,7 +70,8 @@ export default function PostPreviewCard({post}) {
                             12 March 2018, 1:46PM
                         </Typography>
                     </div>
-                </div>
+                </div><Link className={classes.link} to={`/categories/${categoryId}/post/${id}`}>
+
                 <Typography
                     align="center"
                     variant="h4"
@@ -69,6 +79,7 @@ export default function PostPreviewCard({post}) {
                     gutterBottom>
                    {post.title}
                 </Typography>
+                </Link>
 
                 <div className={classes.comments}>
                     <div className={classes.infoBox}>
