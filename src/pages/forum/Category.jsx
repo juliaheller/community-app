@@ -76,7 +76,7 @@ export default function Category() {
                 <div className={classes.postPreviews}>
                    { posts.map( post => {
                  return  ( <div key={post.id}>
-                 <PostPreviewCard post={post} ></PostPreviewCard><Divider/></div>)
+                 <PostPreviewCard post={post} categoryId={id}></PostPreviewCard><Divider/></div>)
                 }
                     )
                     }

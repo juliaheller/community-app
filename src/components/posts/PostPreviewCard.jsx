@@ -1,7 +1,7 @@
 // Libraries
 
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Material UI
 
@@ -46,10 +46,10 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PostPreviewCard({params, post}) {
+export default function PostPreviewCard({post, categoryId}) {
     const classes = useStyles();
-    let {id, categoryId} = useParams();
-
+   
+   
     return (
         <Card className={classes.root} variant="outlined">
             <CardContent className={classes.content}>
@@ -70,7 +70,7 @@ export default function PostPreviewCard({params, post}) {
                             12 March 2018, 1:46PM
                         </Typography>
                     </div>
-                </div><Link className={classes.link} to={`/categories/${categoryId}/post/${id}`}>
+                </div><Link className={classes.link} to={`/categories/${categoryId}/post/${post.id}`}>
 
                 <Typography
                     align="center"

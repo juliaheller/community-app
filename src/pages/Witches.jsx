@@ -102,7 +102,7 @@ const useStyles = makeStyles({
 export default function Witches() {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
-     const [isOnline, setIsOnline] = useState(false);
+    const [isOnline] = useState(false);
     const {user} = useSelector(state =>state.user);
     const {me} = useSelector(state => state.auth);
 

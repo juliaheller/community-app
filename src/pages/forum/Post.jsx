@@ -55,7 +55,7 @@ export default function Post(params) {
         <div className={classes.root}>
             <Paper className={classes.paper}>
             
-                <PostCard post={post}/>
+                <PostCard post={post} categoryId={category.id}/>
                 
             </Paper>
         </div>
