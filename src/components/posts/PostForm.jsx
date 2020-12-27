@@ -18,11 +18,7 @@ import postsService from "../../services/posts.service";
 
 const useStyles = makeStyles({
     root: {
-        display: "flex",
-        flexDirection: "column",
         width: "100%",
-        // marginTop: "100px",
-        // marginLeft: "100px",
     },
     paper: {
         display: "flex",
@@ -39,24 +35,41 @@ const useStyles = makeStyles({
         width: "fit-content",
         height: "500px",
         justifyContent: "space-evenly",
-        alignContent: "stretch",
-        alignItems: "stretch",
+        alignContent: "center",
+        alignItems: "center",
         color: "#5B6489",
     },
   textField: {
     width: '80vw',
   },
+  image : {
+    height: "300px",
+    objectFit: "cover"
+  },
   input: {
     display: "none",
     width: "100%",
-    // visibility: "hidden",
     height: "50px",
     borderBottom: "1px solid darkgrey",
     textAlign: "center",
 },
+label: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%"
+},
+editor: {
+    width: "100%"
+},
 btn: {
 
     color: "#1C304A",
+    display: "flex",
+    justifyContent: "space-between",
+    width: "20%"
+},
+submitBtn: {
+    width: "20%"
 },
 });
 export default function PostForm( {params}) {
@@ -95,9 +108,6 @@ export default function PostForm( {params}) {
 
    const rteChange = (content, delta, source, editor) => {
     setContent(editor.getHTML());
-	console.log(editor.getHTML()); // HTML/rich text
-	console.log(editor.getText()); // plain text
-	console.log(editor.getLength()); // number of characters
 }
 
       const handleInputChange = (e) => {
@@ -110,9 +120,6 @@ export default function PostForm( {params}) {
 
       const handleSubmit = async (event) => {
         event.preventDefault();
-
-        console.log(formValues);
-    
         try {
            await postsService.createPost(categoryId, {  
             title: formValues.title,
@@ -125,8 +132,18 @@ export default function PostForm( {params}) {
            }
       };
 
+      const handlePicChange =  (event) => {
+        let file = event.target.files[0];
+        let reader = new FileReader();
+        reader.onloadend = () => {
+            console.log("image changed");//
+            setFormValues({...formValues, image: reader.result})       
+        };
+        reader.readAsDataURL(file);
+      
+    };
 
-  
+ 
 
 
       return (
@@ -146,29 +163,28 @@ export default function PostForm( {params}) {
         value={formValues.title}
         onChange={handleInputChange}
       />
-      <input
+      {formValues.image !== "" ? <img  className={classes.image} src={formValues.image} alt="Vorschau"/> : ""}    
+         <input
         id="contained-button"
         accept="image/*"
         className={classes.input}
         type="file"
-        onChange={handleInputChange}/>
-        <label htmlFor="contained-button">
-            Füge ein Bild hinzu <Button
+        onChange={handlePicChange}/>
+        <label className={classes.label} htmlFor="contained-button">
+            <Button
                 variant="contained"
                 color="default"
                 component="span"
                 className={classes.btn}
-                style={{
-                    width: "50px",
-                    marginTop: "40px",
-                }}>
-                <EditIcon></EditIcon>
+                >
+                Füge ein Bild hinzu <EditIcon></EditIcon>
             </Button>
         </label>
-      <ReactQuill theme="snow"  modules={modules}
+    
+      <ReactQuill className={classes.editor} theme="snow"  modules={modules}
 				formats={formats} onChange={rteChange}
 			value={content || ''}/>
-      <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
+      <Button  className={classes.submitBtn} variant="contained" color="primary" type="submit" onClick={handleSubmit}>
   Beitrag posten
 </Button>
 </form>
