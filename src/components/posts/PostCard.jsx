@@ -113,6 +113,7 @@ export default function PostCard({post, categoryId}) {
     const classes = useStyles();
     const [postData, setPostData] =useState(post);
     const [showInput, setShowInput]=useState(false);
+    const [createdBy, setCreatedBy] = useState({});
     const [modules] = useState({
         toolbar: [
           [{ 'font': [] }],
@@ -157,8 +158,9 @@ export default function PostCard({post, categoryId}) {
     const edit = () => setShowInput(true);
 
     useEffect(() => {
-            setPostData(post);    
-    }, [post]);
+            setPostData(post);
+            setCreatedBy(postData.createdBy)   
+    }, [post, postData.createdBy]);
 
     const updatePost= async (event) => {
         event.preventDefault();
@@ -185,9 +187,17 @@ export default function PostCard({post, categoryId}) {
                     12 March 2018, 1:46PM
                 </Typography>
             </div>
+            {createdBy ? 
             <CardHeader
-                avatar={<Avatar className={classes.avatar}></Avatar>}
-            />
+                avatar={<Avatar className={classes.avatar} src={createdBy.avatar}></Avatar>}
+                title={ <Typography align="left" variant="body2" component="p">
+               {createdBy.name} {createdBy.surname}
+            </Typography>}
+            /> :
+            <CardHeader
+                avatar={<Avatar className={classes.avatar} ></Avatar>}
+            />}
+           
             <form className={classes.form} onSubmit={event => updatePost(event)}>
                 {showInput ?  
                 <TextField
