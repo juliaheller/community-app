@@ -1,8 +1,12 @@
 // Libraries
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.bubble.css';
+import parse from 'html-react-parser';
 
 // Material UI
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -10,10 +14,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-// import FavoriteIcon from "@material-ui/icons/Favorite";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import CommentCard from "./CommentCard";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -29,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: "80%",
         color: "#5B6489",
+    },
+    cardContent: {
+        display: "block",
+        alignSelf: "flex-start"
     },
     media: {
         height: 0,
@@ -86,6 +92,9 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         textAlign: "center"
     },
+    editor: {
+        width: "100%"
+    },
     btn: {
     
         color: "#1C304A",
@@ -103,36 +112,45 @@ export default function PostCard({post, categoryId}) {
     const classes = useStyles();
     const [postData, setPostData] =useState(post);
     const [showInput, setShowInput]=useState(false);
+    const [modules] = useState({
+        toolbar: [
+          [{ 'font': [] }],
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+          ['bold', 'italic', 'underline'],
+          [{'list': 'ordered'}, {'list': 'bullet'}],
+          [{ 'align': [] }],
+          [{ 'color': [] }, { 'background': [] }],
+          ['clean']
+        ]
+    })
+    const [formats] = useState([
+        'font',
+        'size',
+        'bold', 'italic', 'underline',
+        'list', 'bullet',
+        'align',
+        'color', 'background'
+      ])
     
+
+    
+    
+    const rteChange = (content, delta, source, editor) => {
+        setPostData( Object.assign({}, postData, { content: editor.getHTML() }))
+    }
+
     const handlePicChange =  (event) => {
         let file = event.target.files[0];
         let reader = new FileReader();
         reader.onloadend = () => {
-            console.log("image changed");//
             setPostData({...post, image: reader.result});    
         };
         reader.readAsDataURL(file);
       
     };
 
-    const handleChangeText = (event, type) => {
-        switch (type) {
-            case "title":
-                setPostData(
-                    Object.assign({}, postData, { title: event.target.value })
-                );
-                break;
-            case "content":
-                setPostData(
-                    Object.assign({}, postData, {
-                        content: event.target.value,
-                    })
-                );
-                break;
-                default:
-                break;
-    
-    }
+    const handleChangeText = (event) => {
+        setPostData( Object.assign({}, postData, { title: event.target.value }))
 }
 
     const edit = () => setShowInput(true);
@@ -141,9 +159,22 @@ export default function PostCard({post, categoryId}) {
             setPostData(post);    
     }, [post]);
 
-    const updatePost= async () => {
-        await postsService.updatePost(postData, post.id, categoryId);
-        setShowInput(false);
+    const updatePost= async (event) => {
+        event.preventDefault();
+        console.log(postData);
+        try {
+           await postsService.updatePost(postData, post.id, categoryId);
+           setShowInput(false);
+           } catch (error) {
+               console.warn(error);
+           }
+     
+     
+        
+    }
+
+    const addComment = (event) => {
+
     }
 
     return (
@@ -158,7 +189,7 @@ export default function PostCard({post, categoryId}) {
             <CardHeader
                 avatar={<Avatar className={classes.avatar}></Avatar>}
             />
-            <form className={classes.form} onSubmit={updatePost}>
+            <form className={classes.form} onSubmit={event => updatePost(event)}>
                 {showInput ?  
                 <TextField
                 className={classes.textField}
@@ -208,19 +239,12 @@ export default function PostCard({post, categoryId}) {
         type="file"
         onChange={handlePicChange}/>
             {showInput ?  
-                <TextField
-                className={classes.textField}
-                id="content"
-                name="content"
-                label="Inhalt"
-                type="text"
-                variant="outlined"
-                value={postData.content}
-                size="medium"
-                multiline
-                onChange={(event) => handleChangeText(event, "content")}
-            />: <CardContent>
-              {postData.content}
+            <ReactQuill className={classes.editor} theme="snow"  modules={modules}
+            formats={formats} onChange={rteChange}
+            value={postData.content || ''}/>
+            : 
+            <CardContent className={classes.cardContent}>
+              {parse(String(postData.content))}
              
             </CardContent>   }
      
@@ -244,6 +268,7 @@ export default function PostCard({post, categoryId}) {
             color="default"
             className={classes.button}
             startIcon={<ChatBubbleOutlineIcon />}
+            onClick={event => addComment(event)}
             > Kommentieren
             </Button>
             </CardActions>

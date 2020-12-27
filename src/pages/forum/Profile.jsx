@@ -3,6 +3,7 @@ import React from "react";
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
 // Components
 import User from "../../components/user/User";
@@ -27,6 +28,9 @@ export default function Profile() {
   
     return (
         <div className={classes.root}>
+             <Typography style={{ color: "#1C304A" }} variant="h2">
+                           Mein Profil
+                        </Typography>
             <User user={me}></User>
         </div>
     );
