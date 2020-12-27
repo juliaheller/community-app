@@ -1,9 +1,9 @@
 // Libraries
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 // Material UI
-import { Link, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
@@ -55,9 +55,6 @@ export default function Category() {
         fetchPosts();
     }, [id]);
 
-   
-   console.log(posts);
-
 
     return (
         <div className={classes.root}>
@@ -65,7 +62,7 @@ export default function Category() {
                 <Typography variant="h3" component="h3">
                     {category.name}
                 </Typography>
-                <Link to={`/newpost`}>
+                <Link className={classes.link} to={`/categories/${category.id}/newpost`}>
                 <Button
                     className={classes.button}
                     variant="contained"

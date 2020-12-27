@@ -21,6 +21,7 @@ import Witches from "./pages/Witches.jsx";
 import Category from "./pages/forum/Category";
 import Post from "./pages/forum/Post";
 import Profile from "./pages/forum/Profile";
+import PostForm from "./components/posts/PostForm";
 
 // Redux
 import { loginFromLocalStorage } from "../src/redux/auth/auth.actions";
@@ -53,35 +54,42 @@ const theme = createMuiTheme({
 function App() {
 	store.dispatch(loginFromLocalStorage());
 	return (
-		<div className="App">
+		<div className='App'>
 			<ThemeProvider theme={theme}>
 				<Router>
 					<AppBar></AppBar>
 					<Switch>
-						<Route path="/login" component={Login}></Route>
-						<ProtectedRoute path="/witches" component={Witches} />
-						<ProtectedRoute exact path="/" component={Home}></ProtectedRoute>
-						<ProtectedRoute path="/events" component={Events}></ProtectedRoute>
+						<Route path='/login' component={Login}></Route>
+						<ProtectedRoute path='/witches' component={Witches} />
+						<ProtectedRoute exact path='/' component={Home}></ProtectedRoute>
+						<ProtectedRoute path='/events' component={Events}></ProtectedRoute>
 						<ProtectedRoute
-							path="/messages"
+							path='/messages'
 							component={Messages}
 						></ProtectedRoute>
-						<ProtectedRoute path="/photos" component={Photos}></ProtectedRoute>
+						<ProtectedRoute path='/photos' component={Photos}></ProtectedRoute>
 						<ProtectedRoute
-							path="/bookofshadows"
+							path='/bookofshadows'
 							component={BookOfShadows}
 						></ProtectedRoute>
-						<ProtectedRoute path="/forum" component={Forum}></ProtectedRoute>
+						<ProtectedRoute path='/forum' component={Forum}></ProtectedRoute>
 						<ProtectedRoute
-							path="/profile"
+							path='/profile'
 							component={Profile}
 						></ProtectedRoute>
 						<ProtectedRoute
-							path="/categories/:id"
+							path='/categories/:categoryId/newpost'
+							component={PostForm}
+						></ProtectedRoute>
+						<ProtectedRoute
+							path='/categories/:categoryId/post/:id'
+							component={Post}
+						></ProtectedRoute>
+						<ProtectedRoute
+							path='/categories/:id'
 							component={Category}
 						></ProtectedRoute>
-						<ProtectedRoute path="/post/:id" component={Post}></ProtectedRoute>
-						<Route path="*" component={() => "404 Page not found"} />
+						<Route path='*' component={() => "404 Page not found"} />
 					</Switch>
 				</Router>
 			</ThemeProvider>

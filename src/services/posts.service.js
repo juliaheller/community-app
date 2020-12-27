@@ -38,8 +38,9 @@ export default {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				...auth.getAuthHeader(),
 			},
-			body: JSON.stringify({ post }),
+			body: JSON.stringify(post),
 		};
 		const response = await fetch(
 			`${apiURL}/${categoryId}/posts`,
@@ -52,8 +53,9 @@ export default {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				...auth.getAuthHeader(),
 			},
-			body: JSON.stringify({ post }),
+			body: JSON.stringify(post),
 		};
 		const response = await fetch(
 			`${apiURL}/${categoryId}/posts/${id}`,

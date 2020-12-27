@@ -1,6 +1,6 @@
 // Libraries
 import React, {useEffect, useState} from "react";
-
+import { useParams } from "react-router-dom";
 
 // Material UI
 import Paper from "@material-ui/core/Paper";
@@ -34,14 +34,28 @@ const useStyles = makeStyles(() => ({
 
 //Add navigation tabs
 
-export default function Post(post, categoryId) {
+export default function Post(params) {
     const classes = useStyles();
-  
+    let {id, categoryId} = useParams();
+    const [category, setCategory] = useState({});
+    const [post, setPost] = useState([]);
+
+    useEffect(() => {
+        async function fetchPosts() {
+            const oneCategory = await categoryService.getOneCategory(categoryId);
+            setCategory(oneCategory);
+            const onePost = await postsService.getOnePost(id, categoryId)
+            setPost(onePost)
+        }
+        fetchPosts();
+    }, [id, categoryId]);
+
+
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
             
-                <PostCard post={post} categoryId={categoryId}/>
+                <PostCard post={post} categoryId={category.id}/>
                 
             </Paper>
         </div>
