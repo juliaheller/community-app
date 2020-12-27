@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContent: {
         display: "block",
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        textAlign: "left"
     },
     media: {
         height: 0,
@@ -168,8 +169,6 @@ export default function PostCard({post, categoryId}) {
            } catch (error) {
                console.warn(error);
            }
-     
-     
         
     }
 
@@ -230,7 +229,16 @@ export default function PostCard({post, categoryId}) {
                 </label>
             </CardMedia>
            
-            : ""
+            :  <label className={classes.label} htmlFor="contained-button">
+            <Button
+                variant="contained"
+                color="default"
+                component="span"
+                className={classes.btn}
+                >
+            Bild hinzufügen <EditIcon></EditIcon>
+            </Button>      
+        </label>
             }
              <input
         id="contained-button"
@@ -247,19 +255,10 @@ export default function PostCard({post, categoryId}) {
               {parse(String(postData.content))}
              
             </CardContent>   }
-     
-            <Button
-                variant="contained"
-                color="default"
-                component="span"
-                onClick={edit}
-            
-                >
-               <EditIcon></EditIcon>
-            </Button>
-             <Button  className={classes.submitBtn} variant="contained" color="primary" type="submit">
+            {showInput ?  <Button  className={classes.submitBtn} variant="contained" color="primary" type="submit">
                 Beitrag aktualisieren
-            </Button>
+            </Button> : ""}
+            
             </form>
             
             <CardActions className={classes.actions}>
