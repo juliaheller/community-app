@@ -23,14 +23,17 @@ import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import TextField from "@material-ui/core/TextField";
 
-
-// Services
-import postsService from "../../services/posts.service";
+// Redux
+import { useSelector } from 'react-redux';
+import store from "../../redux/store";
+import { updatePost } from "../../redux/posts/post.actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: "80%",
         color: "#5B6489",
+        display: "flex",
+        flexDirection: "column",
     },
     cardContent: {
         display: "block",
@@ -111,9 +114,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PostCard({post, categoryId}) {
     const classes = useStyles();
-    const [postData, setPostData] =useState(post);
-    const [showInput, setShowInput]=useState(false);
+    const [postData, setPostData] = useState(post);
+    const [showInput, setShowInput]= useState(false);
     const [createdBy, setCreatedBy] = useState({});
+ 
     const [modules] = useState({
         toolbar: [
           [{ 'font': [] }],
@@ -158,23 +162,34 @@ export default function PostCard({post, categoryId}) {
     const edit = () => setShowInput(true);
 
     useEffect(() => {
+        
             setPostData(post);
             setCreatedBy(postData.createdBy)   
     }, [post, postData.createdBy]);
 
-    const updatePost= async (event) => {
+    const submitPost= async (event) => {
+        
+        
         event.preventDefault();
-        console.log(postData);
+        
         try {
-           await postsService.updatePost(postData, post.id, categoryId);
-           setShowInput(false);
-           } catch (error) {
-               console.warn(error);
-           }
+            await store.dispatch(updatePost(postData, post.id, categoryId));    
+            setShowInput(false);   
+       } catch (error) {     
+           console.warn(error)
+       }
+
+        // try {
+        //    await postsService.updatePost(postData, post.id, categoryId);
+        //    setShowInput(false);
+        //    } catch (error) {
+        //        console.warn(error);
+        //    }
         
     }
 
     const addComment = (event) => {
+        event.preventDefault();
 
     }
 
@@ -198,7 +213,7 @@ export default function PostCard({post, categoryId}) {
                 avatar={<Avatar className={classes.avatar} ></Avatar>}
             />}
            
-            <form className={classes.form} onSubmit={event => updatePost(event)}>
+            <form className={classes.form} onSubmit={submitPost}>
                 {showInput ?  
                 <TextField
                 className={classes.textField}
@@ -213,15 +228,7 @@ export default function PostCard({post, categoryId}) {
             />: <div className={classes.titleBox}> <Typography style={{ color: " #1C304A" }} variant="h3">
             {postData.title} 
              </Typography> 
-             <Button
-                variant="contained"
-                color="default"
-                component="span"
-                className={classes.btn}
-                onClick={edit}
-                >
-               <EditIcon></EditIcon>
-            </Button></div>}                 
+             </div>}                 
             {postData.image !== "" 
             ? <CardMedia
                 className={classes.media}
@@ -264,7 +271,17 @@ export default function PostCard({post, categoryId}) {
             <CardContent className={classes.cardContent}>
               {parse(String(postData.content))}
              
-            </CardContent>   }
+            </CardContent> 
+              }
+               <Button
+                variant="contained"
+                color="default"
+                component="span"
+                className={classes.btn}
+                onClick={edit}
+                > BEITRAG bearbeiten
+               <EditIcon></EditIcon>
+            </Button>
             {showInput ?  <Button  className={classes.submitBtn} variant="contained" color="primary" type="submit">
                 Beitrag aktualisieren
             </Button> : ""}
@@ -280,11 +297,12 @@ export default function PostCard({post, categoryId}) {
             onClick={event => addComment(event)}
             > Kommentieren
             </Button>
+          
             </CardActions>
             <Divider />
+            <TextField id="outlined-basic" label="Kommentieren" variant="outlined"></TextField>
             <CommentCard />
-            <CommentCard />
-            <CommentCard />
+        
         </Card>
     );
 }
