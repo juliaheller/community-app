@@ -303,7 +303,7 @@ export default function PostCard({post, categoryId}) {
                 > BEITRAG bearbeiten
                <EditIcon></EditIcon>
             </Button>: ''}
-            {showInput ?  <Button  className={classes.submitBtn} variant="contained" color="primary" type="submit">
+            {showInput ?  <Button style={{width: "100%"}} variant="contained" color="primary" type="submit">
                 Beitrag aktualisieren
             </Button> : ""}
             

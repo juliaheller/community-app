@@ -4,6 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
+import Avatar from "@material-ui/core/Avatar";
 
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
@@ -40,7 +41,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function CommentCard() {
+export default function CommentCard({comment}) {
     const classes = useStyles();
 
     return (
@@ -52,9 +53,10 @@ export default function CommentCard() {
                         <Typography align="left" variant="body2" component="p">
                             Comment by
                         </Typography>
-                        <PersonOutlineIcon />
+                       {comment.createdBy.avatar? <Avatar className={classes.avatar} src={comment.createdBy.avatar}></Avatar>
+                       : <PersonOutlineIcon />}
                         <Typography align="left" variant="body2" component="p">
-                            User
+                            {comment.createdBy.name}
                         </Typography>
                     </div>
                     <div className={classes.infoBox}>
