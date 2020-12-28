@@ -27,7 +27,7 @@ import TextField from "@material-ui/core/TextField";
 import { useSelector } from 'react-redux';
 import store from "../../redux/store";
 import { updatePost } from "../../redux/posts/post.actions";
-import {addComment} from "../../redux/comments/comment.actions"
+import {addComment, getAllComments} from "../../redux/comments/comment.actions"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -116,12 +116,11 @@ const useStyles = makeStyles((theme) => ({
 export default function PostCard({post, categoryId}) {
     const classes = useStyles();
     const [postData, setPostData] = useState(post);
-    const [comment, setComment] = useState({});
     const [newComment, setNewComment] = useState("");
     const [showInput, setShowInput]= useState(false);
     const [createdBy, setCreatedBy] = useState({});
     const {me} = useSelector(state => state.auth);
-    const {comments} = useSelector(state => state.comments);
+    const [comments, setComments] = useState([]);
 
     const [modules] = useState({
         toolbar: [
@@ -174,7 +173,7 @@ export default function PostCard({post, categoryId}) {
         event.preventDefault();     
         try {
             await store.dispatch(updatePost(postData, post.id, categoryId));    
-            setShowInput(false);   
+            setShowInput(false);  
        } catch (error) {     
            console.warn(error)
        }
@@ -182,24 +181,38 @@ export default function PostCard({post, categoryId}) {
     }
 
     const changeComment = (event) => {
-        console.log(event);
         setNewComment(event.target.value);
         
-         Object.assign({}, comment, { comment: newComment })
+         
     }
 
     const submitComment = async (event) => {
         event.preventDefault();
-        console.log(comment);
+       
         try {
-            setComment(event.target.value);
-            console.log(comment);
-            await store.dispatch(addComment(comment, post.id, categoryId));    
+            await store.dispatch(addComment(newComment, post.id, categoryId));  
+            setNewComment("");   
        } catch (error) {     
            console.warn(error)
        }
 
     }
+
+    useEffect( () => {
+        const fetchComments = async () => {
+            try {
+                if(post.id){
+                const commentsList = await store.dispatch(getAllComments(post.id, categoryId));  
+                console.log(commentsList);
+               setComments(commentsList)
+            }
+            } catch (error) {     
+                console.warn(error)
+            }
+        };
+        fetchComments();
+        
+    }, [post.id, categoryId])
 
     return (
         <Card className={classes.root}>
@@ -301,11 +314,11 @@ export default function PostCard({post, categoryId}) {
           
             </CardActions>
             <Divider />
-            <form onSubmit={submitComment}>
+          
                 <TextField id="outlined-basic" label="Kommentieren" variant="outlined" value={newComment} onChange={changeComment}></TextField>
-            <Button   variant="contained" color="primary" type="submit" >
+            <Button   variant="contained" color="primary" type="submit" onClick={submitComment}>
                 Kommentar abschicken
-            </Button></form>
+            </Button>
             
           {comments ? comments.map(comment => { 
            return <CommentCard comment={comment} key={comment.id}/>})  

@@ -11,7 +11,7 @@ export const getAllComments = (postId, categoryId) => async (dispatch) => {
 					comments: comments,
 				},
 			});
-			return Promise.resolve();
+			return Promise.resolve(comments);
 		}
 	} catch (error) {
 		return Promise.reject();
@@ -20,7 +20,7 @@ export const getAllComments = (postId, categoryId) => async (dispatch) => {
 
 export const addComment = (comment, postId, categoryId) => async (dispatch) => {
 	try {
-		const updatedComment = await commentsService.createComment(
+		const newComment = await commentsService.createComment(
 			comment,
 			postId,
 			categoryId
@@ -29,7 +29,7 @@ export const addComment = (comment, postId, categoryId) => async (dispatch) => {
 			dispatch({
 				type: CREATE,
 				payload: {
-					comment: updatedComment,
+					comment: newComment,
 					postId: postId,
 					categoryId: categoryId,
 				},
@@ -37,7 +37,7 @@ export const addComment = (comment, postId, categoryId) => async (dispatch) => {
 			return Promise.resolve();
 		}
 	} catch (error) {
-		return Promise.reject();
+		return Promise.reject(comment);
 	}
 };
 

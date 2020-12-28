@@ -20,14 +20,13 @@ export default {
 	},
 
 	async createComment(comment, postId, categoryId) {
-		console.log(comment);
 		const requestOptions = {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 				...auth.getAuthHeader(),
 			},
-			body: JSON.stringify(comment),
+			body: JSON.stringify({ comment: comment }),
 		};
 		const response = await fetch(
 			`${apiURL}/${categoryId}/posts/${postId}/comments`,
