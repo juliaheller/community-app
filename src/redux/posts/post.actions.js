@@ -1,5 +1,22 @@
-import { UPDATE, GET_ONE } from "./post.types.js";
+import { UPDATE, GET_ONE, GET_ALL } from "./post.types.js";
 import postsService from "../../services/posts.service";
+
+export const getPosts = (categoryId) => async (dispatch) => {
+	try {
+		const posts = await postsService.getAllPosts(categoryId);
+		if (posts) {
+			dispatch({
+				type: GET_ALL,
+				payload: {
+					posts: posts,
+				},
+			});
+			return Promise.resolve();
+		}
+	} catch (error) {
+		return Promise.reject();
+	}
+};
 
 export const getPost = (id, categoryId) => async (dispatch) => {
 	try {

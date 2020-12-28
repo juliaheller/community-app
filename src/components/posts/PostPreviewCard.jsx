@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import Avatar from "@material-ui/core/Avatar";
 
 // Components
 // Services
@@ -36,6 +37,10 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        width: "22%"
+    },
+    avatar: {
+
     },
     comments: {
         width: "100%",
@@ -54,12 +59,12 @@ export default function PostPreviewCard({post, categoryId}) {
             <CardContent className={classes.content}>
                 <div className={classes.info}>
                     <div className={classes.infoBox}>
-                        <Typography align="left" variant="body2" component="p">
-                            Post by
+                        <Typography align="left" variant="body2" component="p" >
+                            Post by 
                         </Typography>
-                        <PersonOutlineIcon />
+                        <Avatar className={classes.avatar} src={post.createdBy.avatar}></Avatar>
                         <Typography align="left" variant="body2" component="p">
-                            User
+                             {post.createdBy.name}
                         </Typography>
                     </div>
                     <div className={classes.infoBox}>

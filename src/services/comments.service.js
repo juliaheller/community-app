@@ -13,13 +13,14 @@ export default {
 			},
 		};
 		const response = await fetch(
-			`${apiURL}/${categoryId}/posts/${postId}/comments/`,
+			`${apiURL}/${categoryId}/posts/${postId}/comments`,
 			requestOptions
 		);
 		return await response.json();
 	},
 
 	async createComment(comment, postId, categoryId) {
+		console.log(comment);
 		const requestOptions = {
 			method: "POST",
 			headers: {
@@ -29,7 +30,7 @@ export default {
 			body: JSON.stringify(comment),
 		};
 		const response = await fetch(
-			`${apiURL}/${categoryId}/posts/${postId}/comments/`,
+			`${apiURL}/${categoryId}/posts/${postId}/comments`,
 			requestOptions
 		);
 		return await response.json();
