@@ -117,7 +117,7 @@ export default function Login(props) {
     const classes = useStyles();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [showSnackbar, setShowSnackbar] = useState(false); //use toast/snackbar
+    const [showSnackbar, setShowSnackbar] = useState(false); 
     const [alertMessage, setAlertMessage] = useState("");
 
     const emailChangeHandler = (event) => {
@@ -137,7 +137,7 @@ export default function Login(props) {
         } catch (error) {
             setShowSnackbar(true);
             setAlertMessage(error);
-            console.warn(error)
+            
         }
     };
 

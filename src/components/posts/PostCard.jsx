@@ -24,6 +24,8 @@ import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import TextField from "@material-ui/core/TextField";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert } from "@material-ui/lab";
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -136,6 +138,13 @@ export default function PostCard({post, categoryId}) {
     const {me} = useSelector(state => state.auth);
     const [comments, setComments] = useState([]);
     const history = useHistory();
+    const [showSnackbar, setShowSnackbar] = useState(false); 
+    const [alertMessage, setAlertMessage] = useState("");
+
+
+    const onSnackbarClose = (event) => {
+        setShowSnackbar(false);
+    };
 
     const [modules] = useState({
         toolbar: [
@@ -193,15 +202,12 @@ export default function PostCard({post, categoryId}) {
             await store.dispatch(deleteOnePost(post.id, categoryId));
             history.push(`/categories/${categoryId}`);
         } catch (error) {
-            console.warn(error);
+            setShowSnackbar(true);
+            setAlertMessage(error);
         }
        
     }
-    useEffect(() => {
-        
-            setPostData(post);
-            setCreatedBy(postData.createdBy)   
-    }, [post, postData.createdBy]);
+    
 
     const submitPost= async (event) => { 
         event.preventDefault();     
@@ -209,7 +215,8 @@ export default function PostCard({post, categoryId}) {
             await store.dispatch(updateAPost(postData, post.id, categoryId));    
             setShowInput(false);  
        } catch (error) {     
-           console.warn(error);
+            setShowSnackbar(true);
+            setAlertMessage(error);
        }
         
     }
@@ -221,12 +228,16 @@ export default function PostCard({post, categoryId}) {
             setNewComment(""); 
             console.log(newComment)  
        } catch (error) {     
-           console.warn(error)
+            setShowSnackbar(true);
+            setAlertMessage(error);
        }
 
     }
 
     useEffect( () => {
+            setPostData(post);
+            setCreatedBy(postData.createdBy)   
+
         const fetchComments = async () => {
             try {
                 if(post.id){
@@ -234,15 +245,28 @@ export default function PostCard({post, categoryId}) {
                setComments(commentsList)
             }
             } catch (error) {     
-                console.warn(error)
+                setShowSnackbar(true);
+                setAlertMessage(error);
             }
         };
         fetchComments();
         
-    }, [post.id, categoryId])
+    }, [post, post.id, categoryId, postData.createdBy])
 
     return (
         <Card className={classes.root}>
+             <Snackbar
+                open={showSnackbar}
+                autoHideDuration={3000}
+                onClose={onSnackbarClose}>
+                <Alert
+                    onClose={onSnackbarClose}
+                    severity="error"
+                    variant="filled">
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
+
             <div className={classes.infoBox}>
                 {" "}
                 <CalendarTodayIcon />
