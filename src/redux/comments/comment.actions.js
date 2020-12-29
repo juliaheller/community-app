@@ -57,6 +57,6 @@ export const deleteOneComment = (id, categoryId, postId) => async (
 			return Promise.resolve();
 		}
 	} catch (error) {
-		return Promise.reject();
+		return Promise.reject(error);
 	}
 };

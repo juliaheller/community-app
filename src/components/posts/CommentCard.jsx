@@ -1,13 +1,23 @@
-import React from "react";
+// Libraries
+import React, { useState } from "react";
+// Material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import Avatar from "@material-ui/core/Avatar";
-
+import Button from "@material-ui/core/Button";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert } from "@material-ui/lab";
+
+// Redux
+import store from "../../redux/store";
+import {deleteOneComment} from "../../redux/comments/comment.actions";
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
     root: {
@@ -40,13 +50,46 @@ const useStyles = makeStyles({
         justifyContent: "space-between",
         alignSelf: "flex-end",
     },
+    button: {
+        color: "#1C304A",
+        display: "flex",
+        justifyContent: "space-between",
+      
+    },
 });
 
-export default function CommentCard({comment}) {
+export default function CommentCard({post, categoryId, comment}) {
     const classes = useStyles();
+    const [showSnackbar, setShowSnackbar] = useState(false); 
+    const [alertMessage, setAlertMessage] = useState("");
+    const {me} = useSelector(state => state.auth);
 
+    const onSnackbarClose = (event) => {
+        setShowSnackbar(false);
+    };
+
+    const deleteComment = async () => {
+        try {
+            await store.dispatch(deleteOneComment(comment.id, post.id, categoryId));
+        } catch (error) {
+            setShowSnackbar(true);
+            setAlertMessage("error");
+        }
+       
+    }
     return (
         <Card className={classes.root} variant="outlined">
+             <Snackbar
+                open={showSnackbar}
+                autoHideDuration={3000}
+                onClose={onSnackbarClose}>
+                <Alert
+                    onClose={onSnackbarClose}
+                    severity="error"
+                    variant="filled">
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
             <CardContent className={classes.content}>
                 <div className={classes.info}>
                     <div className={classes.infoBox}>
@@ -66,6 +109,7 @@ export default function CommentCard({comment}) {
                         <Typography align="left" variant="body2" component="p">
                             12 March 2018, 1:46PM
                         </Typography>
+                        {me.id === comment.createdBy?.id ? <Button className={classes.button} onClick={deleteComment}><DeleteForeverIcon /></Button> : "" }
                     </div>
                 </div>
                 <div className={classes.comments}>

@@ -29,12 +29,8 @@ export default function (state = initialState, action) {
 			};
 		}
 		case DELETE_COMMENT: {
-			const { id, categoryId, postId } = action.payload;
 			return {
 				...state,
-				id: id,
-				postId: postId,
-				categoryId: categoryId,
 			};
 		}
 

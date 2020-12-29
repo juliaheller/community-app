@@ -39,7 +39,6 @@ export default {
 		const requestOptions = {
 			method: "DELETE",
 			headers: {
-				"Content-Type": "application/json",
 				...auth.getAuthHeader(),
 			},
 		};
@@ -47,7 +46,6 @@ export default {
 			`${apiURL}/${categoryId}/posts/${postId}/comments/${id}`,
 			requestOptions
 		);
-
 		return await response.json();
 	},
 };
