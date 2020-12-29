@@ -50,13 +50,17 @@ export const deleteOneComment = (id, categoryId, postId) => async (
 ) => {
 	try {
 		await commentsService.deleteComment(id, categoryId, postId);
+
 		if (id) {
 			dispatch({
 				type: DELETE_COMMENT,
+				payload: {
+					id: id,
+				},
 			});
 			return Promise.resolve();
 		}
 	} catch (error) {
-		return Promise.reject(error);
+		return Promise.reject();
 	}
 };

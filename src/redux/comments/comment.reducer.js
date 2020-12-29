@@ -6,19 +6,15 @@ import {
 
 const initialState = {
 	comments: [],
-	PostId: 0,
-	categoryId: 0,
 };
 
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case CREATE_COMMENT: {
-			const { comment, postId, categoryId } = action.payload;
+			const { comment } = action.payload;
+
 			return {
-				...state,
-				comment: comment,
-				postId: postId,
-				categoryId: categoryId,
+				comments: [...state.comments, comment],
 			};
 		}
 		case GET_ALL_COMMENTS: {
@@ -29,8 +25,11 @@ export default function (state = initialState, action) {
 			};
 		}
 		case DELETE_COMMENT: {
+			const { id } = action.payload;
+			console.log(id);
 			return {
 				...state,
+				comments: state.comments.filter((comment) => comment.id !== id),
 			};
 		}
 

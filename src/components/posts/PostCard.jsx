@@ -136,7 +136,7 @@ export default function PostCard({post, categoryId}) {
     const [showInput, setShowInput]= useState(false);
     const [createdBy, setCreatedBy] = useState({});
     const {me} = useSelector(state => state.auth);
-    const [comments, setComments] = useState([]);
+    const { comments }  = useSelector(state => state.comments);
     const history = useHistory();
     const [showSnackbar, setShowSnackbar] = useState(false); 
     const [alertMessage, setAlertMessage] = useState("");
@@ -188,7 +188,6 @@ export default function PostCard({post, categoryId}) {
                 break;
             case "comment":
                 setNewComment(event.target.value);
-                console.log(newComment);
                     break;
             default:
                 break;
@@ -197,6 +196,7 @@ export default function PostCard({post, categoryId}) {
 }
 
     const edit = () => setShowInput(true);
+
     const deletePost = async () => {
         try {
             await store.dispatch(deleteOnePost(post.id, categoryId));
@@ -208,7 +208,6 @@ export default function PostCard({post, categoryId}) {
        
     }
     
-
     const submitPost= async (event) => { 
         event.preventDefault();     
         try {
@@ -226,7 +225,6 @@ export default function PostCard({post, categoryId}) {
         try {
             await store.dispatch(addComment(newComment, post.id, categoryId));  
             setNewComment(""); 
-            console.log(newComment)  
        } catch (error) {     
             setShowSnackbar(true);
             setAlertMessage(error);
@@ -237,12 +235,10 @@ export default function PostCard({post, categoryId}) {
     useEffect( () => {
             setPostData(post);
             setCreatedBy(postData.createdBy)   
-
         const fetchComments = async () => {
             try {
                 if(post.id){
-                const commentsList = await store.dispatch(getAllComments(post.id, categoryId));  
-               setComments(commentsList)
+                await store.dispatch(getAllComments(post.id, categoryId)); 
             }
             } catch (error) {     
                 setShowSnackbar(true);
@@ -386,7 +382,7 @@ export default function PostCard({post, categoryId}) {
             </Button>
             
           {comments ? comments.map(comment => { 
-           return <CommentCard comment={comment} key={comment.id}/>})  
+           return <CommentCard post={post} categoryId={categoryId} comment={comment} key={comment.id}/>})  
         : ""}
         
         </Card>

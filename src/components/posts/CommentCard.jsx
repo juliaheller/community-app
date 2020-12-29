@@ -73,7 +73,7 @@ export default function CommentCard({post, categoryId, comment}) {
             await store.dispatch(deleteOneComment(comment.id, post.id, categoryId));
         } catch (error) {
             setShowSnackbar(true);
-            setAlertMessage("error");
+            setAlertMessage(error);
         }
        
     }
@@ -97,10 +97,10 @@ export default function CommentCard({post, categoryId, comment}) {
                         <Typography align="left" variant="body2" component="p">
                             Comment by
                         </Typography>
-                       {comment.createdBy.avatar? <Avatar className={classes.avatar} src={comment.createdBy.avatar}></Avatar>
+                       {comment.createdBy?.avatar? <Avatar className={classes.avatar} src={comment.createdBy.avatar}></Avatar>
                        : <PersonOutlineIcon />}
                         <Typography align="left" variant="body2" component="p">
-                            {comment.createdBy.name}
+                            {comment.createdBy?.name}
                         </Typography>
                     </div>
                     <div className={classes.infoBox}>
