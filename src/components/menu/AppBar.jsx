@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  link: {
+    textDecoration: 'none',
+    color: "#1C304A",
+  },
 }));
 
 export default function MenuAppBar() {
@@ -92,8 +96,8 @@ export default function MenuAppBar() {
               open={open}
               onClose={handleClose}
             >
-             <Link to="/profile"><MenuItem onClick={handleClose}>Mein Profil</MenuItem></Link>
-             <Link to="/login"><MenuItem onClick={logoutUser}>Logout</MenuItem></Link>
+             <Link className={classes.link} to="/profile"><MenuItem onClick={handleClose}>Mein Profil</MenuItem></Link>
+             <Link className={classes.link} to="/login"><MenuItem onClick={logoutUser}>Logout</MenuItem></Link>
             </Menu>
           </div>
         )}
