@@ -271,7 +271,8 @@ export default function UserModal({ user, open, setOpen }) {
         //             userService.deleteUser(formData.id);
         //             handleClose();
         //         } catch (error) {
-        //             console.warn(error);
+        //             setShowSnackbar(true);
+            // setAlertMessage(error);
         //         }
         // }
     }

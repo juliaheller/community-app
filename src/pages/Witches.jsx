@@ -7,7 +7,8 @@ import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert } from "@material-ui/lab";
 // Components
 import User from "../components/user/User";
 import UserTable from "../components/user/UserTable.jsx";
@@ -102,15 +103,23 @@ const useStyles = makeStyles({
 export default function Witches() {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
-    const [isOnline] = useState(false);
     const {user} = useSelector(state =>state.user);
     const {me} = useSelector(state => state.auth);
+    const [showSnackbar, setShowSnackbar] = useState(false); 
+    const [alertMessage, setAlertMessage] = useState("");
+
+
+    const onSnackbarClose = (event) => {
+        setShowSnackbar(false);
+    };
+    
 
     const selectUser = async (id) => {
         try {
             await store.dispatch(getUser(id));       
        } catch (error) {     
-           console.warn(error)
+        setShowSnackbar(true);
+        setAlertMessage(error);
        }
     }
    
@@ -130,6 +139,17 @@ export default function Witches() {
 
     return (
         <div className={classes.root}>
+             <Snackbar
+                open={showSnackbar}
+                autoHideDuration={3000}
+                onClose={onSnackbarClose}>
+                <Alert
+                    onClose={onSnackbarClose}
+                    severity="error"
+                    variant="filled">
+                    {alertMessage}
+                </Alert>
+                </Snackbar>
             <Paper className={classes.paper}>
                 <Typography style={{ color: " #1C304A" }} variant="h3">
                     Hexen
