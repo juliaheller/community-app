@@ -2,18 +2,19 @@ import { LOGIN, LOGOUT } from "./auth.types";
 import authService from "../../services/auth.service";
 
 export const login = (email, password) => async (dispatch) => {
+	let me;
 	try {
 		const { token, error } = await authService.loginUser(email, password);
-		const me = await authService.me();
-		console.log(token, me);
+		if (token) {
+			localStorage.setItem("token", token);
+			me = await authService.me();
+		}
 
 		if (token && me) {
 			dispatch({
 				type: LOGIN,
 				payload: { isLoggedIn: true, me: me },
 			});
-			localStorage.setItem("token", token);
-
 			return Promise.resolve();
 		} else {
 			return Promise.reject(error);
