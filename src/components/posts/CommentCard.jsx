@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState } from "react";
+import moment from 'moment';
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -95,7 +96,7 @@ export default function CommentCard({post, categoryId, comment}) {
                     <div className={classes.infoBox}>
                         <ChatBubbleOutlineIcon />
                         <Typography align="left" variant="body2" component="p">
-                            Comment by
+                            Kommentar von
                         </Typography>
                        {comment.createdBy?.avatar? <Avatar className={classes.avatar} src={comment.createdBy.avatar}></Avatar>
                        : <PersonOutlineIcon />}
@@ -107,7 +108,7 @@ export default function CommentCard({post, categoryId, comment}) {
                         {" "}
                         <CalendarTodayIcon />
                         <Typography align="left" variant="body2" component="p">
-                            12 March 2018, 1:46PM
+                        {moment(comment.createdAt).format(`DD.MM.YY, HH:MM`)} Uhr
                         </Typography>
                         {me.id === comment.createdBy?.id ? <Button className={classes.button} onClick={deleteComment}><DeleteForeverIcon /></Button> : "" }
                     </div>

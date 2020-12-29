@@ -5,6 +5,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import parse from 'html-react-parser';
+import moment from 'moment';
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -71,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",
-        width: "50%",
+        width: "100%",
         marginRight: 0,
         float: "right",
     },
@@ -267,7 +268,7 @@ export default function PostCard({post, categoryId}) {
                 {" "}
                 <CalendarTodayIcon />
                 <Typography align="left" variant="body2" component="p">
-                    12 March 2018, 1:46PM
+                {moment(post.createdAt).format(`DD.MM.YY, HH:MM`)} Uhr
                 </Typography>
             </div>
             {createdBy ? 
