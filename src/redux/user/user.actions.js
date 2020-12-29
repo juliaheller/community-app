@@ -1,4 +1,4 @@
-import { UPDATE, GET_ONE } from "./user.types.js";
+import { UPDATE_USER, GET_ONE_USER } from "./user.types.js";
 import userService from "../../services/user.service";
 
 export const getUser = (id) => async (dispatch) => {
@@ -6,7 +6,7 @@ export const getUser = (id) => async (dispatch) => {
 		const user = await userService.getOne(id);
 		if (user) {
 			dispatch({
-				type: GET_ONE,
+				type: GET_ONE_USER,
 				payload: {
 					user: user,
 				},
@@ -23,7 +23,7 @@ export const updateUser = (id, user) => async (dispatch) => {
 		const updatedUser = await userService.updateUser(id, user);
 		if (user) {
 			dispatch({
-				type: UPDATE,
+				type: UPDATE_USER,
 				payload: {
 					id: id,
 					user: updatedUser,

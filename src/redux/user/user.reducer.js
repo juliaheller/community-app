@@ -1,4 +1,4 @@
-import { UPDATE, GET_ONE } from "./user.types";
+import { UPDATE_USER, GET_ONE_USER } from "./user.types";
 
 const initialState = {
 	user: {},
@@ -7,7 +7,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
 	switch (action.type) {
-		case UPDATE: {
+		case UPDATE_USER: {
 			const { id, user } = action.payload;
 			return {
 				...state,
@@ -15,7 +15,7 @@ export default function (state = initialState, action) {
 				user: user,
 			};
 		}
-		case GET_ONE: {
+		case GET_ONE_USER: {
 			const { user } = action.payload;
 			return {
 				...state,

@@ -1,4 +1,8 @@
-import { CREATE, GET_ALL, DELETE } from "./comment.types";
+import {
+	CREATE_COMMENT,
+	GET_ALL_COMMENTS,
+	DELETE_COMMENT,
+} from "./comment.types";
 
 const initialState = {
 	comments: [],
@@ -8,7 +12,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
 	switch (action.type) {
-		case CREATE: {
+		case CREATE_COMMENT: {
 			const { comment, postId, categoryId } = action.payload;
 			return {
 				...state,
@@ -17,14 +21,14 @@ export default function (state = initialState, action) {
 				categoryId: categoryId,
 			};
 		}
-		case GET_ALL: {
+		case GET_ALL_COMMENTS: {
 			const { comments } = action.payload;
 			return {
 				...state,
 				comments: comments,
 			};
 		}
-		case DELETE: {
+		case DELETE_COMMENT: {
 			const { id, categoryId, postId } = action.payload;
 			return {
 				...state,

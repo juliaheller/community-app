@@ -1,4 +1,8 @@
-import { CREATE, GET_ALL, DELETE } from "./comment.types.js";
+import {
+	CREATE_COMMENT,
+	GET_ALL_COMMENTS,
+	DELETE_COMMENT,
+} from "./comment.types.js";
 import commentsService from "../../services/comments.service";
 
 export const getAllComments = (postId, categoryId) => async (dispatch) => {
@@ -6,7 +10,7 @@ export const getAllComments = (postId, categoryId) => async (dispatch) => {
 		const comments = await commentsService.getComments(postId, categoryId);
 		if (comments) {
 			dispatch({
-				type: GET_ALL,
+				type: GET_ALL_COMMENTS,
 				payload: {
 					comments: comments,
 				},
@@ -27,7 +31,7 @@ export const addComment = (comment, postId, categoryId) => async (dispatch) => {
 		);
 		if (Comment) {
 			dispatch({
-				type: CREATE,
+				type: CREATE_COMMENT,
 				payload: {
 					comment: newComment,
 					postId: postId,
@@ -48,7 +52,7 @@ export const deleteOneComment = (id, categoryId, postId) => async (
 		await commentsService.deleteComment(id, categoryId, postId);
 		if (id) {
 			dispatch({
-				type: DELETE,
+				type: DELETE_COMMENT,
 			});
 			return Promise.resolve();
 		}

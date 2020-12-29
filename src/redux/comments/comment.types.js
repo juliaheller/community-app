@@ -1,3 +1,3 @@
-export const CREATE = "CREATE";
-export const GET_ALL = "GET_ALL";
-export const DELETE = "DELETE";
+export const CREATE_COMMENT = "CREATE_COMMENT";
+export const GET_ALL_COMMENTS = "GET_ALL_COMMENTS";
+export const DELETE_COMMENT = "DELETE_COMMENT";
