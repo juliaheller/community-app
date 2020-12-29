@@ -12,6 +12,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Paper } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert } from "@material-ui/lab";
 
 // Services
 import postsService from "../../services/posts.service";
@@ -82,6 +84,13 @@ export default function PostForm( {params}) {
         categoryId: categoryId,
       };
     const [formValues, setFormValues] = useState(defaultValues);
+    const [showSnackbar, setShowSnackbar] = useState(false); 
+    const [alertMessage, setAlertMessage] = useState("");
+
+
+    const onSnackbarClose = (event) => {
+        setShowSnackbar(false);
+    };
 
  const [modules] = useState({
     toolbar: [
@@ -128,7 +137,8 @@ export default function PostForm( {params}) {
         }  );
             history.push(`/categories/${categoryId}`);
            } catch (error) {
-               console.warn(error);
+            setShowSnackbar(true);
+            setAlertMessage(error);
            }
       };
 
@@ -148,6 +158,17 @@ export default function PostForm( {params}) {
 
       return (
         <div className={classes.root}>
+           <Snackbar
+                open={showSnackbar}
+                autoHideDuration={3000}
+                onClose={onSnackbarClose}>
+                <Alert
+                    onClose={onSnackbarClose}
+                    severity="error"
+                    variant="filled">
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
             <Paper className={classes.paper}>
             <Typography variant="h3" component="h3">
                     Beitrag erstellen
