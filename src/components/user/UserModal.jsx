@@ -11,6 +11,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Divider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert } from "@material-ui/lab";
 
 // redux
 import { updateUser } from '../../redux/user/user.actions';
@@ -52,6 +54,13 @@ export default function UserModal({ user, open, setOpen }) {
     const classes = useStyles();
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(true);
+    const [showSnackbar, setShowSnackbar] = useState(false); 
+    const [alertMessage, setAlertMessage] = useState("");
+
+
+    const onSnackbarClose = (event) => {
+        setShowSnackbar(false);
+    };
     
     const handleClose = () => {
         setOpen(false);
@@ -249,7 +258,8 @@ export default function UserModal({ user, open, setOpen }) {
             store.dispatch(updateUser(formData.id, formData));
             handleClose();
         } catch (error) {
-            console.warn(error);
+            setShowSnackbar(true);
+            setAlertMessage(error);
         }
     };
 
@@ -273,6 +283,17 @@ export default function UserModal({ user, open, setOpen }) {
             open={open}
             onClose={handleClose}
             aria-labelledby="form-dialog-title">
+                 <Snackbar
+                open={showSnackbar}
+                autoHideDuration={3000}
+                onClose={onSnackbarClose}>
+                <Alert
+                    onClose={onSnackbarClose}
+                    severity="error"
+                    variant="filled">
+                    {alertMessage}
+                </Alert>
+                </Snackbar>
             <DialogTitle id="form-dialog-title">Profil bearbeiten</DialogTitle>
             <DialogContent>
                 <DialogContentText>
@@ -590,6 +611,7 @@ export default function UserModal({ user, open, setOpen }) {
                     </Button>
                 </div>
             </DialogActions>
+            
         </Dialog>
     )
 }
