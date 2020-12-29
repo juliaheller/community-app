@@ -32,6 +32,7 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        width: '30%'
     },
     comments: {
         width: "100%",
@@ -68,24 +69,11 @@ export default function CommentCard({comment}) {
                     </div>
                 </div>
                 <div className={classes.comments}>
-                    <div className={classes.infoBox}>
-                        {" "}
+                   
                         <Typography align="left" variant="body2" component="p">
-                            Comment Lorem ipsum dolor sit amet, consetetur
-                            sadipscing elitr, sed diam nonumy eirmod tempor
-                            invidunt ut labore et dolore magna aliquyam erat,
-                            sed diam voluptua. At vero eos et accusam et justo
-                            duo dolores et ea rebum. Stet clita kasd gubergren,
-                            no sea takimata sanctus est Lorem ipsum dolor sit
-                            amet. Lorem ipsum dolor sit amet, consetetur
-                            sadipscing elitr, sed diam nonumy eirmod tempor
-                            invidunt ut labore et dolore magna aliquyam erat,
-                            sed diam voluptua. At vero eos et accusam et justo
-                            duo dolores et ea rebum. Stet clita kasd gubergren,
-                            no sea takimata sanctus est Lorem ipsum dolor sit
-                            amet.
+                           {comment.comment} 
                         </Typography>
-                    </div>
+    
                 </div>
             </CardContent>
         </Card>

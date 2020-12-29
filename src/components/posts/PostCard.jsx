@@ -101,15 +101,22 @@ const useStyles = makeStyles((theme) => ({
         width: "100%"
     },
     btn: {
-    
         color: "#1C304A",
         display: "flex",
         justifyContent: "space-between",
       
     },
+    btnMain: {
+        color: 'white',
+    },
     submitBtn: {
         width: "20%",
         marginTop: "50px"
+    },
+    btnBox: {
+        width: "100%",
+        display: "flex",
+
     },
 }));
 
@@ -157,8 +164,19 @@ export default function PostCard({post, categoryId}) {
       
     };
 
-    const handleChangeText = (event) => {
-        setPostData( Object.assign({}, postData, { title: event.target.value }))
+    const handleChangeText = (event, type) => {
+        switch (type) {
+            case "title":
+                setPostData( Object.assign({}, postData, { title: event.target.value }))
+                break;
+            case "comment":
+                setNewComment(event.target.value);
+                console.log(newComment)
+                    break;
+            default:
+                break;
+        }
+      
 }
 
     const edit = () => setShowInput(true);
@@ -180,18 +198,12 @@ export default function PostCard({post, categoryId}) {
         
     }
 
-    const changeComment = (event) => {
-        setNewComment(event.target.value);
-        
-         
-    }
-
     const submitComment = async (event) => {
-        event.preventDefault();
-       
+        event.preventDefault();     
         try {
             await store.dispatch(addComment(newComment, post.id, categoryId));  
-            setNewComment("");   
+            setNewComment(""); 
+            console.log(newComment)  
        } catch (error) {     
            console.warn(error)
        }
@@ -203,7 +215,6 @@ export default function PostCard({post, categoryId}) {
             try {
                 if(post.id){
                 const commentsList = await store.dispatch(getAllComments(post.id, categoryId));  
-                console.log(commentsList);
                setComments(commentsList)
             }
             } catch (error) {     
@@ -262,7 +273,7 @@ export default function PostCard({post, categoryId}) {
                         component="span"
                         className={classes.btn}
                         >
-                    Bild bearbeiten <EditIcon></EditIcon>
+                    <EditIcon></EditIcon>
                     </Button>      
                 </label>
             </CardMedia>
@@ -294,18 +305,22 @@ export default function PostCard({post, categoryId}) {
               {parse(String(postData.content))}
             </CardContent> 
               }
-              {me.id === createdBy?.id ?  <Button
+              {!showInput && me.id === createdBy?.id ?  <Button
                 variant="contained"
-                color="default"
                 component="span"
-                className={classes.btn}
+                color="primary"
+                className={classes.btnMain}
                 onClick={edit}
                 > BEITRAG bearbeiten
                <EditIcon></EditIcon>
             </Button>: ''}
-            {showInput ?  <Button style={{width: "100%"}} variant="contained" color="primary" type="submit">
+            {showInput ? 
+           <div className={classes.btnBox}> <Button className={classes.btn} style={{width: "20%"}} variant="contained"  type="submit" >
+                Abbrechen
+            </Button> 
+            <Button style={{width: "80%"}} variant="contained" color="secondary" type="submit">
                 Beitrag aktualisieren
-            </Button> : ""}
+            </Button></div> : ""}
             
             </form>
             
@@ -315,7 +330,7 @@ export default function PostCard({post, categoryId}) {
             </CardActions>
             <Divider />
           
-                <TextField id="outlined-basic" label="Kommentieren" variant="outlined" value={newComment} onChange={changeComment}></TextField>
+                <TextField id="outlined-basic" label="Kommentieren" variant="outlined" value={newComment}   onChange={(event) => handleChangeText(event, "comment")}></TextField>
             <Button   variant="contained" color="primary" type="submit" onClick={submitComment}>
                 Kommentar abschicken
             </Button>
