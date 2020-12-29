@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
@@ -22,11 +23,12 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import TextField from "@material-ui/core/TextField";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 // Redux
 import { useSelector } from 'react-redux';
 import store from "../../redux/store";
-import { updatePost } from "../../redux/posts/post.actions";
+import { updateAPost, deleteOnePost } from "../../redux/posts/post.actions";
 import {addComment, getAllComments} from "../../redux/comments/comment.actions"
 
 const useStyles = makeStyles((theme) => ({
@@ -86,16 +88,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     },
-    titleBox: {
-        display: "flex",
-        justifyContent: "space-between",
-        width: "65%",
-        justifySelf: "flex-end"
+    title: {
+      
+        width: "100%",
+       
     },
     textField: {
         fontSize: "20px",
         width: "100%",
-        textAlign: "center"
+        textAlign: "left",
+        justifySelf: 'flex-start'
     },
     editor: {
         width: "100%"
@@ -118,6 +120,11 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
 
     },
+    btnBox2: {
+        width: "100%",
+        display: "flex",
+        justifyContent: 'space-between'
+    }
 }));
 
 export default function PostCard({post, categoryId}) {
@@ -128,6 +135,7 @@ export default function PostCard({post, categoryId}) {
     const [createdBy, setCreatedBy] = useState({});
     const {me} = useSelector(state => state.auth);
     const [comments, setComments] = useState([]);
+    const history = useHistory();
 
     const [modules] = useState({
         toolbar: [
@@ -171,7 +179,7 @@ export default function PostCard({post, categoryId}) {
                 break;
             case "comment":
                 setNewComment(event.target.value);
-                console.log(newComment)
+                console.log(newComment);
                     break;
             default:
                 break;
@@ -180,7 +188,15 @@ export default function PostCard({post, categoryId}) {
 }
 
     const edit = () => setShowInput(true);
-
+    const deletePost = async () => {
+        try {
+            await store.dispatch(deleteOnePost(post.id, categoryId));
+            history.push(`/categories/${categoryId}`);
+        } catch (error) {
+            console.warn(error);
+        }
+       
+    }
     useEffect(() => {
         
             setPostData(post);
@@ -190,10 +206,10 @@ export default function PostCard({post, categoryId}) {
     const submitPost= async (event) => { 
         event.preventDefault();     
         try {
-            await store.dispatch(updatePost(postData, post.id, categoryId));    
+            await store.dispatch(updateAPost(postData, post.id, categoryId));    
             setShowInput(false);  
        } catch (error) {     
-           console.warn(error)
+           console.warn(error);
        }
         
     }
@@ -257,10 +273,10 @@ export default function PostCard({post, categoryId}) {
                 value={postData.title}
                 size="medium"
                 onChange={(event) => handleChangeText(event, "title")}
-            />: <div className={classes.titleBox}> <Typography style={{ color: " #1C304A" }} variant="h3">
+            />: <Typography className={classes.title} style={{ color: " #1C304A" }} variant="h3">
             {postData.title} 
              </Typography> 
-             </div>}                 
+             }                 
             {postData.image !== "" 
             ? <CardMedia
                 className={classes.media}
@@ -286,7 +302,7 @@ export default function PostCard({post, categoryId}) {
                 component="span"
                 className={classes.btn}
                 >
-                <EditIcon></EditIcon>
+               Bild hinzufügen <EditIcon></EditIcon>
             </Button> : "" }    
         </label>
             }
@@ -305,7 +321,17 @@ export default function PostCard({post, categoryId}) {
               {parse(String(postData.content))}
             </CardContent> 
               }
-              {!showInput && me.id === createdBy?.id ?  <Button
+              {!showInput && me.id === createdBy?.id ? 
+              <div className={classes.btnBox2}>
+                  <Button
+                variant="contained"
+                component="span"
+                color="secondary"
+                className={classes.btnMain}
+                onClick={deletePost}
+                > BEITRAG löschen
+               <DeleteForeverIcon></DeleteForeverIcon>
+            </Button><Button
                 variant="contained"
                 component="span"
                 color="primary"
@@ -313,7 +339,7 @@ export default function PostCard({post, categoryId}) {
                 onClick={edit}
                 > BEITRAG bearbeiten
                <EditIcon></EditIcon>
-            </Button>: ''}
+            </Button></div> : ''}
             {showInput ? 
            <div className={classes.btnBox}> <Button className={classes.btn} style={{width: "20%"}} variant="contained"  type="submit" >
                 Abbrechen

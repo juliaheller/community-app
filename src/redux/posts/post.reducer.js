@@ -1,4 +1,4 @@
-import { UPDATE, GET_ONE } from "./post.types";
+import { UPDATE, GET_ONE, DELETE } from "./post.types";
 
 const initialState = {
 	post: {},
@@ -18,6 +18,13 @@ export default function (state = initialState, action) {
 			};
 		}
 		case GET_ONE: {
+			const { post } = action.payload;
+			return {
+				...state,
+				post: post,
+			};
+		}
+		case DELETE: {
 			const { post } = action.payload;
 			return {
 				...state,

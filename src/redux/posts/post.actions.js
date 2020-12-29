@@ -1,4 +1,4 @@
-import { UPDATE, GET_ONE, GET_ALL } from "./post.types.js";
+import { UPDATE, GET_ONE, GET_ALL, DELETE } from "./post.types.js";
 import postsService from "../../services/posts.service";
 
 export const getPosts = (categoryId) => async (dispatch) => {
@@ -35,7 +35,7 @@ export const getPost = (id, categoryId) => async (dispatch) => {
 	}
 };
 
-export const updatePost = (post, id, categoryId) => async (dispatch) => {
+export const updateAPost = (post, id, categoryId) => async (dispatch) => {
 	try {
 		const updatedPost = await postsService.updatePost(post, id, categoryId);
 		if (post) {
@@ -46,6 +46,19 @@ export const updatePost = (post, id, categoryId) => async (dispatch) => {
 					id: id,
 					categoryId: categoryId,
 				},
+			});
+			return Promise.resolve();
+		}
+	} catch (error) {
+		return Promise.reject();
+	}
+};
+export const deleteOnePost = (id, categoryId) => async (dispatch) => {
+	try {
+		await postsService.deletePost(id, categoryId);
+		if (id) {
+			dispatch({
+				type: DELETE,
 			});
 			return Promise.resolve();
 		}

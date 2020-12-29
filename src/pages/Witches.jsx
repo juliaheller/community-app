@@ -159,7 +159,7 @@ export default function Witches() {
                                     className={classes.small}
                                     
                                 />
-                                    <div className={isOnline ? `${classes.online} ${classes.status}` : `${classes.offline} ${classes.status}`}></div>
+                                    {/* <div className={isOnline ? `${classes.online} ${classes.status}` : `${classes.offline} ${classes.status}`}></div> */}
                                 
                             </div>
                         );

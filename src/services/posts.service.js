@@ -67,7 +67,6 @@ export default {
 		const requestOptions = {
 			method: "DELETE",
 			headers: {
-				"Content-Type": "application/json",
 				...auth.getAuthHeader(),
 			},
 		};
