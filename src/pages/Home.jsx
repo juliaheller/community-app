@@ -30,13 +30,13 @@ export default function Home() {
                 style={{ width: "200px", height: "200px" }}
             />
             <Divider />
-            <Typography
+            {/* <Typography
                 style={{ color: " #1C304A" }}
                 variant="h3"
                 component="h3"
                 gutterBottom>
                 Letzte Aktivitaeten 
-            </Typography>
+            </Typography> */}
         </div>
     );
 }

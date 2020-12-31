@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -19,7 +18,8 @@ import { useSelector } from 'react-redux';
 import { logout } from '../../redux/auth/auth.actions';
 import store from '../../redux/store';
 
-
+// Media
+import logo from '../../images/Sophia_logo_weiss.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: "#1C304A",
   },
+  img: {
+    width: "150px",
+
+  },
+  
 }));
 
 export default function MenuAppBar() {
@@ -67,9 +72,7 @@ export default function MenuAppBar() {
     <AppBar position="static">
       <Toolbar>
        <HamburgerMenu></HamburgerMenu>
-       
-        <Typography variant="h6" className={classes.title}>
-        Tempel der Sophia          </Typography>
+    <Link to="/" className={classes.title}> <img className={classes.img} src={logo} alt="logo" /></Link>
         {auth.isLoggedIn && (
           <div>
             <IconButton
