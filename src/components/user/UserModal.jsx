@@ -1,5 +1,5 @@
 // Libraries
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,15 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Divider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert } from "@material-ui/lab";
+
+// redux
+import { updateUser } from '../../redux/user/user.actions';
+import store from "../../redux/store";
+
+// Services
+import userService from '../../services/user.service';
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -23,10 +32,12 @@ const useStyles = makeStyles((theme) => ({
         height: "500px",
         justifyContent: "space-between",
         alignItems: "center",
+        color: "#5B6489",
     },
     textField: {
         width: "400px",
         height: "200px",
+        color: "#5B6489",
     },
     btns: {
         display: "flex",
@@ -41,9 +52,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserModal({ user, open, setOpen }) {
     const classes = useStyles();
-    // const { user, dispatch } = useContext(userContext);
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(true);
+    const [showSnackbar, setShowSnackbar] = useState(false); 
+    const [alertMessage, setAlertMessage] = useState("");
+
+
+    const onSnackbarClose = (event) => {
+        setShowSnackbar(false);
+    };
+    
     const handleClose = () => {
         setOpen(false);
     };
@@ -55,8 +73,7 @@ export default function UserModal({ user, open, setOpen }) {
                 setLoading(false);
             }
         },
-        []
-        // [user]
+        [user]
     );
 
     const handleChange = (event, type) => {
@@ -78,6 +95,13 @@ export default function UserModal({ user, open, setOpen }) {
                 setFormData(
                     Object.assign({}, formData, {
                         motto: event.target.value,
+                    })
+                );
+                break;
+                case "address":
+                setFormData(
+                    Object.assign({}, formData, {
+                        address: event.target.value,
                     })
                 );
                 break;
@@ -230,25 +254,47 @@ export default function UserModal({ user, open, setOpen }) {
     };
     const changeUserData = (event) => {
         event.preventDefault();
-        // UserService.updateUser(formData._id, formData)
-        //     .then((response) => {
-        //         if (response.errors) {
-        //             console.log(response.errors);
-        //         } else {
-        //             setFormData(response);
-        //             dispatch({ type: "saveUser", userData: response });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
+        try {
+            store.dispatch(updateUser(formData.id, formData));
+            handleClose();
+        } catch (error) {
+            setShowSnackbar(true);
+            setAlertMessage(error);
+        }
     };
+
+    const deleteAccount = (event) => {
+        event.preventDefault();
+        // let confirmation = confirm("Willst du wirklich deinen Account löschen? Dies kann nicht rückgängig gemacht werden!"); // user
+        // if (confirmation){
+        //         try {
+        //             userService.deleteUser(formData.id);
+        //             handleClose();
+        //         } catch (error) {
+        //             setShowSnackbar(true);
+            // setAlertMessage(error);
+        //         }
+        // }
+    }
+    
     return (
+        loading? <h1>Loading</h1> :
         <Dialog
             fullScreen
             open={open}
             onClose={handleClose}
             aria-labelledby="form-dialog-title">
+                 <Snackbar
+                open={showSnackbar}
+                autoHideDuration={3000}
+                onClose={onSnackbarClose}>
+                <Alert
+                    onClose={onSnackbarClose}
+                    severity="error"
+                    variant="filled">
+                    {alertMessage}
+                </Alert>
+                </Snackbar>
             <DialogTitle id="form-dialog-title">Profil bearbeiten</DialogTitle>
             <DialogContent>
                 <DialogContentText>
@@ -293,6 +339,16 @@ export default function UserModal({ user, open, setOpen }) {
                         value={formData.email}
                         variant="standard"
                         disabled></TextField>
+                         <TextField
+                        className={classes.textField}
+                        id="address"
+                        label="Adresse"
+                        value={formData.address}
+                        variant="outlined"
+                        onChange={(event) =>
+                            handleChange(event, "address")
+                        }
+                        ></TextField>
                     <TextField
                         className={classes.textField}
                         id="phone"
@@ -535,7 +591,8 @@ export default function UserModal({ user, open, setOpen }) {
                             margin: "16px",
                         }}
                         className={classes.btn}
-                        color="secondary">
+                        color="secondary"
+                        onClick={event => deleteAccount(event)}>
                         Account loeschen
                     </Button>
                     <Button
@@ -550,11 +607,12 @@ export default function UserModal({ user, open, setOpen }) {
                             color: "white",
                         }}
                         className={classes.submit}
-                        onClick={handleClose}>
+                        onClick={(event) => changeUserData(event)}>
                         Speichern
                     </Button>
                 </div>
             </DialogActions>
+            
         </Dialog>
-    );
+    )
 }

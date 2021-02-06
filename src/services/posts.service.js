@@ -1,10 +1,10 @@
 import auth from "../helper/auth";
 require("dotenv").config();
 
-const apiURL = process.env.REACT_APP_API_URL + "/users";
+const apiURL = process.env.REACT_APP_API_URL + "/categories";
 
 export default {
-	async getAll() {
+	async getAllPosts(categoryId) {
 		const requestOptions = {
 			method: "GET",
 			headers: {
@@ -12,10 +12,13 @@ export default {
 				...auth.getAuthHeader(),
 			},
 		};
-		const response = await fetch(apiURL, requestOptions);
+		const response = await fetch(
+			`${apiURL}/${categoryId}/posts`,
+			requestOptions
+		);
 		return await response.json();
 	},
-	async getOne(id) {
+	async getOnePost(id, categoryId) {
 		const requestOptions = {
 			method: "GET",
 			headers: {
@@ -23,48 +26,54 @@ export default {
 				...auth.getAuthHeader(),
 			},
 		};
-		const response = await fetch(`${apiURL}/${id}`, requestOptions);
+		const response = await fetch(
+			`${apiURL}/${categoryId}/posts/${id}`,
+			requestOptions
+		);
 
 		return await response.json();
 	},
-	async createUser(email, password, name, surname) {
+	async createPost(categoryId, post) {
 		const requestOptions = {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				...auth.getAuthHeader(),
 			},
-			body: JSON.stringify({
-				email: email,
-				password: password,
-				name: name,
-				surname: surname,
-			}),
+			body: JSON.stringify(post),
 		};
-		const response = await fetch(apiURL, requestOptions);
+		const response = await fetch(
+			`${apiURL}/${categoryId}/posts`,
+			requestOptions
+		);
 		return await response.json();
 	},
-
-	async updateUser(id, user) {
+	async updatePost(post, id, categoryId) {
 		const requestOptions = {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 				...auth.getAuthHeader(),
 			},
-			body: JSON.stringify(user),
+			body: JSON.stringify(post),
 		};
-		const response = await fetch(`${apiURL}/${id}`, requestOptions);
+		const response = await fetch(
+			`${apiURL}/${categoryId}/posts/${id}`,
+			requestOptions
+		);
 		return await response.json();
 	},
-	async deleteUser(id) {
+	async deletePost(id, categoryId) {
 		const requestOptions = {
 			method: "DELETE",
 			headers: {
-				"Content-Type": "application/json",
 				...auth.getAuthHeader(),
 			},
 		};
-		const response = await fetch(`${apiURL}/${id}`, requestOptions);
+		const response = await fetch(
+			`${apiURL}/${categoryId}/posts/${id}`,
+			requestOptions
+		);
 
 		return await response.json();
 	},

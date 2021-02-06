@@ -7,14 +7,22 @@ import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert } from "@material-ui/lab";
 // Components
 import User from "../components/user/User";
 import UserTable from "../components/user/UserTable.jsx";
 
 // Services
-
 import userService from "../services/user.service";
+
+
+// Redux
+import { useSelector } from 'react-redux';
+import {getUser} from '../redux/user/user.actions';
+import store from "../redux/store";
+
+
 
 const useStyles = makeStyles({
     root: {
@@ -37,6 +45,7 @@ const useStyles = makeStyles({
     small: {
         width: "100px",
         height: "100px",
+        marginBottom: "-6px",
     },
     large: {
         width: "200px",
@@ -56,9 +65,21 @@ const useStyles = makeStyles({
         justifyContent: "space-evenly",
         alignItems: "center",
     },
+    status: {
+        display: "inline-block",
+        borderRadius: "50%",
+        width: "8px",
+        height: "8px",
+        marginRight: "6px",
+    },
+    online: {
+        background: "#aed581",
+    },
+    offline: {
+        background:"#f4511e",
+    },
     form: {
         display: "flex",
-        // flexDirection: "column",
         padding: "16px",
         flexWrap: "wrap",
         margin: "16px",
@@ -70,8 +91,6 @@ const useStyles = makeStyles({
     input: {
         display: "none",
         width: "100%",
-        // visibility: "hidden",
-        // height: "50px",
         borderBottom: "1px solid darkgrey",
         textAlign: "center",
         height: "100%",
@@ -84,21 +103,53 @@ const useStyles = makeStyles({
 export default function Witches() {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
-    const [user, setUser] = useState({});
+    const {user} = useSelector(state =>state.user);
+    const {me} = useSelector(state => state.auth);
+    const [showSnackbar, setShowSnackbar] = useState(false); 
+    const [alertMessage, setAlertMessage] = useState("");
 
+
+    const onSnackbarClose = (event) => {
+        setShowSnackbar(false);
+    };
+    
+
+    const selectUser = async (id) => {
+        try {
+            await store.dispatch(getUser(id));       
+       } catch (error) {     
+        setShowSnackbar(true);
+        setAlertMessage(error);
+       }
+    }
+   
     useEffect(() => {
+       if(me.id) {
+           selectUser(me.id)
+        };      
         const fetchUsers = async () => {
-            const allUsers = await userService.getAll();
-            const oneUser = await userService.getOne(1);
+            const allUsers = await userService.getAll();     
             setUsers(allUsers);
-            console.log(allUsers);
-            setUser(oneUser);
         };
         fetchUsers();
-    }, []);
+        
+    }, [me.id]);
+
+    
 
     return (
         <div className={classes.root}>
+             <Snackbar
+                open={showSnackbar}
+                autoHideDuration={3000}
+                onClose={onSnackbarClose}>
+                <Alert
+                    onClose={onSnackbarClose}
+                    severity="error"
+                    variant="filled">
+                    {alertMessage}
+                </Alert>
+                </Snackbar>
             <Paper className={classes.paper}>
                 <Typography style={{ color: " #1C304A" }} variant="h3">
                     Hexen
@@ -115,17 +166,22 @@ export default function Witches() {
                     Adressenliste
                 </Typography>
 
-                <UserTable user={user} users={users} />
+                <UserTable users={users} />
 
                 <div id="allWitches" className={classes.witches}>
                     {users.map((user) => {
+                      
                         return (
-                            <Avatar
-                                alt={user.surname + user.name}
-                                src={user.avatar}
-                                className={classes.small}
-                                key={user.id}
-                            />
+                            <div key={user.id} onClick={() => {selectUser(user.id)}}>
+                                <Avatar
+                                    alt={user.surname + user.name}
+                                    src={user.avatar}
+                                    className={classes.small}
+                                    
+                                />
+                                    {/* <div className={isOnline ? `${classes.online} ${classes.status}` : `${classes.offline} ${classes.status}`}></div> */}
+                                
+                            </div>
                         );
                     })}
                 </div>

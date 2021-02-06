@@ -1,9 +1,17 @@
-import React, { Component } from "react";
-import PostCard from "../../components/posts/PostCard";
+// Libraries
+import React, {useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
 
 // Material UI
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
+
+// Components
+import PostCard from "../../components/posts/PostCard";
+
+// Services
+import categoryService from "../../services/category.service";
+import postsService from "../../services/posts.service";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -28,10 +36,27 @@ const useStyles = makeStyles(() => ({
 
 export default function Post(params) {
     const classes = useStyles();
+    let {id, categoryId} = useParams();
+    const [category, setCategory] = useState({});
+    const [post, setPost] = useState([]);
+
+    useEffect(() => {
+        async function fetchPosts() {
+            const oneCategory = await categoryService.getOneCategory(categoryId);
+            setCategory(oneCategory);
+            const onePost = await postsService.getOnePost(id, categoryId)
+            setPost(onePost)
+        }
+        fetchPosts();
+    }, [id, categoryId]);
+
+
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <PostCard />
+            
+                <PostCard post={post} categoryId={category.id}/>
+                
             </Paper>
         </div>
     );

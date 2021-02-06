@@ -39,12 +39,12 @@ const useStyles = makeStyles({
     },
 });
 
-export default function UserTable({ user, users }) {
+export default function UserTable({ users }) {
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page] = React.useState(0);
+    const [rowsPerPage] = React.useState(10);
 
-    console.log(users);
+
     const rows = users.map((user) => {
         return createData(
             user.surname,

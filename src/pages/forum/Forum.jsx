@@ -1,8 +1,9 @@
+// Libraries
 import React, { useState, useEffect } from "react";
 
+// Material UI
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 
@@ -15,8 +16,9 @@ const useStyles = makeStyles({
     root: {
         display: "flex",
         flexDirection: "column",
-        width: "80%",
-        marginTop: "100px",
+        width: "100%",
+        // marginTop: "100px",
+        // marginLeft: "100px",
     },
     paper: {
         display: "flex",
@@ -33,11 +35,10 @@ export default function Forum() {
         const fetchCategories = async () => {
             const categories = await categoryService.getAll();
             setCategories(categories);
-            console.log(categories);
         };
         fetchCategories();
     }, []);
-    console.log(categories);
+
     return (
         <div>
             <div className={classes.root}>

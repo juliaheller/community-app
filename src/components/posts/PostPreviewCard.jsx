@@ -1,12 +1,21 @@
+// Libraries
 import React from "react";
+import { Link } from "react-router-dom";
+import moment from 'moment';
+
+// Material UI
+
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import Avatar from "@material-ui/core/Avatar";
+
+// Components
+// Services
+
 
 const useStyles = makeStyles({
     root: {
@@ -29,6 +38,14 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        width: "22%"
+    },
+    avatar: {
+        width: "20px",
+        height: "20px",
+    },
+    link: {
+        textDecoration: "none"
     },
     comments: {
         width: "100%",
@@ -38,62 +55,68 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PostPreviewCard() {
+export default function PostPreviewCard({post, categoryId}) {
     const classes = useStyles();
-
+   
+   
     return (
         <Card className={classes.root} variant="outlined">
             <CardContent className={classes.content}>
                 <div className={classes.info}>
                     <div className={classes.infoBox}>
-                        <Typography align="left" variant="body2" component="p">
-                            Post by
+                        <Typography align="left" variant="body2" component="p" >
+                            Post by 
                         </Typography>
-                        <PersonOutlineIcon />
+                        <Avatar className={classes.avatar} src={post.createdBy.avatar}></Avatar>
                         <Typography align="left" variant="body2" component="p">
-                            User
+                             {post.createdBy.name}
                         </Typography>
                     </div>
                     <div className={classes.infoBox}>
                         {" "}
                         <CalendarTodayIcon />
                         <Typography align="left" variant="body2" component="p">
-                            12 March 2018, 1:46PM
+                            {moment(post.createdAt).format(`DD.MM.YY, HH:MM`)} Uhr
                         </Typography>
                     </div>
-                </div>
+                </div><Link className={classes.link} to={`/categories/${categoryId}/post/${post.id}`}>
+
                 <Typography
                     align="center"
                     variant="h4"
                     color="textPrimary"
                     gutterBottom>
-                    Title of the post
+                   {post.title}
                 </Typography>
+                </Link>
 
                 <div className={classes.comments}>
                     <div className={classes.infoBox}>
                         {" "}
                         <ChatBubbleOutlineIcon />
                         <Typography align="left" variant="body2" component="p">
-                            Comments: 5
+                            {post.comments.total} Kommentare
                         </Typography>
                     </div>
+                    {post.comments.lastBy.avatar?
                     <div className={classes.infoBox}>
                         {" "}
                         <Typography align="left" variant="body2" component="p">
-                            Last by
+                            Letzter von
                         </Typography>
-                        <PersonOutlineIcon />
-                        <Typography align="left" variant="body2" component="p">
-                            User XZ
+                         <Avatar className={classes.avatar} src={post.comments.lastBy.avatar}></Avatar>
+                         <Typography align="left" variant="body2" component="p">
+                            {post.comments.lastBy.name}
                         </Typography>
-                    </div>
+                         </div>
+                       : ""}
+                   {post.comments.date ?
                     <div className={classes.infoBox}>
                         <CalendarTodayIcon />
                         <Typography align="left" variant="body2" component="p">
-                            12 March 2018, 2:46PM
+                        {moment(post.comments.date).format(`DD.MM.YY, HH:MM`)} Uhr
                         </Typography>
-                    </div>
+                    </div> : ""}
                 </div>
             </CardContent>
         </Card>

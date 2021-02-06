@@ -1,9 +1,6 @@
 // Libraries
 import React, { useState } from "react";
 
-// Services
-import authService from "../services/auth.service";
-
 // Material UI
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -22,11 +19,15 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { Alert } from "@material-ui/lab";
 import Divider from "@material-ui/core/Divider";
 
-// helper
-import auth from "../helper/auth";
+// redux
+import { login } from '../redux/auth/auth.actions';
+import store from "../redux/store";
 
 // Media
 import witches from "../images/witches2.png";
+
+
+
 
 require("dotenv").config();
 // const appId = process.env.REACT_APP_FB_APP_ID;
@@ -116,7 +117,7 @@ export default function Login(props) {
     const classes = useStyles();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [showSnackbar, setShowSnackbar] = useState(false);
+    const [showSnackbar, setShowSnackbar] = useState(false); 
     const [alertMessage, setAlertMessage] = useState("");
 
     const emailChangeHandler = (event) => {
@@ -131,20 +132,12 @@ export default function Login(props) {
     const loginUser = async (event) => {
         event.preventDefault();
         try {
-            let response = await authService.loginUser(email, password);
-            console.log(response);
-            if (response.statusCode === 401) {
-                setShowSnackbar(true);
-                setAlertMessage(response.message);
-            } else {
-                auth.login(() => {
-                    localStorage.setItem("token", response.token);
-                    props.history.push("/");
-                });
-            }
+             await store.dispatch(login(email, password));
+             props.history.push("/");
         } catch (error) {
             setShowSnackbar(true);
             setAlertMessage(error);
+            
         }
     };
 
@@ -252,3 +245,4 @@ export default function Login(props) {
         </div>
     );
 }
+

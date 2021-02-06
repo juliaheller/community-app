@@ -1,11 +1,10 @@
 // Libraries
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // Material UI
-import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
+import {makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import EmailIcon from "@material-ui/icons/Email";
@@ -17,6 +16,12 @@ import MagicCard from "./userCards/MagicCard";
 import FavouritesCard from "./userCards/FavouritesCard";
 import DontsCard from "./userCards/DontsCard";
 import UserModal from "./UserModal.jsx";
+
+// redux
+import { updateUser } from '../../redux/user/user.actions';
+import store from "../../redux/store";
+import { useSelector } from 'react-redux';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,6 +46,11 @@ const useStyles = makeStyles((theme) => ({
         clipPath: "circle(100px at center)",
         objectFit: "cover",
         marginBottom: "-20px",
+    },
+    placeholder: {
+        width: "50px",
+        height: "40px",
+        marginBottom: "40px",
     },
     witches: {
         display: "flex",
@@ -80,6 +90,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
+    backgroundPicBtn: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "flex-end",
+    },
     cardBox: {
         display: "flex",
         alignItems: "flex-start",
@@ -96,24 +111,36 @@ const useStyles = makeStyles((theme) => ({
 
 export default function User({ user }) {
     const classes = useStyles();
-    const [formData, setFormData] = useState({});
     const [open, setOpen] = useState(false);
+    const {me} = useSelector(state => state.auth);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
-    const handleChange = (event) => {
+
+    const handleChange =  (event, type) => {
         let file = event.target.files[0];
         let reader = new FileReader();
-        reader.onloadend = () => {
-            console.log("image changed");
-            setFormData(
-                Object.assign({}, formData, {
-                    avatar: reader.result,
-                })
-            );
+        reader.onloadend = async () => {
+            console.log("image changed");//
+   
+            await changePic(reader.result, type) 
+            
         };
         reader.readAsDataURL(file);
+      
     };
+
+    const changePic =  (picture, type) => {    
+        const newValues = {};
+        newValues[type] = picture;
+        try {
+            store.dispatch(updateUser(user.id, newValues))
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
     if (!user.id) {
         return <div></div>;
@@ -122,11 +149,53 @@ export default function User({ user }) {
         <div className={classes.root}>
             <Paper className={classes.paper}>
                 <div className={classes.cardContent}>
+            
+                {me.id === user.id ? <div className={classes.backgroundPicBtn}>
+                    <input
+                            id="contained-button"
+                            accept="image/*"
+                            className={classes.input}
+                            type="file"
+                            onChange={(event) => {
+                                handleChange(event, "backgroundPic");
+                            }}
+                        />
+                           {user.backgroundPic ? (
+                            <label htmlFor="contained-button">
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    component="span"
+                                    className={classes.btn}
+                                    style={{
+                                        width: "50px",
+                                        marginTop: "40px",
+                                    }}>
+                                    <EditIcon></EditIcon>
+                                </Button>
+                            </label>
+                        ) : (
+                            <label htmlFor="contained-button">
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    component="span"
+                                    style={{
+                                        backgroundColor: "#5b6489",
+                                        color: "white"
+                                    }}
+                                    className={classes.btn}>
+                                    Hintergrundbild hinzufügen
+                                </Button>
+                            </label> )}
+                           </div> : ""}
                     <div
                         className={classes.backgroundPic}
                         style={{
                             backgroundImage: `url(${user.backgroundPic})`,
                         }}>
+                          
+                          
                         <img
                             alt={user.surname}
                             src={user.avatar}
@@ -140,7 +209,7 @@ export default function User({ user }) {
                             marginTop: "-70px",
                             width: "90%",
                         }}>
-                        <input
+                      {me.id === user.id ?   <div><input
                             id="contained-button-file"
                             accept="image/*"
                             className={classes.input}
@@ -148,7 +217,7 @@ export default function User({ user }) {
                             onChange={(event) => {
                                 handleChange(event, "avatar");
                             }}
-                        />
+                        />   
                         {user.avatar ? (
                             <label htmlFor="contained-button-file">
                                 <Button
@@ -170,13 +239,14 @@ export default function User({ user }) {
                                     color="default"
                                     component="span"
                                     style={{
-                                        backgroundColor: "#3788d8",
+                                        backgroundColor: "#5b6489",
+                                        color: "white"
                                     }}
                                     className={classes.btn}>
-                                    Bild hinzufuegen
+                                    Bild hinzufügen
                                 </Button>
                             </label>
-                        )}
+                        )}</div> : <div className={classes.placeholder}></div>}
                         <Typography style={{ color: "#1C304A" }} variant="h4">
                             {user.surname + " " + user.name}
                         </Typography>
@@ -205,15 +275,16 @@ export default function User({ user }) {
                         <div className={classes.cardBox}>
                             <GeneralInfoCard user={user} />
                             <FavouritesCard user={user} />
-                            <MagicCard user={user} />
                             <DontsCard user={user} />
+                            <MagicCard user={user} />
                         </div>
+                        {me.id === user.id ?
                         <Button
                             variant="outlined"
                             color="default"
                             onClick={handleClickOpen}>
                             <EditIcon></EditIcon> Profil bearbeiten
-                        </Button>{" "}
+                        </Button> : ""}
                         <UserModal user={user} open={open} setOpen={setOpen} />
                     </Paper>
                 </div>
