@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
@@ -16,13 +16,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import Snackbar from "@material-ui/core/Snackbar";
 import { Alert } from "@material-ui/lab";
 import FormControl from "@material-ui/core/FormControl";
-import Chip from "@material-ui/core/Chip";
-import Input from "@material-ui/core/Input";
-import MenuItem from "@material-ui/core/MenuItem";
-import Checkbox from "@material-ui/core/Checkbox";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 // Services
 import eventsService from "../../services/events.service";
@@ -33,7 +28,6 @@ const useStyles = makeStyles({
     },
     paper: {
         display: "flex",
-        marginTop: 50,
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
@@ -43,6 +37,7 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         padding: "6px",
+        marginTop: "100px",
         width: "fit-content",
         height: "500px",
         justifyContent: "space-evenly",
@@ -79,35 +74,18 @@ const useStyles = makeStyles({
         width: "20%",
     },
     submitBtn: {
-        width: "20%",
+        marginTop: 50,
+        padding: 10,
     },
     formControl: {
-        // margin: theme.spacing(1),
+        margin: 10,
         minWidth: 120,
         maxWidth: 300,
     },
-    chips: {
-        display: "flex",
-        flexWrap: "wrap",
-    },
-    chip: {
-        margin: 2,
-    },
 });
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
 export default function EventForm({ params }) {
     const classes = useStyles();
-    let { categoryId } = useParams();
     const history = useHistory();
     const defaultValues = {
         title: "",
@@ -134,13 +112,9 @@ export default function EventForm({ params }) {
     const [selectedEndDate, setSelectedEndDate] = React.useState(new Date());
     const [startTime, setStartTime] = React.useState("00:00");
     const [endTime, setEndTime] = React.useState("00:00");
-    const [isAllDay, setIsAllDay] = React.useState(true);
-    const [attendees, setAttendees] = React.useState([]);
+    const [attendeeIds, setAttendeeIds] = React.useState([]);
     const [users, setUsers] = React.useState([]);
 
-    const handleIsAllDayChange = (event) => {
-        setIsAllDay(event.target.checked);
-    };
     const handleStartDateChange = (event) => {
         event.preventDefault();
         const [date, time] = event.target.value.split("T");
@@ -155,14 +129,12 @@ export default function EventForm({ params }) {
         setSelectedEndDate(date);
     };
 
-    const handleChange = (event) => {
-        setAttendees(event.target.value);
-    };
-
     const handleChangeMultiple = (event) => {
         event.preventDefault();
         console.log(event.target.value);
+        console.warn(users);
         const { options } = event.target;
+        console.warn("options: ", options);
         const value = [];
         for (let i = 0, l = options.length; i < l; i += 1) {
             if (options[i].selected) {
@@ -170,7 +142,7 @@ export default function EventForm({ params }) {
             }
         }
         console.log(value);
-        setAttendees(value);
+        setAttendeeIds(value);
     };
 
     const onSnackbarClose = (event) => {
@@ -225,24 +197,32 @@ export default function EventForm({ params }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const filtered = users
+            .filter((user) => {
+                return attendeeIds.includes(String(user.id));
+            })
+            .map((user) => ({ id: user.id, email: user.email }));
+
+        const eventParam = {
+            title: formValues.title,
+            description: description,
+            image: formValues.image,
+            location: formValues.location,
+            start: {
+                date: selectedStartDate,
+                time: startTime,
+            },
+            end: {
+                date: selectedEndDate,
+                time: endTime,
+            },
+            attendees: filtered,
+        };
+
+        console.log(eventParam);
         try {
-            await eventsService.createEvent({
-                title: formValues.title,
-                description: description,
-                start: {
-                    date: selectedStartDate,
-                    dateTime: selectedStartDate,
-                },
-                end: {
-                    date: selectedEndDate,
-                    dateTime: selectedEndDate,
-                },
-                location: formValues.location,
-                attendees: attendees,
-                isAllDay: isAllDay,
-                image: formValues.image,
-            });
-            history.push(`/categories/${categoryId}`);
+            await eventsService.createEvent(eventParam);
+            history.push(`/events`);
         } catch (error) {
             setShowSnackbar(true);
             setAlertMessage(error);
@@ -273,7 +253,7 @@ export default function EventForm({ params }) {
                 </Alert>
             </Snackbar>
             <Paper className={classes.paper}>
-                <Typography variant="h3" component="h3">
+                <Typography variant="h3" component="h3" gutterBottom>
                     Beitrag erstellen
                 </Typography>
                 <form className={classes.form} onSubmit={handleSubmit}>
@@ -286,6 +266,7 @@ export default function EventForm({ params }) {
                         variant="outlined"
                         value={formValues.title}
                         onChange={handleInputChange}
+                        margin="normal"
                     />
                     <TextField
                         id="datetime-local"
@@ -293,6 +274,7 @@ export default function EventForm({ params }) {
                         type="datetime-local"
                         defaultValue={new Date()}
                         className={classes.textField}
+                        margin="normal"
                         onChange={handleStartDateChange}
                         InputLabelProps={{
                             shrink: true,
@@ -304,24 +286,12 @@ export default function EventForm({ params }) {
                         type="datetime-local"
                         defaultValue={new Date()}
                         className={classes.textField}
+                        margin="normal"
                         onChange={handleEndDateChange}
                         InputLabelProps={{
                             shrink: true,
                         }}
                     />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={isAllDay}
-                                onChange={handleIsAllDayChange}
-                                inputProps={{
-                                    "aria-label": "primary checkbox",
-                                }}
-                            />
-                        }
-                        label="Ganzer Tag"
-                    />
-
                     <TextField
                         className={classes.textField}
                         id="title-input"
@@ -329,6 +299,7 @@ export default function EventForm({ params }) {
                         label="Ort"
                         type="text"
                         variant="outlined"
+                        margin="normal"
                         value={formValues.location}
                         onChange={handleInputChange}
                     />
@@ -362,15 +333,16 @@ export default function EventForm({ params }) {
                             Teilnehmerinnen einladen
                         </InputLabel>
                         <Select
-                            inputProps={{
-                                id: "select-multiple",
-                            }}
                             multiple
-                            value={attendees}
-                            onChange={handleChangeMultiple}>
+                            native
+                            value={attendeeIds}
+                            onChange={handleChangeMultiple}
+                            inputProps={{
+                                id: "select-multiple-native",
+                            }}>
                             {users.map((user) => (
-                                <option key={user.id} value={user}>
-                                    {user.name}
+                                <option key={user.id} value={user.id}>
+                                    {user.name} {user.surname}
                                 </option>
                             ))}
                         </Select>
@@ -386,7 +358,7 @@ export default function EventForm({ params }) {
                     <Button
                         className={classes.submitBtn}
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         type="submit"
                         onClick={handleSubmit}>
                         Veranstaltung erstellen
