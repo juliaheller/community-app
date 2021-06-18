@@ -12,7 +12,7 @@ export default {
             },
             body: JSON.stringify(event),
         };
-        const response = await fetch(`${apiURL}/events`, requestOptions);
+        const response = await fetch(apiURL, requestOptions);
         return await response.json();
     },
 };

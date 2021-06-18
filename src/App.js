@@ -11,7 +11,7 @@ import { ProtectedRoute } from "../src/components/ProtectedRoute";
 
 // Pages
 import Home from "./pages/Home.jsx";
-import Events from "./pages/Events";
+import Events from "./pages/events/Events";
 import BookOfShadows from "./pages/BookOfShadows";
 import Messages from "./pages/Messages";
 import Photos from "./pages/Photos";
@@ -27,6 +27,7 @@ import EventForm from "./components/events/EventForm";
 // Redux
 import { loginFromLocalStorage } from "../src/redux/auth/auth.actions";
 import store from "../src/redux/store";
+import Event from "./pages/events/Event";
 
 const theme = createMuiTheme({
     palette: {
@@ -93,6 +94,9 @@ function App() {
                         <ProtectedRoute
                             path="/categories/:id"
                             component={Category}></ProtectedRoute>
+                        <ProtectedRoute
+                            path="/events/event/:id"
+                            component={Event}></ProtectedRoute>
                         <ProtectedRoute
                             path="/newevent"
                             component={EventForm}></ProtectedRoute>
