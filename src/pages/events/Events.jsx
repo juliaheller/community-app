@@ -1,13 +1,17 @@
 import React from "react";
-// import apiCalendar from "react-google-calendar-api";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles({
     root: {
         display: "flex",
         flexDirection: "column",
         width: "80%",
         marginTop: "100px",
+    },
+    button: {
+        marginTop: 50,
     },
 });
 export default function Events() {
@@ -23,9 +27,16 @@ export default function Events() {
                 style={{ border: "0", color: "#569680" }}
                 width="100%"
                 height="600"
-                frameborder="0"
+                frameBorder="0"
                 scrolling="no"></iframe>
-            {/* <apiCalendar></apiCalendar> */}
+            <Link className={classes.link} to={`/newevent`}>
+                <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="primary">
+                    + Neue Veranstaltung
+                </Button>
+            </Link>
         </div>
     );
 }
